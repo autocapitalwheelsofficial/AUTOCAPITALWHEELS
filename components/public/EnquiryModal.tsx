@@ -1,11 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { X, Loader2, CheckCircle2, MessageCircle, Clock, MapPin, Sparkles } from 'lucide-react';
+import { X, Loader2, CheckCircle2, MessageCircle, Clock, MapPin } from 'lucide-react';
 import { Vehicle } from '@/types';
-import { enquirySchema, EnquiryFormValues } from '@/lib/validations';
 import { formatPrice, getVehicleTitle, getWhatsAppUrl, getVehicleWhatsAppMessage } from '@/lib/utils';
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 import { createClient } from '@/lib/supabase/client';
@@ -29,20 +26,19 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(vehicle || null);
   const [loadingStock, setLoadingStock] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: formErrorsState,
-    setValue,
-  } = useForm<any>({
-    resolver: zodResolver(enquirySchema) as any,
-    defaultValues: {
-      vehicle_id: vehicle?.id || '',
-      preferred_contact: 'Phone',
-      test_drive_requested: defaultType === 'test_drive',
-    },
+  // Form states using standard React state instead of react-hook-form/zod to guarantee 100% submission
+  const [formData, setFormData] = useState({
+    customer_name: '',
+    customer_phone: '',
+    customer_email: '',
+    customer_city: '',
+    vehicle_id: vehicle?.id || '',
+    message: '',
+    preferred_contact: 'Phone',
+    preferred_time: '',
   });
-  const errors = formErrorsState.errors as any;
+
+  const [formValidationErrors, setFormValidationErrors] = useState<Record<string, string>>({});
 
   // Load user data and available vehicles
   useEffect(() => {
@@ -50,9 +46,12 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
         setUserId(session.user.id);
-        setValue('customer_name', session.user.user_metadata?.full_name || '');
-        setValue('customer_phone', session.user.user_metadata?.phone || '');
-        setValue('customer_email', session.user.email || '');
+        setFormData((prev) => ({
+          ...prev,
+          customer_name: session.user.user_metadata?.full_name || '',
+          customer_phone: session.user.user_metadata?.phone || '',
+          customer_email: session.user.email || '',
+        }));
       }
     };
     loadUser();
@@ -69,12 +68,12 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
         .catch((err) => console.error('Error loading quote stock:', err))
         .finally(() => setLoadingStock(false));
     }
-  }, [vehicle, setValue]);
+  }, [vehicle]);
 
   const handleVehicleChange = (vehicleId: string) => {
     const found = availableVehicles.find((v) => v.id === vehicleId) || null;
     setSelectedVehicle(found);
-    setValue('vehicle_id', vehicleId);
+    setFormData((prev) => ({ ...prev, vehicle_id: vehicleId }));
   };
 
   const title = selectedVehicle ? getVehicleTitle(selectedVehicle) : 'Select a Vehicle';
@@ -94,14 +93,39 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
     return () => { document.body.style.overflow = ''; };
   }, []);
 
-  const onSubmit = async (data: EnquiryFormValues) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormValidationErrors({});
+
+    // Client-side validations
+    const errors: Record<string, string> = {};
+    if (!formData.customer_name.trim()) {
+      errors.customer_name = 'Name is required';
+    }
+    if (!formData.customer_phone.trim()) {
+      errors.customer_phone = 'Phone number is required';
+    } else if (!/^\d{10}$/.test(formData.customer_phone)) {
+      errors.customer_phone = 'Please enter a valid 10-digit mobile number';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormValidationErrors(errors);
+      return;
+    }
+
     setFormState('loading');
     try {
-      // Sanitize empty UUID strings
-      const payload: any = {
-        ...data,
-        user_id: userId || undefined,
-        vehicle_id: data.vehicle_id || undefined,
+      const payload = {
+        customer_name: formData.customer_name,
+        customer_phone: formData.customer_phone,
+        customer_email: formData.customer_email || null,
+        customer_city: formData.customer_city || null,
+        vehicle_id: formData.vehicle_id || null,
+        message: formData.message || null,
+        preferred_contact: formData.preferred_contact,
+        preferred_time: formData.preferred_time || null,
+        test_drive_requested: defaultType === 'test_drive',
+        user_id: userId || null,
       };
 
       const res = await fetch('/api/enquiries', {
@@ -123,7 +147,6 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
     }
   };
 
-
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <div className="relative w-full max-w-lg bg-[#121215] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-scale">
@@ -142,7 +165,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
           </button>
         </div>
 
-        {/* Success State */}
+        {/* Content */}
         {formState === 'success' ? (
           <div className="p-8 text-center space-y-4">
             <div className="flex justify-center">
@@ -176,10 +199,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
             </div>
           </div>
         ) : (
-          /* Form content */
-          <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
-            <input type="hidden" {...register('vehicle_id')} />
-
+          <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
             {/* Vehicle Selector Dropdown if no vehicle passed */}
             {!vehicle && (
               <div>
@@ -193,7 +213,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   <select
                     className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none"
                     onChange={(e) => handleVehicleChange(e.target.value)}
-                    value={selectedVehicle?.id || ''}
+                    value={formData.vehicle_id}
                     required
                   >
                     <option value="" disabled>Choose a vehicle from stock...</option>
@@ -204,7 +224,6 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                     ))}
                   </select>
                 )}
-                {errors.vehicle_id && <p className="text-red-500 text-[10px] mt-1">{errors.vehicle_id.message}</p>}
               </div>
             )}
 
@@ -213,11 +232,13 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Full Name *</label>
                 <input
                   type="text"
+                  required
                   placeholder="Your full name"
                   className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white"
-                  {...register('customer_name')}
+                  value={formData.customer_name}
+                  onChange={(e) => setFormData({ ...formData, customer_name: e.target.value })}
                 />
-                {errors.customer_name && <p className="text-red-500 text-[10px] mt-1">{errors.customer_name.message}</p>}
+                {formValidationErrors.customer_name && <p className="text-red-500 text-[10px] mt-1">{formValidationErrors.customer_name}</p>}
               </div>
 
               <div>
@@ -226,13 +247,15 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-neutral-800 bg-[#16161a] text-xs text-neutral-500 font-semibold">+91</span>
                   <input
                     type="tel"
+                    required
                     placeholder="10-digit number"
                     className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-r-lg focus:outline-none focus:border-amber-500 text-white"
                     maxLength={10}
-                    {...register('customer_phone')}
+                    value={formData.customer_phone}
+                    onChange={(e) => setFormData({ ...formData, customer_phone: e.target.value })}
                   />
                 </div>
-                {errors.customer_phone && <p className="text-red-500 text-[10px] mt-1">{errors.customer_phone.message}</p>}
+                {formValidationErrors.customer_phone && <p className="text-red-500 text-[10px] mt-1">{formValidationErrors.customer_phone}</p>}
               </div>
             </div>
 
@@ -243,7 +266,8 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   type="email"
                   placeholder="your@email.com"
                   className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white"
-                  {...register('customer_email')}
+                  value={formData.customer_email}
+                  onChange={(e) => setFormData({ ...formData, customer_email: e.target.value })}
                 />
               </div>
 
@@ -254,7 +278,8 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                     type="text"
                     placeholder="Your city"
                     className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 pl-10 text-white"
-                    {...register('customer_city')}
+                    value={formData.customer_city}
+                    onChange={(e) => setFormData({ ...formData, customer_city: e.target.value })}
                   />
                   <MapPin size={14} className="absolute left-3.5 top-3.5 text-neutral-500" />
                 </div>
@@ -267,7 +292,8 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                 rows={2}
                 placeholder="Questions about registration state, loan requirements..."
                 className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white resize-none"
-                {...register('message')}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               />
             </div>
 
@@ -276,7 +302,8 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Preferred Contact Method</label>
                 <select
                   className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none"
-                  {...register('preferred_contact')}
+                  value={formData.preferred_contact}
+                  onChange={(e) => setFormData({ ...formData, preferred_contact: e.target.value })}
                 >
                   <option value="Phone">Phone Call</option>
                   <option value="WhatsApp">WhatsApp Message</option>
@@ -289,7 +316,8 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Preferred Time slot</label>
                 <select
                   className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none"
-                  {...register('preferred_time')}
+                  value={formData.preferred_time}
+                  onChange={(e) => setFormData({ ...formData, preferred_time: e.target.value })}
                 >
                   <option value="">Any time</option>
                   <option value="Morning (10 AM - 1 PM)">Morning (10 AM - 1 PM)</option>

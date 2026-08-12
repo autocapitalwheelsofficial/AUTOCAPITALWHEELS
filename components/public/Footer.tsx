@@ -181,7 +181,7 @@ export default function Footer() {
                 <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">
                   <MapPin size={12} className="text-neutral-500" />
                 </div>
-                <span className="leading-relaxed">Delhi, India</span>
+                <span className="leading-relaxed">Plot No. 12, Wazirpur Industrial Area, New Delhi, Delhi 110052</span>
               </li>
               <li className="flex items-start gap-3 text-xs text-neutral-500">
                 <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">

@@ -26,9 +26,9 @@ export default function ContactPage() {
     {
       icon: MapPin,
       title: 'Showroom Location',
-      value: 'AutoCapital Wheels, Delhi, India',
-      subValue: 'Visit us for a physical inspection',
-      link: 'https://maps.google.com',
+      value: 'Plot No. 12, Wazirpur Industrial Area, New Delhi, Delhi 110052',
+      subValue: 'Visit us for physical inspection & test drives',
+      link: 'https://maps.google.com/?q=Wazirpur+Industrial+Area+New+Delhi',
     },
     {
       icon: Clock,
@@ -40,16 +40,16 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#faf9f6]/30 pt-20">
+    <div className="min-h-screen bg-[#0a0a0c] pt-24 pb-16">
       {/* Header Banner */}
-      <div className="bg-[#faf9f6] text-neutral-900 py-16 px-4 border-b border-neutral-200/60">
+      <div className="border-b border-[#1f1f26] bg-[#0d0d10] py-16 px-4">
         <div className="container-custom max-w-5xl text-center">
-          <div className="w-12 h-0.5 bg-amber-500 mx-auto mb-5" />
-          <h1 className="font-display font-black text-4xl sm:text-5xl text-neutral-900 tracking-tight mb-4">
+          <div className="w-12 h-0.5 bg-[#b48d36] mx-auto mb-5" />
+          <h1 className="font-display font-black text-4xl sm:text-5xl text-white tracking-tight mb-4 uppercase">
             Contact Us
           </h1>
-          <p className="text-neutral-500 text-lg sm:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            Have questions about a car, want to schedule a test drive, or ready to list your vehicle? We\'re here to help.
+          <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+            Have questions about a car, want to schedule a test drive, or ready to list your vehicle? We're here to help.
           </p>
         </div>
       </div>
@@ -58,23 +58,22 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column - Contact Details */}
           <div className="lg:col-span-5 space-y-6">
-            <h2 className="font-display font-bold text-2xl text-neutral-900 mb-6">
+            <h2 className="font-display font-bold text-xl text-white mb-6 uppercase tracking-wider border-b border-[#1f1f26] pb-3">
               Get in Touch
             </h2>
             <div className="grid grid-cols-1 gap-5">
               {contactDetails.map((detail, idx) => {
                 const Icon = detail.icon;
-                const ContentWrapper = detail.link ? 'a' : 'div';
                 return (
                   <div
                     key={idx}
-                    className="bg-white rounded-xl border border-neutral-200/80 p-5 flex items-start gap-4 hover:shadow-sm transition-all"
+                    className="bg-[#121215] rounded-2xl border border-[#1f1f26] p-5 flex items-start gap-4 hover:border-[#b48d36]/30 transition-all duration-300 shadow-xl"
                   >
-                    <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600 flex-shrink-0">
-                      <Icon size={20} />
+                    <div className="w-10 h-10 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/20 flex items-center justify-center text-[#b48d36] flex-shrink-0">
+                      <Icon size={18} />
                     </div>
-                    <div>
-                      <h3 className="font-display font-bold text-sm text-neutral-400 uppercase tracking-wider mb-1">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-display font-bold text-[10px] text-neutral-500 uppercase tracking-wider mb-1">
                         {detail.title}
                       </h3>
                       {detail.link ? (
@@ -82,14 +81,14 @@ export default function ContactPage() {
                           href={detail.link}
                           target={detail.link.startsWith('http') ? '_blank' : undefined}
                           rel={detail.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                          className="font-semibold text-neutral-900 text-base hover:underline"
+                          className="font-bold text-white text-sm hover:text-[#b48d36] transition-colors break-words"
                         >
                           {detail.value}
                         </a>
                       ) : (
-                        <p className="font-semibold text-neutral-900 text-base">{detail.value}</p>
+                        <p className="font-bold text-white text-sm break-words">{detail.value}</p>
                       )}
-                      <p className="text-xs text-neutral-500 font-light mt-0.5">{detail.subValue}</p>
+                      <p className="text-[11px] text-neutral-400 font-light mt-1">{detail.subValue}</p>
                     </div>
                   </div>
                 );
@@ -98,16 +97,11 @@ export default function ContactPage() {
           </div>
 
           {/* Right Column - Contact Form Client */}
-          <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl border border-neutral-200/80 p-6 sm:p-8">
-              <h2 className="font-display font-bold text-2xl text-neutral-900 mb-2">
-                Send a Message
-              </h2>
-              <p className="text-sm text-neutral-500 font-light mb-6">
-                Fill out the form below and our customer relationship manager will connect with you shortly.
-              </p>
-              <ContactFormClient />
-            </div>
+          <div className="lg:col-span-7 bg-[#121215] border border-[#1f1f26] rounded-2xl p-6 sm:p-8 shadow-2xl">
+            <h2 className="font-display font-bold text-xl text-white mb-6 uppercase tracking-wider border-b border-[#1f1f26] pb-3">
+              Send a Message
+            </h2>
+            <ContactFormClient />
           </div>
         </div>
       </div>

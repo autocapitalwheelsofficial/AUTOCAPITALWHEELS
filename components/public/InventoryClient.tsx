@@ -67,6 +67,7 @@ export default function InventoryClient() {
   const [availableMakes, setAvailableMakes] = useState<string[]>([]);
   const [recommended, setRecommended] = useState<Vehicle[]>([]);
   const [openMakeDropdown, setOpenMakeDropdown] = useState(false);
+  const [openSortDropdown, setOpenSortDropdown] = useState(false);
 
   useEffect(() => {
     fetch('/api/vehicles?per_page=100')
@@ -329,12 +330,12 @@ export default function InventoryClient() {
   );
 
   return (
-    <div className="min-h-screen bg-[#faf9f6]/30">
+    <div className="min-h-screen bg-[#0a0a0c]">
       {/* Page Header */}
-      <div className="bg-[#faf9f6] border-b border-neutral-200/60 py-8 px-4">
+      <div className="bg-[#0d0d10] border-b border-[#1f1f26] py-8 px-4">
         <div className="container-custom">
-          <h1 className="font-display font-black text-3xl text-neutral-900">Find Your Next Car</h1>
-          <p className="text-neutral-500 text-sm font-light mt-1">Browse our curated selection of quality pre-owned vehicles</p>
+          <h1 className="font-display font-black text-3xl text-white">Find Your Next Car</h1>
+          <p className="text-neutral-400 text-sm font-light mt-1">Browse our curated selection of quality pre-owned vehicles</p>
         </div>
       </div>
 
@@ -342,11 +343,11 @@ export default function InventoryClient() {
         <div className="flex gap-6">
           {/* Desktop Filter Sidebar */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="bg-white rounded-xl border border-neutral-200/80 p-5 sticky top-20">
+            <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-5 sticky top-20">
               <div className="flex items-center justify-between mb-2">
-                <h2 className="font-display font-bold text-base text-neutral-900">Filters</h2>
+                <h2 className="font-display font-bold text-base text-white">Filters</h2>
                 {activeFilterCount > 0 && (
-                  <span className="text-xs bg-neutral-900 text-white px-2 py-0.5 rounded-full">{activeFilterCount}</span>
+                  <span className="text-xs bg-[#b48d36] text-black font-semibold px-2 py-0.5 rounded-full">{activeFilterCount}</span>
                 )}
               </div>
               <FilterPanel />
@@ -385,17 +386,34 @@ export default function InventoryClient() {
               <div className="flex items-center gap-2">
                 {/* Sort */}
                 <div className="relative">
-                  <select
-                    value={sort}
-                    onChange={(e) => { setSort(e.target.value as VehicleSortOption); setPage(1); }}
-                    className="form-input text-sm pr-8 py-2 appearance-none cursor-pointer"
-                    id="sort-select"
+                  <button
+                    type="button"
+                    onClick={() => setOpenSortDropdown(!openSortDropdown)}
+                    className="flex items-center justify-between text-xs font-bold px-4 py-2.5 bg-[#16161a] border border-[#1f1f26] rounded-lg hover:border-amber-500/50 text-white transition-all duration-200 text-left cursor-pointer min-w-[170px]"
+                    id="sort-dropdown-btn"
                   >
-                    {SORT_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                  <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                    <span className="truncate">{SORT_OPTIONS.find((o) => o.value === sort)?.label || 'Recommended'}</span>
+                    <ChevronDown size={14} className={`text-neutral-500 transition-transform duration-300 ${openSortDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {openSortDropdown && (
+                    <div className="absolute right-0 mt-2 w-48 bg-[#16161a] border border-[#1f1f26] rounded-xl shadow-2xl z-50 py-1.5 animate-fade-in-scale">
+                      {SORT_OPTIONS.map((option) => (
+                        <div
+                          key={option.value}
+                          onClick={() => {
+                            setSort(option.value as VehicleSortOption);
+                            setPage(1);
+                            setOpenSortDropdown(false);
+                          }}
+                          className="flex items-center justify-between px-4 py-2 hover:bg-[#b48d36]/10 text-xs font-semibold text-white cursor-pointer transition-all"
+                        >
+                          <span>{option.label}</span>
+                          {sort === option.value && <Check size={12} className="text-[#b48d36]" />}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* View toggle */}
@@ -422,12 +440,12 @@ export default function InventoryClient() {
             {loading ? (
               <div className={`grid gap-5 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
                 {Array.from({ length: 9 }).map((_, i) => (
-                  <div key={i} className="rounded-xl border border-neutral-100 overflow-hidden bg-white">
-                    <div className="skeleton h-48 w-full" />
+                  <div key={i} className="rounded-xl border border-[#1f1f26] overflow-hidden bg-[#121215]">
+                    <div className="skeleton bg-neutral-800 h-48 w-full" />
                     <div className="p-4 space-y-2">
-                      <div className="skeleton h-5 w-3/4" />
-                      <div className="skeleton h-4 w-1/2" />
-                      <div className="skeleton h-9 w-full mt-3" />
+                      <div className="skeleton bg-neutral-800 h-5 w-3/4" />
+                      <div className="skeleton bg-neutral-800 h-4 w-1/2" />
+                      <div className="skeleton bg-neutral-800 h-9 w-full mt-3" />
                     </div>
                   </div>
                 ))}
@@ -508,11 +526,11 @@ export default function InventoryClient() {
       {/* Mobile Filter Drawer */}
       {showFilters && (
         <>
-          <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setShowFilters(false)} />
-          <div className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl max-h-[85vh] overflow-y-auto lg:hidden">
-            <div className="sticky top-0 bg-white border-b border-neutral-200 px-5 py-4 flex items-center justify-between">
-              <h3 className="font-display font-bold text-base">Filters</h3>
-              <button onClick={() => setShowFilters(false)} className="p-1.5 rounded-md hover:bg-neutral-100" aria-label="Close filters">
+          <div className="fixed inset-0 bg-black/70 z-40 lg:hidden" onClick={() => setShowFilters(false)} />
+          <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#121215] rounded-t-2xl max-h-[85vh] overflow-y-auto lg:hidden border-t border-[#1f1f26]">
+            <div className="sticky top-0 bg-[#121215] border-b border-[#1f1f26] px-5 py-4 flex items-center justify-between">
+              <h3 className="font-display font-bold text-base text-white">Filters</h3>
+              <button onClick={() => setShowFilters(false)} className="p-1.5 rounded-md hover:bg-neutral-800 text-neutral-400 hover:text-white" aria-label="Close filters">
                 <X size={20} />
               </button>
             </div>

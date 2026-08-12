@@ -406,6 +406,17 @@ strong, b {
    SELECT + TEXTAREA override for dark theme
    ============================================================ */
 
+select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b48d36' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 16px !important;
+  padding-right: 40px !important;
+}
+
 select, textarea, input[type="text"], input[type="email"],
 input[type="password"], input[type="tel"], input[type="number"],
 input[type="search"] {
@@ -1023,4 +1034,30 @@ footer {
 }
 .gold-divider::after {
   background: linear-gradient(to left, transparent, var(--color-border));
+}
+
+/* ============================================================
+   STRICT DARK LUXURY BACKGROUNDS OVERRIDE
+   ============================================================ */
+html, body {
+  background-color: #0a0a0c !important;
+  color: #f3f4f6 !important;
+}
+
+/* Fix any default browser autofill or light theme sections */
+.bg-white, .bg-neutral-50, .bg-gray-50, .bg-neutral-100 {
+  background-color: #121215 !important;
+  color: #ffffff !important;
+}
+
+.text-neutral-900, .text-gray-900, .text-black {
+  color: #ffffff !important;
+}
+
+.text-neutral-600, .text-gray-600, .text-neutral-500 {
+  color: #9ca3af !important;
+}
+
+.border-neutral-200, .border-gray-200, .border-neutral-100 {
+  border-color: #1f1f26 !important;
 }

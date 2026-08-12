@@ -341,6 +341,7 @@ export default function QuickSearch() {
             <div className="flex justify-center pt-2">
               <button
                 type="button"
+                onClick={() => router.push('/cars')}
                 className="inline-flex items-center gap-1.5 text-[10px] font-bold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider cursor-pointer"
               >
                 <SlidersHorizontal size={12} className="text-amber-500" />

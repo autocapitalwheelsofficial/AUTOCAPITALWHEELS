@@ -94,66 +94,66 @@ export default async function HomePage() {
       <QuickSearch />
       
       {/* Target Screenshot Trust Badges Row */}
-      <section className="-mt-4 pb-12 bg-white">
+      <section className="-mt-4 pb-12 bg-[#0a0a0c]">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6 border-y border-neutral-100 bg-neutral-50/50 rounded-xl px-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6 border-y border-[#1f1f26] bg-[#121215]/50 rounded-xl px-6">
             
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <ShieldCheck size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">100% Transparency</span>
+                <span className="block text-xs font-bold text-white leading-tight">100% Transparency</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">No hidden charges</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <Tag size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">Best Market Price</span>
+                <span className="block text-xs font-bold text-white leading-tight">Best Market Price</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">Get the best deals</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <Clock size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">Easy & Quick Process</span>
+                <span className="block text-xs font-bold text-white leading-tight">Easy & Quick Process</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">Hassle free experience</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <MessageSquare size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">Instant Quotes</span>
+                <span className="block text-xs font-bold text-white leading-tight">Instant Quotes</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">Quick response</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <Users size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">Trusted by Many</span>
+                <span className="block text-xs font-bold text-white leading-tight">Trusted by Many</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">1000+ happy customers</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-amber-500 flex-shrink-0">
+              <div className="text-[#b48d36] flex-shrink-0">
                 <Headphones size={18} className="stroke-[1.5]" />
               </div>
               <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-neutral-900 leading-tight">24/7 Support</span>
+                <span className="block text-xs font-bold text-white leading-tight">24/7 Support</span>
                 <span className="block text-[9px] text-neutral-400 font-light leading-none">We're always here</span>
               </div>
             </div>

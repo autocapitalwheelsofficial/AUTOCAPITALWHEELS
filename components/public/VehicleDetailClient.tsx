@@ -50,15 +50,15 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
   return (
     <>
-      <div className="pt-16 min-h-screen bg-[#faf9f6]/30">
+      <div className="pt-20 min-h-screen bg-[#0a0a0c]">
         {/* Breadcrumb */}
-        <div className="bg-[#faf9f6] border-b border-neutral-200/60">
-          <div className="container-custom py-3 text-sm text-neutral-500 flex items-center gap-2">
-            <Link href="/" className="hover:text-neutral-900">Home</Link>
+        <div className="bg-[#0d0d10] border-b border-[#1f1f26]">
+          <div className="container-custom py-3 text-sm text-neutral-400 flex items-center gap-2">
+            <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
-            <Link href="/cars" className="hover:text-neutral-900">Cars</Link>
+            <Link href="/cars" className="hover:text-white">Cars</Link>
             <span>/</span>
-            <span className="text-neutral-900 font-medium truncate">{title}</span>
+            <span className="text-white font-medium truncate">{title}</span>
           </div>
         </div>
 
@@ -219,12 +219,12 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   { icon: Users, label: 'Ownership', value: getOwnershipLabel(vehicle.ownership) },
                   { icon: MapPin, label: 'Location', value: vehicle.location || 'Delhi' },
                 ].map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="bg-white rounded-lg border border-neutral-200/80 p-3">
+                  <div key={label} className="bg-[#121215] rounded-lg border border-[#1f1f26] p-3">
                     <div className="flex items-center gap-1.5 text-neutral-400 mb-1">
                       <Icon size={13} />
                       <span className="text-xs">{label}</span>
                     </div>
-                    <div className="font-semibold text-sm text-neutral-900">{value || 'N/A'}</div>
+                    <div className="font-semibold text-sm text-white">{value || 'N/A'}</div>
                   </div>
                 ))}
               </div>
@@ -254,7 +254,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setShowTestDrive(true)}
-                      className="btn-secondary py-3 justify-center text-sm cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 border border-[#b48d36]/40 hover:border-[#b48d36] bg-[#b48d36]/10 hover:bg-[#b48d36]/20 text-[#b48d36] hover:text-white font-bold py-3 px-4 rounded-lg text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer shadow-lg shadow-[#b48d36]/5"
                       id="request-test-drive-btn"
                     >
                       Request Test Drive
@@ -272,7 +272,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   </div>
                   <a
                     href="tel:+918800243707"
-                    className="flex items-center justify-center gap-2 w-full py-3 border border-neutral-200 rounded-md text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-3 border border-[#1f1f26] hover:border-white/20 rounded-md text-sm font-semibold text-white bg-transparent hover:bg-white/5 transition-all cursor-pointer"
                   >
                     <Phone size={15} />
                     Call +91 8800243707
@@ -280,9 +280,9 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                    <p className="text-red-700 font-semibold text-sm">This vehicle has been sold.</p>
-                    <p className="text-red-500 text-xs mt-1">Browse our available inventory for similar vehicles.</p>
+                  <div className="bg-red-950/20 border border-red-900/60 rounded-lg p-4 text-center">
+                    <p className="text-red-400 font-semibold text-sm">This vehicle has been sold.</p>
+                    <p className="text-neutral-400 text-xs mt-1">Browse our available inventory for similar vehicles.</p>
                   </div>
                   <Link href="/cars" className="btn-primary w-full py-3 justify-center">
                     View Similar Cars
@@ -291,8 +291,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
               )}
 
               {/* Document Status */}
-              <div className="bg-white rounded-xl border border-neutral-200/80 p-4">
-                <h3 className="font-semibold text-sm text-neutral-900 mb-3">Documents & Status</h3>
+              <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-4">
+                <h3 className="font-semibold text-sm text-white mb-3">Documents & Status</h3>
                 <div className="grid grid-cols-2 gap-2">
                   {[
                     { label: 'RC Available', value: vehicle.rc_available },
@@ -302,11 +302,11 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   ].map(({ label, value }) => (
                     <div key={label} className="flex items-center gap-2 text-sm">
                       {value ? (
-                        <CheckCircle size={14} className="text-green-600 flex-shrink-0" />
+                        <CheckCircle size={14} className="text-green-500 flex-shrink-0" />
                       ) : (
                         <AlertCircle size={14} className="text-amber-500 flex-shrink-0" />
                       )}
-                      <span className="text-neutral-600">{label}</span>
+                      <span className="text-neutral-300">{label}</span>
                     </div>
                   ))}
                 </div>
@@ -322,15 +322,15 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
             <div className="lg:col-span-2 space-y-6">
               {/* Description */}
               {vehicle.description && (
-                <section className="bg-white rounded-xl border border-neutral-200/80 p-6">
-                  <h2 className="font-display font-bold text-lg text-neutral-900 mb-3">Vehicle Overview</h2>
-                  <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">{vehicle.description}</p>
+                <section className="bg-[#121215] rounded-xl border border-[#1f1f26] p-6">
+                  <h2 className="font-display font-bold text-lg text-white mb-3">Vehicle Overview</h2>
+                  <p className="text-sm text-neutral-300 leading-relaxed whitespace-pre-line">{vehicle.description}</p>
                 </section>
               )}
 
               {/* Specifications */}
-              <section className="bg-white rounded-xl border border-neutral-200/80 p-6">
-                <h2 className="font-display font-bold text-lg text-neutral-900 mb-4">Specifications</h2>
+              <section className="bg-[#121215] rounded-xl border border-[#1f1f26] p-6">
+                <h2 className="font-display font-bold text-lg text-white mb-4">Specifications</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 divide-y sm:divide-y-0">
                   {[
                     ['Make', vehicle.make],
@@ -354,9 +354,9 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   ]
                     .filter(([, val]) => val !== undefined && val !== null && val !== '')
                     .map(([label, value]) => (
-                      <div key={String(label)} className="flex items-center justify-between py-2.5 border-b border-neutral-100 last:border-0">
-                        <span className="text-sm text-neutral-500">{label}</span>
-                        <span className="text-sm font-medium text-neutral-900 text-right">{String(value)}</span>
+                      <div key={String(label)} className="flex items-center justify-between py-2.5 border-b border-[#1f1f26] last:border-0">
+                        <span className="text-sm text-neutral-400">{label}</span>
+                        <span className="text-sm font-medium text-white text-right">{String(value)}</span>
                       </div>
                     ))}
                 </div>
@@ -364,19 +364,19 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
               {/* Features */}
               {Object.keys(featuresByCategory).length > 0 && (
-                <section className="bg-white rounded-xl border border-neutral-200/80 p-6">
-                  <h2 className="font-display font-bold text-lg text-neutral-900 mb-4">Features</h2>
+                <section className="bg-[#121215] rounded-xl border border-[#1f1f26] p-6">
+                  <h2 className="font-display font-bold text-lg text-white mb-4">Features</h2>
                   <div className="space-y-5">
                     {Object.entries(featuresByCategory).map(([category, features]) => (
                       <div key={category}>
-                        <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-2">{category}</h3>
+                        <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-2">{category}</h3>
                         <div className="flex flex-wrap gap-2">
                           {features.map((feature) => (
                             <span
                               key={feature}
-                              className="flex items-center gap-1.5 text-xs bg-neutral-50 border border-neutral-200 text-neutral-700 px-3 py-1.5 rounded-md"
+                              className="flex items-center gap-1.5 text-xs bg-neutral-900 border border-[#1f1f26] text-neutral-300 px-3 py-1.5 rounded-md"
                             >
-                              <CheckCircle size={11} className="text-green-600" />
+                              <CheckCircle size={11} className="text-green-500" />
                               {feature}
                             </span>
                           ))}
@@ -389,14 +389,14 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
               {/* Additional Info */}
               {vehicle.additional_info && (
-                <section className="bg-white rounded-xl border border-neutral-200/80 p-6">
-                  <h2 className="font-display font-bold text-lg text-neutral-900 mb-3">Additional Information</h2>
-                  <p className="text-sm text-neutral-600 leading-relaxed whitespace-pre-line">{vehicle.additional_info}</p>
+                <section className="bg-[#121215] rounded-xl border border-[#1f1f26] p-6">
+                  <h2 className="font-display font-bold text-lg text-white mb-3">Additional Information</h2>
+                  <p className="text-sm text-neutral-300 leading-relaxed whitespace-pre-line">{vehicle.additional_info}</p>
                 </section>
               )}
 
               {/* Disclaimer */}
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800 leading-relaxed">
+              <div className="bg-amber-950/20 border border-amber-900/60 rounded-xl p-4 text-xs text-amber-300 leading-relaxed">
                 <Shield size={14} className="inline mr-1.5" />
                 Vehicle specifications and details are provided as supplied and verified where possible. We recommend a thorough physical inspection before purchase. Final price subject to confirmation.
               </div>
@@ -404,8 +404,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
             {/* Right: Contact sticky */}
             <div className="space-y-4">
-              <div className="bg-white rounded-xl border border-neutral-200/80 p-5 lg:sticky lg:top-20">
-                <h3 className="font-display font-bold text-base text-neutral-900 mb-4">Interested in this car?</h3>
+              <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-5 lg:sticky lg:top-20">
+                <h3 className="font-display font-bold text-base text-white mb-4">Interested in this car?</h3>
                 {!isSold ? (
                   <div className="space-y-2.5">
                     <button
@@ -415,8 +415,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                       Get Quotation
                     </button>
                     <button
-                      onClick={() => setShowEnquiry(true)}
-                      className="btn-secondary w-full py-3 justify-center text-sm"
+                      onClick={() => setShowTestDrive(true)}
+                      className="inline-flex items-center justify-center gap-2 border border-[#b48d36]/40 hover:border-[#b48d36] bg-[#b48d36]/10 hover:bg-[#b48d36]/20 text-[#b48d36] hover:text-white font-bold py-3 w-full rounded-lg text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer shadow-lg shadow-[#b48d36]/5"
                     >
                       Request Test Drive
                     </button>
@@ -436,9 +436,9 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   </Link>
                 )}
 
-                <div className="mt-4 pt-4 border-t border-neutral-100 text-center">
-                  <p className="text-xs text-neutral-400">AutoCapital Wheels</p>
-                  <a href="tel:+918800243707" className="text-sm font-semibold text-neutral-900 hover:underline">
+                <div className="mt-4 pt-4 border-t border-[#1f1f26] text-center">
+                  <p className="text-xs text-neutral-500">AutoCapital Wheels</p>
+                  <a href="tel:+918800243707" className="text-sm font-semibold text-white hover:text-[#b48d36] transition-colors">
                     +91 8800243707
                   </a>
                 </div>

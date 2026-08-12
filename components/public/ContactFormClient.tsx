@@ -65,11 +65,11 @@ export default function ContactFormClient() {
   if (formState === 'success') {
     return (
       <div className="text-center py-8">
-        <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="text-green-600" size={28} />
+        <div className="w-14 h-14 bg-green-950/20 border border-green-900/60 rounded-full flex items-center justify-center mx-auto mb-4">
+          <CheckCircle className="text-green-500" size={28} />
         </div>
-        <h3 className="font-display font-bold text-lg text-neutral-900 mb-2">Message Sent!</h3>
-        <p className="text-sm text-neutral-500 max-w-sm mx-auto mb-6">
+        <h3 className="font-display font-bold text-lg text-white mb-2">Message Sent!</h3>
+        <p className="text-sm text-neutral-400 max-w-sm mx-auto mb-6">
           Thank you for contacting AutoCapital Wheels. Our representative will get in touch with you shortly.
         </p>
         <button
@@ -85,73 +85,73 @@ export default function ContactFormClient() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label htmlFor="contact-name" className="form-label">Full Name *</label>
+        <label htmlFor="contact-name" className="form-label text-neutral-300">Full Name *</label>
         <input
           id="contact-name"
           type="text"
           placeholder="Your full name"
-          className={`form-input ${errors.name ? 'error' : ''}`}
+          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.name ? 'border-red-500' : ''}`}
           {...register('name')}
         />
-        {errors.name && <p className="form-error">{errors.name.message}</p>}
+        {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="contact-phone" className="form-label">Mobile Number *</label>
-          <div className="flex">
-            <span className="flex items-center px-3 bg-neutral-50 border border-r-0 border-neutral-200 rounded-l-md text-sm text-neutral-500 font-medium">+91</span>
+          <label htmlFor="contact-phone" className="form-label text-neutral-300">Mobile Number *</label>
+          <div className="flex mt-1.5">
+            <span className="flex items-center px-3 bg-[#1c1c21] border border-r-0 border-[#1f1f26] rounded-l-md text-sm text-neutral-400 font-medium">+91</span>
             <input
               id="contact-phone"
               type="tel"
               placeholder="10-digit number"
               maxLength={10}
-              className={`form-input rounded-l-none ${errors.phone ? 'error' : ''}`}
+              className={`form-input rounded-l-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.phone ? 'border-red-500' : ''}`}
               {...register('phone')}
             />
           </div>
-          {errors.phone && <p className="form-error">{errors.phone.message}</p>}
+          {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="contact-email" className="form-label">Email Address <span className="text-neutral-400 font-normal">(optional)</span></label>
+          <label htmlFor="contact-email" className="form-label text-neutral-300">Email Address <span className="text-neutral-500 font-normal">(optional)</span></label>
           <input
             id="contact-email"
             type="email"
             placeholder="your@email.com"
-            className={`form-input ${errors.email ? 'error' : ''}`}
+            className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.email ? 'border-red-500' : ''}`}
             {...register('email')}
           />
-          {errors.email && <p className="form-error">{errors.email.message}</p>}
+          {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
         </div>
       </div>
 
       <div>
-        <label htmlFor="contact-subject" className="form-label">Subject *</label>
+        <label htmlFor="contact-subject" className="form-label text-neutral-300">Subject *</label>
         <input
           id="contact-subject"
           type="text"
           placeholder="e.g. Enquiry about Creta, Selling queries"
-          className={`form-input ${errors.subject ? 'error' : ''}`}
+          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.subject ? 'border-red-500' : ''}`}
           {...register('subject')}
         />
-        {errors.subject && <p className="form-error">{errors.subject.message}</p>}
+        {errors.subject && <p className="text-xs text-red-500 mt-1">{errors.subject.message}</p>}
       </div>
 
       <div>
-        <label htmlFor="contact-message" className="form-label">Message *</label>
+        <label htmlFor="contact-message" className="form-label text-neutral-300">Message *</label>
         <textarea
           id="contact-message"
           rows={4}
           placeholder="Write your message here..."
-          className={`form-input resize-none ${errors.message ? 'error' : ''}`}
+          className={`form-input resize-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.message ? 'border-red-500' : ''}`}
           {...register('message')}
         />
-        {errors.message && <p className="form-error">{errors.message.message}</p>}
+        {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message.message}</p>}
       </div>
 
       {formState === 'error' && (
-        <p className="text-sm text-red-600 bg-red-50 px-4 py-3 rounded-md">
+        <p className="text-sm text-red-400 bg-red-950/20 border border-red-900/60 px-4 py-3 rounded-md">
           Something went wrong. Please try again or contact us directly on WhatsApp.
         </p>
       )}
@@ -159,7 +159,7 @@ export default function ContactFormClient() {
       <button
         type="submit"
         disabled={formState === 'loading'}
-        className="w-full btn-primary py-3.5 justify-center text-sm"
+        className="w-full bg-[#b48d36] hover:bg-[#a37e2c] text-black font-bold py-3.5 justify-center text-sm flex items-center justify-center gap-2 transition-all rounded-lg"
       >
         {formState === 'loading' ? (
           <>

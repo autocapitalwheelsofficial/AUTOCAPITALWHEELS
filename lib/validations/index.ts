@@ -5,15 +5,15 @@ export const enquirySchema = z.object({
   customer_name: z.string().min(2, 'Name must be at least 2 characters').max(100),
   customer_phone: z
     .string()
-    .regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit Indian mobile number'),
+    .regex(/^\d{10}$/, 'Enter a valid 10-digit mobile number'),
   customer_email: z.string().email('Enter a valid email').optional().or(z.literal('')),
   customer_city: z.string().max(100).optional(),
-  vehicle_id: z.string().uuid('Invalid vehicle').optional(),
+  vehicle_id: z.string().uuid('Invalid vehicle').optional().or(z.literal('')),
   message: z.string().max(1000).optional(),
   preferred_contact: z.enum(['Phone', 'WhatsApp', 'Email', 'Any']).default('Phone'),
   preferred_time: z.string().optional(),
   test_drive_requested: z.boolean().default(false),
-  user_id: z.string().uuid().optional(),
+  user_id: z.string().uuid().optional().or(z.literal('')),
 });
 
 export type EnquiryFormValues = z.infer<typeof enquirySchema>;
@@ -23,9 +23,9 @@ export const testDriveSchema = z.object({
   customer_name: z.string().min(2).max(100),
   customer_phone: z
     .string()
-    .regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit Indian mobile number'),
+    .regex(/^\d{10}$/, 'Enter a valid 10-digit mobile number'),
   customer_email: z.string().email().optional().or(z.literal('')),
-  vehicle_id: z.string().uuid().optional(),
+  vehicle_id: z.string().uuid().optional().or(z.literal('')),
   preferred_date: z.string().min(1, 'Please select a preferred date'),
   preferred_time: z.string().optional(),
   location: z.string().max(200).optional(),

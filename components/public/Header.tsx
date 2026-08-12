@@ -141,16 +141,16 @@ export default function Header() {
                     <User size={13} />
                     {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
                   </button>
-                  <div className="absolute right-0 top-[90%] pt-2 w-48 bg-white border border-neutral-200 rounded-lg shadow-lg py-2 hidden group-hover:block animate-fade-in-scale">
-                    <Link href="/profile" className="block px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-amber-500 transition-colors">MY PROFILE</Link>
-                    <Link href="/profile?tab=wishlist" className="block px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-amber-500 transition-colors">MY WISHLIST</Link>
+                  <div className="absolute right-0 top-[90%] pt-2 w-48 bg-[#121215] border border-[#1f1f26] rounded-lg shadow-lg py-2 hidden group-hover:block animate-fade-in-scale">
+                    <Link href="/profile" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY PROFILE</Link>
+                    <Link href="/profile?tab=wishlist" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY WISHLIST</Link>
                     <button
                       onClick={async () => {
                         await supabase.auth.signOut();
                         router.push('/');
                         router.refresh();
                       }}
-                      className="w-full text-left block px-4 py-2 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-amber-500 transition-colors cursor-pointer"
+                      className="w-full text-left block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors cursor-pointer"
                     >
                       LOG OUT
                     </button>

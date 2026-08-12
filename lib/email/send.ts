@@ -88,7 +88,7 @@ function emailWrapper(content: string, badge?: string): string {
         <div class="body">${content}</div>
         <div class="footer">
           <p>AutoCapital Wheels &bull; <a href="tel:+918800243707" style="color:#6b7280;">+91 8800243707</a> &bull; autocapitalwheels@gmail.com</p>
-          <p style="margin-top:4px;">Delhi, India</p>
+          <p style="margin-top:4px;">Plot No. 12, Wazirpur Industrial Area, New Delhi, Delhi 110052</p>
         </div>
       </div>
     </body>

@@ -41,17 +41,17 @@ const trustPoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-10 bg-white border-t border-neutral-200/50">
+    <section className="py-16 bg-[#0a0a0c] border-t border-[#1f1f26]">
       <div className="container-custom">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="section-label text-neutral-400 font-bold tracking-widest text-xs">WHY AUTOCAPITAL WHEELS</span>
+            <span className="text-xs font-bold text-[#b48d36] tracking-[0.2em] uppercase">WHY AUTOCAPITAL WHEELS</span>
           </div>
-          <h2 className="font-display font-light text-3xl sm:text-4xl text-neutral-900">
-            The AutoCapital <span className="font-bold">Difference</span>
+          <h2 className="font-display font-light text-3xl sm:text-4xl text-white">
+            The AutoCapital <span className="font-bold text-[#b48d36]">Difference</span>
           </h2>
-          <p className="text-neutral-500 mt-4 max-w-xl mx-auto text-sm font-light">
+          <p className="text-neutral-400 mt-4 max-w-xl mx-auto text-sm font-light">
             We built this dealership on a simple principle: be the kind of car dealer you can actually trust.
           </p>
         </div>
@@ -61,13 +61,13 @@ export default function WhyChooseUs() {
           {trustPoints.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="p-1 border-b border-neutral-200/60 pb-6 transition-all"
+              className="p-6 bg-[#121215] border border-[#1f1f26] rounded-xl transition-all duration-300 hover:border-[#b48d36]/30 group"
             >
-              <div className="text-neutral-700 mb-4">
+              <div className="text-[#b48d36] mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Icon size={24} className="stroke-[1.5]" />
               </div>
-              <h3 className="font-display font-semibold text-base text-neutral-900 mb-2">{title}</h3>
-              <p className="text-xs text-neutral-500 leading-relaxed font-light">{description}</p>
+              <h3 className="font-display font-semibold text-base text-white mb-2">{title}</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed font-light">{description}</p>
             </div>
           ))}
         </div>

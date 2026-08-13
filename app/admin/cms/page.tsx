@@ -19,37 +19,69 @@ export default function AdminCMSPage() {
   const [newSlideFiles, setNewSlideFiles] = useState<File[]>([]);
   const [newSlidePreviews, setNewSlidePreviews] = useState<string[]>([]);
 
+  const DEFAULT_SLIDES = [
+    {
+      url: '/hero_full_background.png',
+      subtitle: "Delhi's Premium Used Cars",
+      title_white: "Trusted Cars. ",
+      title_gold: "Trusted Deals.",
+      description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
+    },
+    {
+      url: '/hero_full_background_2.png',
+      subtitle: "Handpicked Premium Fleet",
+      title_white: "Elite Quality. ",
+      title_gold: "Assured Warranty.",
+      description: "Every vehicle in our collection undergoes rigorous certification checks so you can drive home with absolute peace of mind."
+    },
+    {
+      url: '/hero_full_background_3.png',
+      subtitle: "Seamless Automobile Trades",
+      title_white: "Sell Instantly. ",
+      title_gold: "Best Market Price.",
+      description: "Get the best market valuation for your pre-owned car with free doorstep inspections and instant paperless transactions."
+    }
+  ];
+
   const fetchSettings = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/admin/settings');
       const json = await res.json();
       if (json.success) {
+        let found = false;
         json.settings.forEach((s: any) => {
           if (s.key === 'hero_slides') {
             try {
               const parsed = JSON.parse(s.value);
-              const mapped = (parsed || []).map((item: any) => {
-                if (typeof item === 'string') {
-                  return {
-                    url: item,
-                    subtitle: "Delhi's Premium Used Cars",
-                    title_white: "Trusted Cars. ",
-                    title_gold: "Trusted Deals.",
-                    description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
-                  };
-                }
-                return item;
-              });
-              setExistingSlides(mapped);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                const mapped = parsed.map((item: any) => {
+                  if (typeof item === 'string') {
+                    return {
+                      url: item,
+                      subtitle: "Delhi's Premium Used Cars",
+                      title_white: "Trusted Cars. ",
+                      title_gold: "Trusted Deals.",
+                      description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
+                    };
+                  }
+                  return item;
+                });
+                setExistingSlides(mapped);
+                found = true;
+              }
             } catch {
-              setExistingSlides([]);
+              // ignore
             }
           }
         });
+        if (!found) {
+          setExistingSlides(DEFAULT_SLIDES);
+        }
       }
     } catch (e: any) {
       setError('Failed to load website slides settings');
+      setExistingSlides(DEFAULT_SLIDES);
     } finally {
       setLoading(false);
     }

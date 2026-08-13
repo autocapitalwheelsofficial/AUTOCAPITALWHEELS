@@ -21,6 +21,7 @@ export default function LiveTracker() {
     }
 
     const sendHeartbeat = async () => {
+      if (document.visibilityState !== 'visible') return;
       try {
         const { data: { session } } = await supabase.auth.getSession();
         const user = session?.user;
@@ -47,8 +48,8 @@ export default function LiveTracker() {
     // Send initial heartbeat
     sendHeartbeat();
 
-    // Send heartbeat every 10 seconds
-    const interval = setInterval(sendHeartbeat, 10000);
+    // Send heartbeat every 30 seconds
+    const interval = setInterval(sendHeartbeat, 30000);
 
     return () => clearInterval(interval);
   }, [pathname]);

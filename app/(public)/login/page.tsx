@@ -157,21 +157,11 @@ function CustomerLoginForm() {
       if (authError) {
         setError(authError.message);
       } else if (authData.user) {
-        if (authData.session) {
-          // Auto logged in because "Confirm email" is disabled in Supabase console
-          setSuccessMsg('Account created and logged in successfully!');
-          setTimeout(() => {
-            router.push('/');
-            router.refresh();
-          }, 1500);
-        } else {
-          // Standard flow when email confirmation is required
-          setSuccessMsg('Account created successfully! Please check your email inbox for the verification link.');
-          setTimeout(() => {
-            setIsSignUp(false);
-            setSuccessMsg('');
-          }, 4000);
-        }
+        setSuccessMsg('Registration successful! Redirecting to login...');
+        setTimeout(() => {
+          setIsSignUp(false);
+          setSuccessMsg('');
+        }, 2000);
       }
     } catch {
       setError('An unexpected error occurred. Please try again.');

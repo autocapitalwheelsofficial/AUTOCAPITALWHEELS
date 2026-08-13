@@ -144,6 +144,12 @@ function ProfileContent() {
     if (s === 'CONFIRMED' || s === 'APPROVED' || s === 'CONVERTED') {
       return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-emerald-950/40 text-emerald-400 border border-emerald-900/60">Approved / Confirmed</span>;
     }
+    if (s === 'CONTACTED') {
+      return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-blue-950/40 text-blue-400 border border-blue-900/60">Contacted</span>;
+    }
+    if (s === 'FOLLOW_UP') {
+      return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-amber-950/40 text-amber-400 border border-amber-900/60">Follow Up</span>;
+    }
     if (s === 'OFFER_MADE') {
       return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-blue-950/40 text-blue-400 border border-blue-900/60">Offer Made</span>;
     }
@@ -155,6 +161,9 @@ function ProfileContent() {
     }
     if (s === 'UNDER_REVIEW') {
       return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-orange-950/40 text-orange-400 border border-orange-900/60">Under Review</span>;
+    }
+    if (s === 'RESCHEDULED') {
+      return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-orange-950/40 text-orange-400 border border-orange-900/60">Rescheduled</span>;
     }
     if (s === 'CANCELLED' || s === 'REJECTED' || s === 'CLOSED') {
       return <span className="px-2.5 py-1 text-[9px] font-bold rounded-lg uppercase tracking-wider bg-red-950/40 text-red-400 border border-red-900/60">Cancelled / Rejected</span>;

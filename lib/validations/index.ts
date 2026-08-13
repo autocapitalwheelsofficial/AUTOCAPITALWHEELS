@@ -87,7 +87,7 @@ export type ContactFormValues = z.infer<typeof contactSchema>;
 // ---- Admin Login ----
 export const adminLoginSchema = z.object({
   email: z.string().email('Enter a valid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z.string().min(8, 'Password must be at least 8 characters').max(100, 'Password cannot exceed 100 characters'),
 });
 
 export type AdminLoginValues = z.infer<typeof adminLoginSchema>;

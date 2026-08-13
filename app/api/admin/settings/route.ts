@@ -37,10 +37,12 @@ export async function POST(request: NextRequest) {
     const existingSlidesStr = formData.get('existing_hero_slides') || '[]';
     let slidesList: any[] = JSON.parse(existingSlidesStr.toString());
 
+    const uploadedUrls: string[] = [];
+
     if (newFiles.length > 0) {
       for (const fileItem of newFiles) {
         if (fileItem instanceof File) {
-          const extension = fileItem.name.split('.').pop();
+          const extension = fileItem.name.split('.').pop() || 'jpg';
           const filename = `hero_slide_${crypto.randomUUID()}.${extension}`;
           
           const { error: uploadError } = await supabase.storage
@@ -54,18 +56,28 @@ export async function POST(request: NextRequest) {
             const { data: { publicUrl } } = supabase.storage
               .from('vehicles')
               .getPublicUrl(`hero/${filename}`);
-            
-            slidesList.push({
-              url: publicUrl,
-              subtitle: "Delhi's Premium Used Cars",
-              title_white: "Trusted Cars. ",
-              title_gold: "Trusted Deals.",
-              description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
-            });
+            uploadedUrls.push(publicUrl);
           }
         }
       }
     }
+
+    // Replace PENDING_UPLOAD_X placeholders in the slidesList with uploadedUrls
+    let placeholderCounter = 0;
+    slidesList = slidesList.map((slide) => {
+      const url = typeof slide === 'string' ? slide : slide.url;
+      if (url.startsWith('PENDING_UPLOAD_')) {
+        const replacementUrl = uploadedUrls[placeholderCounter++];
+        if (replacementUrl) {
+          if (typeof slide === 'string') {
+            return replacementUrl;
+          } else {
+            return { ...slide, url: replacementUrl };
+          }
+        }
+      }
+      return slide;
+    });
 
     // Save slides array in site_settings
     await supabase

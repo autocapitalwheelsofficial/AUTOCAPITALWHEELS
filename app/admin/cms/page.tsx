@@ -5,6 +5,40 @@ import { useRouter } from 'next/navigation';
 import { Loader2, Upload, X, Save, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
+interface SlideItem {
+  id_local?: string; // used to uniquely track client-side items
+  url: string;
+  subtitle: string;
+  title_white: string;
+  title_gold: string;
+  description: string;
+  pendingFile?: File; // holds raw file if it needs uploading
+}
+
+const DEFAULT_SLIDES: SlideItem[] = [
+  {
+    url: '/hero_full_background.png',
+    subtitle: "Delhi's Premium Used Cars",
+    title_white: "Trusted Cars. ",
+    title_gold: "Trusted Deals.",
+    description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
+  },
+  {
+    url: '/hero_full_background_2.png',
+    subtitle: "Handpicked Premium Fleet",
+    title_white: "Elite Quality. ",
+    title_gold: "Assured Warranty.",
+    description: "Every vehicle in our collection undergoes rigorous certification checks so you can drive home with absolute peace of mind."
+  },
+  {
+    url: '/hero_full_background_3.png',
+    subtitle: "Seamless Automobile Trades",
+    title_white: "Sell Instantly. ",
+    title_gold: "Best Market Price.",
+    description: "Get the best market valuation for your pre-owned car with free doorstep inspections and instant paperless transactions."
+  }
+];
+
 export default function AdminCMSPage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -14,34 +48,8 @@ export default function AdminCMSPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  // Slides state
-  const [existingSlides, setExistingSlides] = useState<any[]>([]);
-  const [newSlideFiles, setNewSlideFiles] = useState<File[]>([]);
-  const [newSlidePreviews, setNewSlidePreviews] = useState<string[]>([]);
-
-  const DEFAULT_SLIDES = [
-    {
-      url: '/hero_full_background.png',
-      subtitle: "Delhi's Premium Used Cars",
-      title_white: "Trusted Cars. ",
-      title_gold: "Trusted Deals.",
-      description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
-    },
-    {
-      url: '/hero_full_background_2.png',
-      subtitle: "Handpicked Premium Fleet",
-      title_white: "Elite Quality. ",
-      title_gold: "Assured Warranty.",
-      description: "Every vehicle in our collection undergoes rigorous certification checks so you can drive home with absolute peace of mind."
-    },
-    {
-      url: '/hero_full_background_3.png',
-      subtitle: "Seamless Automobile Trades",
-      title_white: "Sell Instantly. ",
-      title_gold: "Best Market Price.",
-      description: "Get the best market valuation for your pre-owned car with free doorstep inspections and instant paperless transactions."
-    }
-  ];
+  // Unified Slides State (both saved and newly added slides reside here)
+  const [slides, setSlides] = useState<SlideItem[]>([]);
 
   const fetchSettings = async () => {
     setLoading(true);
@@ -55,19 +63,18 @@ export default function AdminCMSPage() {
             try {
               const parsed = JSON.parse(s.value);
               if (Array.isArray(parsed) && parsed.length > 0) {
-                const mapped = parsed.map((item: any) => {
-                  if (typeof item === 'string') {
-                    return {
-                      url: item,
-                      subtitle: "Delhi's Premium Used Cars",
-                      title_white: "Trusted Cars. ",
-                      title_gold: "Trusted Deals.",
-                      description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
-                    };
-                  }
-                  return item;
+                const mapped = parsed.map((item: any, idx: number) => {
+                  const base = typeof item === 'string' ? { url: item } : item;
+                  return {
+                    id_local: `saved-${idx}-${Date.now()}`,
+                    url: base.url || '',
+                    subtitle: base.subtitle || "Delhi's Premium Used Cars",
+                    title_white: base.title_white || "Trusted Cars. ",
+                    title_gold: base.title_gold || "Trusted Deals.",
+                    description: base.description || "We buy and sell certified pre-owned cars."
+                  };
                 });
-                setExistingSlides(mapped);
+                setSlides(mapped);
                 found = true;
               }
             } catch {
@@ -76,12 +83,12 @@ export default function AdminCMSPage() {
           }
         });
         if (!found) {
-          setExistingSlides(DEFAULT_SLIDES);
+          setSlides(DEFAULT_SLIDES.map((s, idx) => ({ ...s, id_local: `default-${idx}` })));
         }
       }
     } catch (e: any) {
       setError('Failed to load website slides settings');
-      setExistingSlides(DEFAULT_SLIDES);
+      setSlides(DEFAULT_SLIDES.map((s, idx) => ({ ...s, id_local: `default-${idx}` })));
     } finally {
       setLoading(false);
     }
@@ -91,15 +98,15 @@ export default function AdminCMSPage() {
     fetchSettings();
   }, []);
 
-  const handleSlideTextChange = (idx: number, field: string, value: string) => {
-    setExistingSlides((prev) => {
+  const handleSlideTextChange = (idx: number, field: keyof SlideItem, value: string) => {
+    setSlides((prev) => {
       const copy = [...prev];
       copy[idx] = { ...copy[idx], [field]: value };
       return copy;
     });
   };
 
-  const handleReplaceMediaSelect = async (idx: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReplaceMediaSelect = (idx: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 50 * 1024 * 1024) {
@@ -107,82 +114,51 @@ export default function AdminCMSPage() {
       return;
     }
 
-    setSaving(true);
-    try {
-      // Upload directly to Supabase storage via dynamic endpoint or settings API
-      const formData = new FormData();
-      formData.append('hero_slides_files', file);
-      // We send empty slides array to prevent double adding, just upload
-      formData.append('existing_hero_slides', '[]');
-
-      const res = await fetch('/api/admin/settings', {
-        method: 'POST',
-        body: formData,
-      });
-      const json = await res.json();
-      if (json.success) {
-        // Fetch settings again to get the uploaded URL
-        const updatedRes = await fetch('/api/admin/settings');
-        const updatedJson = await updatedRes.json();
-        if (updatedJson.success) {
-          updatedJson.settings.forEach((s: any) => {
-            if (s.key === 'hero_slides') {
-              const parsed = JSON.parse(s.value);
-              const latestUrlObj = parsed[parsed.length - 1];
-              const latestUrl = typeof latestUrlObj === 'string' ? latestUrlObj : latestUrlObj.url;
-              
-              // Replace URL in our local state
-              setExistingSlides((prev) => {
-                const copy = [...prev];
-                copy[idx] = { ...copy[idx], url: latestUrl };
-                return copy;
-              });
-            }
-          });
-        }
-      } else {
-        alert('Upload failed: ' + (json.error || 'Unknown error'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Upload failed');
-    } finally {
-      setSaving(false);
-    }
+    const localUrl = URL.createObjectURL(file);
+    setSlides((prev) => {
+      const copy = [...prev];
+      copy[idx] = {
+        ...copy[idx],
+        url: localUrl,
+        pendingFile: file,
+      };
+      return copy;
+    });
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNewSlidesSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     const validFiles = files.filter(
       (f) => (f.type.startsWith('image/') || f.type.startsWith('video/')) && f.size <= 50 * 1024 * 1024
     );
 
-    setNewSlideFiles((prev) => [...prev, ...validFiles]);
-    validFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setNewSlidePreviews((prev) => [...prev, ev.target?.result as string]);
+    const newSlideObjects = validFiles.map((file, idx) => {
+      const localUrl = URL.createObjectURL(file);
+      return {
+        id_local: `new-${idx}-${Date.now()}`,
+        url: localUrl,
+        pendingFile: file,
+        subtitle: "Delhi's Premium Used Cars",
+        title_white: "New Slide Title. ",
+        title_gold: "Golden Text.",
+        description: "Write details description about this new slideshow here."
       };
-      reader.readAsDataURL(file);
     });
+
+    setSlides((prev) => [...prev, ...newSlideObjects]);
   };
 
-  const removeNewSlide = (idx: number) => {
-    setNewSlideFiles((prev) => prev.filter((_, i) => i !== idx));
-    setNewSlidePreviews((prev) => prev.filter((_, i) => i !== idx));
-  };
-
-  const removeExistingSlide = (url: string) => {
-    if (confirm('Delete this slide?')) {
-      setExistingSlides((prev) => prev.filter((slide) => slide.url !== url));
+  const removeSlide = (idx: number) => {
+    if (confirm('Are you sure you want to remove this slide?')) {
+      setSlides((prev) => prev.filter((_, i) => i !== idx));
     }
   };
 
   const moveSlide = (idx: number, direction: 'left' | 'right') => {
     const nextIdx = direction === 'left' ? idx - 1 : idx + 1;
-    if (nextIdx < 0 || nextIdx >= existingSlides.length) return;
+    if (nextIdx < 0 || nextIdx >= slides.length) return;
     
-    setExistingSlides((prev) => {
+    setSlides((prev) => {
       const copy = [...prev];
       const temp = copy[idx];
       copy[idx] = copy[nextIdx];
@@ -199,9 +175,34 @@ export default function AdminCMSPage() {
 
     try {
       const formData = new FormData();
-      formData.append('existing_hero_slides', JSON.stringify(existingSlides));
+      const filesToSend: File[] = [];
+
+      // Construct a slide list to send, replacing local blob urls with PENDING_UPLOAD placeholders
+      let pendingUploadCount = 0;
+      const processedSlidesList = slides.map((slide) => {
+        if (slide.pendingFile) {
+          const placeholder = `PENDING_UPLOAD_${pendingUploadCount++}`;
+          filesToSend.push(slide.pendingFile);
+          return {
+            url: placeholder,
+            subtitle: slide.subtitle,
+            title_white: slide.title_white,
+            title_gold: slide.title_gold,
+            description: slide.description,
+          };
+        }
+        return {
+          url: slide.url,
+          subtitle: slide.subtitle,
+          title_white: slide.title_white,
+          title_gold: slide.title_gold,
+          description: slide.description,
+        };
+      });
+
+      formData.append('existing_hero_slides', JSON.stringify(processedSlidesList));
       
-      newSlideFiles.forEach((file) => {
+      filesToSend.forEach((file) => {
         formData.append('hero_slides_files', file);
       });
 
@@ -213,14 +214,14 @@ export default function AdminCMSPage() {
       const json = await res.json();
       if (json.success) {
         setSuccess(true);
-        setNewSlideFiles([]);
-        setNewSlidePreviews([]);
         await fetchSettings();
+        // Trigger a force revalidation of public pages if needed, Next.js handles on-demand
         setTimeout(() => setSuccess(false), 3000);
       } else {
         setError(json.error || 'Failed to save slideshow settings');
       }
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError('An unexpected error occurred');
     } finally {
       setSaving(false);
@@ -277,20 +278,27 @@ export default function AdminCMSPage() {
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
             <h2 className="font-display font-bold text-lg text-amber-500 border-b border-neutral-800 pb-3">Homepage Slides</h2>
             
-            {existingSlides.length === 0 && (
+            {slides.length === 0 && (
               <p className="text-xs text-neutral-500 italic">No slides configured. Upload photos or videos below to create slides.</p>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {existingSlides.map((slideObj, idx) => {
+              {slides.map((slideObj, idx) => {
                 const url = slideObj.url;
-                const isVideo = url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('/hero/hero_slide_') && !url.includes('.png') && !url.includes('.jpg');
+                const isVideo = url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('/hero/hero_slide_') || (slideObj.pendingFile?.type.startsWith('video/'));
                 return (
-                  <div key={idx} className="bg-neutral-950 border border-neutral-800 rounded-2xl p-4 space-y-4 relative group">
+                  <div key={slideObj.id_local || idx} className="bg-neutral-950 border border-neutral-800 rounded-2xl p-4 space-y-4 relative group">
                     
                     {/* Header Controls */}
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">Slide #{idx + 1}</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">Slide #{idx + 1}</span>
+                        {slideObj.pendingFile && (
+                          <span className="text-[8px] font-bold bg-amber-950 text-amber-400 border border-amber-800 px-1.5 py-0.5 rounded uppercase tracking-wider">
+                            New Upload
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center gap-1.5">
                         {idx > 0 && (
                           <button
@@ -302,7 +310,7 @@ export default function AdminCMSPage() {
                             <ChevronLeft size={12} />
                           </button>
                         )}
-                        {idx < existingSlides.length - 1 && (
+                        {idx < slides.length - 1 && (
                           <button
                             type="button"
                             onClick={() => moveSlide(idx, 'right')}
@@ -314,7 +322,7 @@ export default function AdminCMSPage() {
                         )}
                         <button
                           type="button"
-                          onClick={() => removeExistingSlide(url)}
+                          onClick={() => removeSlide(idx)}
                           className="p-1 rounded bg-red-950 text-red-400 hover:bg-red-900 transition-all cursor-pointer border border-red-900/40"
                           title="Delete Slide"
                         >
@@ -357,7 +365,7 @@ export default function AdminCMSPage() {
                         <input
                           type="text"
                           className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                          value={slideObj.subtitle || ''}
+                          value={slideObj.subtitle}
                           onChange={(e) => handleSlideTextChange(idx, 'subtitle', e.target.value)}
                           placeholder="Delhi's Premium Used Cars"
                         />
@@ -368,17 +376,17 @@ export default function AdminCMSPage() {
                           <input
                             type="text"
                             className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                            value={slideObj.title_white || ''}
+                            value={slideObj.title_white}
                             onChange={(e) => handleSlideTextChange(idx, 'title_white', e.target.value)}
                             placeholder="Trusted Cars."
                           />
                         </div>
                         <div>
-                          <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Title (Gold)</label>
+                          <label className="text-[9px] font-bold text-[#b48d36] uppercase tracking-wider block mb-1">Title (Gold)</label>
                           <input
                             type="text"
                             className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                            value={slideObj.title_gold || ''}
+                            value={slideObj.title_gold}
                             onChange={(e) => handleSlideTextChange(idx, 'title_gold', e.target.value)}
                             placeholder="Trusted Deals."
                           />
@@ -389,7 +397,7 @@ export default function AdminCMSPage() {
                         <textarea
                           className="w-full bg-neutral-900 border border-neutral-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 resize-none font-light leading-snug"
                           rows={2}
-                          value={slideObj.description || ''}
+                          value={slideObj.description}
                           onChange={(e) => handleSlideTextChange(idx, 'description', e.target.value)}
                           placeholder="We buy and sell certified pre-owned cars..."
                         />
@@ -412,38 +420,9 @@ export default function AdminCMSPage() {
                 <Upload size={28} className="text-neutral-500 mx-auto mb-2" />
                 <p className="text-sm font-semibold text-neutral-200">Drag & Drop or Click to Select</p>
                 <p className="text-xs text-neutral-500 mt-1">Supports JPG, PNG, WEBP and MP4 videos — up to 50MB</p>
-                <input ref={fileInputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleFileSelect} />
+                <input ref={fileInputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleNewSlidesSelect} />
               </div>
             </div>
-
-            {/* Previews of new slides */}
-            {newSlidePreviews.length > 0 && (
-              <div>
-                <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider block mb-2">New Upload Previews</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {newSlidePreviews.map((src, idx) => {
-                    const file = newSlideFiles[idx];
-                    const isVideo = file?.type.startsWith('video/');
-                    return (
-                      <div key={idx} className="relative aspect-video rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800 group">
-                        {isVideo ? (
-                          <video src={src} className="w-full h-full object-cover" muted />
-                        ) : (
-                          <img src={src} alt="New Slide" className="w-full h-full object-cover" />
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => removeNewSlide(idx)}
-                          className="absolute top-2 right-2 p-1.5 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-all cursor-pointer z-10"
-                        >
-                          <X size={12} />
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
           </div>
         </form>
       </div>

@@ -200,6 +200,8 @@ export default function TestDriveModal({ vehicle, onClose }: TestDriveModalProps
                     className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 pl-10 text-white cursor-pointer"
                     value={formData.preferred_date}
                     onChange={(e) => setFormData({ ...formData, preferred_date: e.target.value })}
+                    onClick={(e) => { try { e.currentTarget.showPicker(); } catch (err) {} }}
+                    onFocus={(e) => { try { e.currentTarget.showPicker(); } catch (err) {} }}
                   />
                   <Calendar size={14} className="absolute left-3.5 top-3.5 text-neutral-500 pointer-events-none" />
                 </div>

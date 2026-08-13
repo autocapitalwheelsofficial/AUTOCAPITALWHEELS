@@ -52,12 +52,15 @@ export async function POST(request: NextRequest) {
               cacheControl: '3600',
             });
 
-          if (!uploadError) {
-            const { data: { publicUrl } } = supabase.storage
-              .from('vehicles')
-              .getPublicUrl(`hero/${filename}`);
-            uploadedUrls.push(publicUrl);
+          if (uploadError) {
+            console.error('[Upload Slide Error]', uploadError);
+            return NextResponse.json({ success: false, error: `Upload failed: ${uploadError.message}` }, { status: 500 });
           }
+
+          const { data: { publicUrl } } = supabase.storage
+            .from('vehicles')
+            .getPublicUrl(`hero/${filename}`);
+          uploadedUrls.push(publicUrl);
         }
       }
     }

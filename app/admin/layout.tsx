@@ -2,8 +2,9 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+import { cache } from 'react';
 
-async function getAdminUser() {
+const getAdminUser = cache(async () => {
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get('acw_admin_session')?.value;
   if (!sessionToken) return null;
@@ -18,7 +19,7 @@ async function getAdminUser() {
     .single();
 
   return data;
-}
+});
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const admin = await getAdminUser();

@@ -10,7 +10,9 @@ async function getDashboardStats() {
   today.setHours(0, 0, 0, 0);
 
   const [
-    vehicleStats,
+    activeVehicles,
+    soldVehicles,
+    draftVehicles,
     newEnquiries,
     newSellRequests,
     newTestDrives,
@@ -18,25 +20,21 @@ async function getDashboardStats() {
     recentActivity,
     viewsToday,
   ] = await Promise.all([
-    supabase.from('vehicles').select('status', { count: 'exact' }),
-    supabase.from('vehicle_enquiries').select('id', { count: 'exact' }).eq('status', 'NEW'),
-    supabase.from('sell_requests').select('id', { count: 'exact' }).eq('status', 'NEW'),
-    supabase.from('test_drive_requests').select('id', { count: 'exact' }).eq('status', 'NEW'),
+    supabase.from('vehicles').select('id', { count: 'exact', head: true }).eq('status', 'Active'),
+    supabase.from('vehicles').select('id', { count: 'exact', head: true }).eq('status', 'Sold'),
+    supabase.from('vehicles').select('id', { count: 'exact', head: true }).eq('status', 'Draft'),
+    supabase.from('vehicle_enquiries').select('id', { count: 'exact', head: true }).eq('status', 'NEW'),
+    supabase.from('sell_requests').select('id', { count: 'exact', head: true }).eq('status', 'NEW'),
+    supabase.from('test_drive_requests').select('id', { count: 'exact', head: true }).eq('status', 'NEW'),
     supabase.from('vehicle_enquiries').select('*, vehicles(make, model, year)').order('created_at', { ascending: false }).limit(5),
     supabase.from('admin_activity_logs').select('*').order('created_at', { ascending: false }).limit(5),
-    supabase.from('analytics_events').select('id', { count: 'exact' }).eq('event_type', 'vehicle_view').gte('created_at', today.toISOString()),
+    supabase.from('analytics_events').select('id', { count: 'exact', head: true }).eq('event_type', 'vehicle_view').gte('created_at', today.toISOString()),
   ]);
 
-  // Count vehicles by status
-  const vehicles = vehicleStats.data || [];
-  const activeVehicles = vehicles.filter((v: any) => v.status === 'Active').length;
-  const soldVehicles = vehicles.filter((v: any) => v.status === 'Sold').length;
-  const draftVehicles = vehicles.filter((v: any) => v.status === 'Draft').length;
-
   return {
-    activeVehicles,
-    soldVehicles,
-    draftVehicles,
+    activeVehicles: activeVehicles.count || 0,
+    soldVehicles: soldVehicles.count || 0,
+    draftVehicles: draftVehicles.count || 0,
     newEnquiries: newEnquiries.count || 0,
     newSellRequests: newSellRequests.count || 0,
     newTestDrives: newTestDrives.count || 0,

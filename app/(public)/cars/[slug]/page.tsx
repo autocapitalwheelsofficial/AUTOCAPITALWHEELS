@@ -5,7 +5,7 @@ import VehicleDetailClient from '@/components/public/VehicleDetailClient';
 import type { Vehicle } from '@/types';
 import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 10;
 
 interface Props {
   params: Promise<{ slug: string }>;

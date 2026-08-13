@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { Car, MessageSquare, FileText, Navigation, TrendingUp, Eye, Plus, ArrowRight } from 'lucide-react';
 import { formatDateTime, timeAgo } from '@/lib/utils';
+import LiveUsersTracker from '@/components/admin/LiveUsersTracker';
 
 async function getDashboardStats() {
   const supabase = createAdminClient();
@@ -114,6 +115,9 @@ export default async function AdminDashboard() {
           </Link>
         ))}
       </div>
+
+      {/* Real-time active users panel */}
+      <LiveUsersTracker />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Enquiries */}

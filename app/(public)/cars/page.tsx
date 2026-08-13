@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import InventoryClient from '@/components/public/InventoryClient';
 
-export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Buy Cars — Explore Our Pre-Owned Inventory',

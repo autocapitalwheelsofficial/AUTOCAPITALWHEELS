@@ -10,7 +10,7 @@ import TestimonialsSection from '@/components/public/TestimonialsSection';
 import FAQSection from '@/components/public/FAQSection';
 import type { Vehicle, Testimonial, FAQ } from '@/types';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 10;
 
 export const metadata: Metadata = {
   title: 'AutoCapital Wheels — Trusted Pre-Owned Cars in Delhi',

@@ -32,6 +32,24 @@ export default function AdminEnquiriesPage() {
     }
   };
 
+  const handleOpenEnquiry = async (enq: any) => {
+    setSelectedEnquiry(enq);
+    if (enq.status === 'NEW') {
+      try {
+        const { error } = await supabase
+          .from('vehicle_enquiries')
+          .update({ status: 'CONTACTED' })
+          .eq('id', enq.id);
+        
+        if (!error) {
+          setEnquiries(prev => prev.map(item => item.id === enq.id ? { ...item, status: 'CONTACTED' } : item));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   useEffect(() => {
     loadEnquiries();
   }, []);
@@ -116,7 +134,7 @@ export default function AdminEnquiriesPage() {
                         {/* Customer */}
                         <td className="p-4">
                           <button
-                            onClick={() => setSelectedEnquiry(enq)}
+                            onClick={() => handleOpenEnquiry(enq)}
                             className="font-bold text-[#b48d36] hover:underline flex items-center gap-1.5 cursor-pointer text-left"
                           >
                             <User size={12} className="text-neutral-400" />
@@ -220,7 +238,7 @@ export default function AdminEnquiriesPage() {
                                 )}
                               </button>
                               <button
-                                onClick={() => setSelectedEnquiry(enq)}
+                                onClick={() => handleOpenEnquiry(enq)}
                                 className="inline-flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider transition-all cursor-pointer"
                               >
                                 Details

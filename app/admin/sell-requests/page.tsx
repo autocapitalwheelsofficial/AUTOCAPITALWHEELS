@@ -25,6 +25,24 @@ export default function AdminSellRequestsPage() {
     }
   };
 
+  const handleOpenRequest = async (req: any) => {
+    setSelectedRequest(req);
+    if (req.status === 'NEW') {
+      try {
+        const { error } = await supabase
+          .from('sell_requests')
+          .update({ status: 'UNDER_REVIEW' })
+          .eq('id', req.id);
+        
+        if (!error) {
+          setRequests(prev => prev.map(item => item.id === req.id ? { ...item, status: 'UNDER_REVIEW' } : item));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   useEffect(() => { loadRequests(); }, []);
 
   const handleUpdate = async (id: string, updates?: { status: string; admin_notes: string | null; offered_price: number | null }) => {
@@ -110,7 +128,7 @@ export default function AdminSellRequestsPage() {
                       {/* Owner */}
                       <td className="p-4">
                         <button
-                          onClick={() => setSelectedRequest(req)}
+                          onClick={() => handleOpenRequest(req)}
                           className="font-bold text-[#b48d36] hover:underline flex items-center gap-1.5 cursor-pointer text-left"
                         >
                           <User size={12} className="text-neutral-400" />
@@ -221,7 +239,7 @@ export default function AdminSellRequestsPage() {
                               {updatingId === req.id ? <Loader2 size={10} className="animate-spin" /> : 'Save'}
                             </button>
                             <button
-                              onClick={() => setSelectedRequest(req)}
+                              onClick={() => handleOpenRequest(req)}
                               className="inline-flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider transition-all cursor-pointer"
                             >
                               Details

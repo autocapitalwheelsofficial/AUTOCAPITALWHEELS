@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   LayoutDashboard, Car, MessageSquare, UserCheck, Navigation,
   Image, Star, HelpCircle, Settings, LogOut, ChevronLeft, ChevronRight,
@@ -35,6 +35,22 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const supabase = createClient();
+  const [counts, setCounts] = useState<Record<string, number>>({
+    enquiries: 0,
+    sellRequests: 0,
+    testDrives: 0,
+  });
+
+  useEffect(() => {
+    const handleCountsUpdate = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail) {
+        setCounts(detail);
+      }
+    };
+    window.addEventListener('acw-unread-counts', handleCountsUpdate);
+    return () => window.removeEventListener('acw-unread-counts', handleCountsUpdate);
+  }, []);
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -76,6 +92,12 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {navItems.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href || pathname.startsWith(href + '/');
+          
+          let badgeCount = 0;
+          if (href === '/admin/enquiries') badgeCount = counts.enquiries;
+          if (href === '/admin/sell-requests') badgeCount = counts.sellRequests;
+          if (href === '/admin/test-drives') badgeCount = counts.testDrives;
+
           return (
             <Link
               key={href}
@@ -85,6 +107,11 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
             >
               <Icon size={18} className="flex-shrink-0" />
               {!collapsed && <span className="truncate">{label}</span>}
+              {badgeCount > 0 && (
+                <span className={`ml-auto px-1.5 py-0.5 text-[9px] font-bold bg-red-600 text-white rounded-full min-w-[16px] text-center ${collapsed ? 'absolute -top-1 -right-1' : ''}`}>
+                  {badgeCount}
+                </span>
+              )}
             </Link>
           );
         })}

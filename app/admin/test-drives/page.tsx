@@ -32,6 +32,24 @@ export default function AdminTestDrivesPage() {
     }
   };
 
+  const handleOpenTestDrive = async (td: any) => {
+    setSelectedTestDrive(td);
+    if (td.status === 'NEW') {
+      try {
+        const { error } = await supabase
+          .from('test_drive_requests')
+          .update({ status: 'CONFIRMED' })
+          .eq('id', td.id);
+        
+        if (!error) {
+          setTestDrives(prev => prev.map(item => item.id === td.id ? { ...item, status: 'CONFIRMED' } : item));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   useEffect(() => {
     loadTestDrives();
   }, []);
@@ -116,7 +134,7 @@ export default function AdminTestDrivesPage() {
                         {/* Customer */}
                         <td className="p-4">
                           <button
-                            onClick={() => setSelectedTestDrive(td)}
+                            onClick={() => handleOpenTestDrive(td)}
                             className="font-bold text-[#b48d36] hover:underline flex items-center gap-1.5 cursor-pointer text-left"
                           >
                             <User size={12} className="text-neutral-400" />
@@ -213,7 +231,7 @@ export default function AdminTestDrivesPage() {
                                 )}
                               </button>
                               <button
-                                onClick={() => setSelectedTestDrive(td)}
+                                onClick={() => handleOpenTestDrive(td)}
                                 className="inline-flex items-center justify-center bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider transition-all cursor-pointer"
                               >
                                 Details

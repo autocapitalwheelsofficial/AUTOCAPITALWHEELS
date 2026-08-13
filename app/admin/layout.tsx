@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+import AdminRealtimeNotifier from '@/components/admin/AdminRealtimeNotifier';
 import { cache } from 'react';
 
 const getAdminUser = cache(async () => {
@@ -31,6 +32,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-neutral-100">
       <AdminSidebar admin={admin} />
+      <AdminRealtimeNotifier />
       <main className="flex-1 min-w-0 overflow-auto">
         {children}
       </main>

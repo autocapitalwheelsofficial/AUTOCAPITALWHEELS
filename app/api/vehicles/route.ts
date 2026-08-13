@@ -132,6 +132,11 @@ export async function GET(request: NextRequest) {
     const { data, error, count } = await query;
     if (error || !data || data.length === 0) throw new Error();
 
+    const headers: Record<string, string> = {};
+    if (!admin) {
+      headers['Cache-Control'] = 'public, s-maxage=30, stale-while-revalidate=59';
+    }
+
     return NextResponse.json({
       success: true,
       data,
@@ -139,7 +144,7 @@ export async function GET(request: NextRequest) {
       page,
       per_page,
       total_pages: Math.ceil((count || 0) / per_page),
-    });
+    }, { headers });
   } catch {
     // Fallback to mock data with in-memory filtering
     let list = [...MOCK_VEHICLES];
@@ -181,6 +186,11 @@ export async function GET(request: NextRequest) {
     const total = list.length;
     const paginated = list.slice(offset, offset + per_page);
 
+    const fallbackHeaders: Record<string, string> = {};
+    if (!admin) {
+      fallbackHeaders['Cache-Control'] = 'public, s-maxage=30, stale-while-revalidate=59';
+    }
+
     return NextResponse.json({
       success: true,
       data: paginated,
@@ -188,7 +198,7 @@ export async function GET(request: NextRequest) {
       page,
       per_page,
       total_pages: Math.ceil(total / per_page),
-    });
+    }, { headers: fallbackHeaders });
   }
 }
 

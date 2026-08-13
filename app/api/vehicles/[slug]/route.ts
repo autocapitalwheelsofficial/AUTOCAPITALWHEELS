@@ -48,7 +48,14 @@ export async function GET(
     vehicle.vehicle_images.sort((a: any, b: any) => a.sort_order - b.sort_order);
   }
 
-  return NextResponse.json({ success: true, data: vehicle });
+  return NextResponse.json(
+    { success: true, data: vehicle },
+    {
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=59',
+      },
+    }
+  );
 }
 
 // PUT /api/vehicles/[slug] — Admin only: update vehicle

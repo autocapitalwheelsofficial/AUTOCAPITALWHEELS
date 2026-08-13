@@ -26,7 +26,7 @@ export default function AdminSettingsPage() {
   });
 
   // Slides state
-  const [existingSlides, setExistingSlides] = useState<string[]>([]);
+  const [existingSlides, setExistingSlides] = useState<any[]>([]);
   const [newSlideFiles, setNewSlideFiles] = useState<File[]>([]);
   const [newSlidePreviews, setNewSlidePreviews] = useState<string[]>([]);
 
@@ -41,7 +41,20 @@ export default function AdminSettingsPage() {
           json.settings.forEach((s: any) => {
             if (s.key === 'hero_slides') {
               try {
-                setExistingSlides(JSON.parse(s.value));
+                const parsed = JSON.parse(s.value);
+                const mapped = (parsed || []).map((item: any) => {
+                  if (typeof item === 'string') {
+                    return {
+                      url: item,
+                      subtitle: "Delhi's Premium Used Cars",
+                      title_white: "Trusted Cars. ",
+                      title_gold: "Trusted Deals.",
+                      description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
+                    };
+                  }
+                  return item;
+                });
+                setExistingSlides(mapped);
               } catch {
                 setExistingSlides([]);
               }
@@ -62,6 +75,14 @@ export default function AdminSettingsPage() {
 
   const handleFieldChange = (key: string, val: string) => {
     setForm((prev) => ({ ...prev, [key]: val }));
+  };
+
+  const handleSlideTextChange = (idx: number, field: string, value: string) => {
+    setExistingSlides((prev) => {
+      const copy = [...prev];
+      copy[idx] = { ...copy[idx], [field]: value };
+      return copy;
+    });
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +108,7 @@ export default function AdminSettingsPage() {
 
   const removeExistingSlide = (url: string) => {
     if (confirm('Delete this slide?')) {
-      setExistingSlides((prev) => prev.filter((slide) => slide !== url));
+      setExistingSlides((prev) => prev.filter((slide) => slide.url !== url));
     }
   };
 
@@ -188,48 +209,103 @@ export default function AdminSettingsPage() {
             {existingSlides.length > 0 && (
               <div>
                 <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider block mb-2">Active Slides</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {existingSlides.map((url, idx) => {
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {existingSlides.map((slideObj, idx) => {
+                    const url = typeof slideObj === 'string' ? slideObj : slideObj.url;
                     const isVideo = url.endsWith('.mp4') || url.endsWith('.webm') || url.includes('/hero/hero_slide_') && !url.includes('.png') && !url.includes('.jpg');
                     return (
-                      <div key={idx} className="relative aspect-video rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800 group">
-                        {isVideo ? (
-                          <video src={url} className="w-full h-full object-cover" muted loop playsInline />
-                        ) : (
-                          <img src={url} alt="Slide" className="w-full h-full object-cover" />
-                        )}
-                        {/* Reordering Controls */}
-                        <div className="absolute top-2 left-2 flex items-center gap-1 z-10">
-                          {idx > 0 && (
+                      <div key={idx} className="bg-neutral-950 border border-neutral-800 rounded-2xl p-4 space-y-4 relative group">
+                        {/* Header controls (ordering & remove) */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">Slide #{idx + 1}</span>
+                          <div className="flex items-center gap-1.5">
+                            {idx > 0 && (
+                              <button
+                                type="button"
+                                onClick={() => moveSlide(idx, 'left')}
+                                className="p-1 rounded bg-neutral-900 hover:bg-neutral-800 text-white transition-all cursor-pointer border border-neutral-800"
+                                title="Move Up/Left"
+                              >
+                                <ChevronLeft size={12} />
+                              </button>
+                            )}
+                            {idx < existingSlides.length - 1 && (
+                              <button
+                                type="button"
+                                onClick={() => moveSlide(idx, 'right')}
+                                className="p-1 rounded bg-neutral-900 hover:bg-neutral-800 text-white transition-all cursor-pointer border border-neutral-800"
+                                title="Move Down/Right"
+                              >
+                                <ChevronRight size={12} />
+                              </button>
+                            )}
                             <button
                               type="button"
-                              onClick={() => moveSlide(idx, 'left')}
-                              className="p-1 rounded bg-neutral-900/85 hover:bg-neutral-800 text-white transition-all cursor-pointer shadow"
-                              title="Move Left"
+                              onClick={() => removeExistingSlide(url)}
+                              className="p-1 rounded bg-red-950 text-red-400 hover:bg-red-900 transition-all cursor-pointer border border-red-900/40"
+                              title="Delete Slide"
                             >
-                              <ChevronLeft size={12} />
+                              <X size={12} />
                             </button>
-                          )}
-                          {idx < existingSlides.length - 1 && (
-                            <button
-                              type="button"
-                              onClick={() => moveSlide(idx, 'right')}
-                              className="p-1 rounded bg-neutral-900/85 hover:bg-neutral-800 text-white transition-all cursor-pointer shadow"
-                              title="Move Right"
-                            >
-                              <ChevronRight size={12} />
-                            </button>
-                          )}
+                          </div>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => removeExistingSlide(url)}
-                          className="absolute top-2 right-2 p-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white transition-all hover:scale-105 cursor-pointer z-10 shadow"
-                        >
-                          <X size={12} />
-                        </button>
-                        <div className="absolute bottom-0 left-0 right-0 bg-neutral-950/65 py-1 text-center text-[9px] text-neutral-400 font-semibold uppercase tracking-widest">
-                          {isVideo ? 'Video Slide' : 'Image Slide'}
+
+                        {/* Media Preview */}
+                        <div className="relative aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-900">
+                          {isVideo ? (
+                            <video src={url} className="w-full h-full object-cover" muted loop playsInline />
+                          ) : (
+                            <img src={url} alt="Slide Preview" className="w-full h-full object-cover" />
+                          )}
+                          <div className="absolute bottom-2 right-2 bg-black/60 px-2 py-0.5 rounded text-[8px] text-neutral-300 font-bold uppercase tracking-widest">
+                            {isVideo ? 'Video Slide' : 'Image Slide'}
+                          </div>
+                        </div>
+
+                        {/* Text Inputs */}
+                        <div className="space-y-2 pt-2 border-t border-neutral-900">
+                          <div>
+                            <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Subtitle / Tagline</label>
+                            <input
+                              type="text"
+                              className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                              value={slideObj.subtitle || ''}
+                              onChange={(e) => handleSlideTextChange(idx, 'subtitle', e.target.value)}
+                              placeholder="Delhi's Premium Used Cars"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div>
+                              <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Title (White part)</label>
+                              <input
+                                type="text"
+                                className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                                value={slideObj.title_white || ''}
+                                onChange={(e) => handleSlideTextChange(idx, 'title_white', e.target.value)}
+                                placeholder="Trusted Cars."
+                              />
+                            </div>
+                            <div>
+                              <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Title (Gold part)</label>
+                              <input
+                                type="text"
+                                className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
+                                value={slideObj.title_gold || ''}
+                                onChange={(e) => handleSlideTextChange(idx, 'title_gold', e.target.value)}
+                                placeholder="Trusted Deals."
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Description</label>
+                            <textarea
+                              className="w-full bg-neutral-900 border border-neutral-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 resize-none font-light leading-snug"
+                              rows={2}
+                              value={slideObj.description || ''}
+                              onChange={(e) => handleSlideTextChange(idx, 'description', e.target.value)}
+                              placeholder="We buy and sell certified pre-owned cars..."
+                            />
+                          </div>
                         </div>
                       </div>
                     );

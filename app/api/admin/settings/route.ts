@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     // Process new hero slides files uploads (if any)
     const newFiles = formData.getAll('hero_slides_files');
     const existingSlidesStr = formData.get('existing_hero_slides') || '[]';
-    let slidesList: string[] = JSON.parse(existingSlidesStr.toString());
+    let slidesList: any[] = JSON.parse(existingSlidesStr.toString());
 
     if (newFiles.length > 0) {
       for (const fileItem of newFiles) {
@@ -55,7 +55,13 @@ export async function POST(request: NextRequest) {
               .from('vehicles')
               .getPublicUrl(`hero/${filename}`);
             
-            slidesList.push(publicUrl);
+            slidesList.push({
+              url: publicUrl,
+              subtitle: "Delhi's Premium Used Cars",
+              title_white: "Trusted Cars. ",
+              title_gold: "Trusted Deals.",
+              description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
+            });
           }
         }
       }

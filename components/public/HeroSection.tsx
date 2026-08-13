@@ -43,13 +43,21 @@ const TRUST_BADGES = [
   { icon: Headphones, title: 'Expert Help',  sub: 'Hassle-Free Deal' },
 ];
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  initialSlides?: any[] | null;
+}
+
+export default function HeroSection({ initialSlides }: HeroSectionProps) {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [slides, setSlides] = useState<(string | HeroSlide)[]>(DEFAULT_SLIDES);
+  const [slides, setSlides] = useState<(string | HeroSlide)[]>(initialSlides || DEFAULT_SLIDES);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
+    if (initialSlides) {
+      setSlides(initialSlides);
+      return;
+    }
     const loadSlides = async () => {
       try {
         const { data } = await supabase
@@ -64,7 +72,7 @@ export default function HeroSection() {
       } catch { /* fallback */ }
     };
     loadSlides();
-  }, []);
+  }, [initialSlides]);
 
   useEffect(() => {
     if (slides.length <= 1) return;

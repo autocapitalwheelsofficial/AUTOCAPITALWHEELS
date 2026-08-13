@@ -28,7 +28,7 @@ async function getHomepageData() {
   try {
     const supabase = createAdminClient();
 
-    const [featuredRes, testimonialsRes, faqsRes] = await Promise.all([
+    const [featuredRes, testimonialsRes, faqsRes, slidesRes] = await Promise.all([
       supabase
         .from('vehicles')
         .select(`
@@ -53,6 +53,11 @@ async function getHomepageData() {
         .select('*')
         .eq('is_active', true)
         .order('sort_order', { ascending: true }),
+      supabase
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'hero_slides')
+        .single(),
     ]);
 
     // Fallback if data is empty (not seeded yet)
@@ -68,10 +73,23 @@ async function getHomepageData() {
       ? faqsRes.data
       : MOCK_FAQS;
 
+    let heroSlides = null;
+    if (slidesRes.data?.value) {
+      try {
+        const parsed = JSON.parse(slidesRes.data.value);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          heroSlides = parsed;
+        }
+      } catch {
+        // ignore
+      }
+    }
+
     return {
       featuredVehicles: featuredVehicles as Vehicle[],
       testimonials: testimonials as Testimonial[],
       faqs: faqs as FAQ[],
+      heroSlides,
     };
   } catch (e) {
     console.warn('[Supabase Fallback] Using mock data because:', e);
@@ -79,6 +97,7 @@ async function getHomepageData() {
       featuredVehicles: MOCK_VEHICLES,
       testimonials: MOCK_TESTIMONIALS,
       faqs: MOCK_FAQS,
+      heroSlides: null,
     };
   }
 }
@@ -86,11 +105,11 @@ async function getHomepageData() {
 import { ShieldCheck, Tag, Clock, MessageSquare, Users, Headphones } from 'lucide-react';
 
 export default async function HomePage() {
-  const { featuredVehicles, testimonials, faqs } = await getHomepageData();
+  const { featuredVehicles, testimonials, faqs, heroSlides } = await getHomepageData();
 
   return (
     <>
-      <HeroSection />
+      <HeroSection initialSlides={heroSlides} />
       <QuickSearch />
       
       {/* Target Screenshot Trust Badges Row */}

@@ -10,8 +10,8 @@ export async function POST(request: NextRequest) {
       request.headers.get('Authorization')?.replace('Bearer ', '') || ''
     );
 
-    // If there is no user or the email is not autocapitalwheels@gmail.com, block access
-    if (!user || user.email?.toLowerCase() !== 'autocapitalwheels@gmail.com') {
+    // If there is no user or the email is not autocapitalwheelsofficial@gmail.com, block access
+    if (!user || user.email?.toLowerCase() !== 'autocapitalwheelsofficial@gmail.com') {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     let { data: admin } = await supabase
       .from('admin_users')
       .select('id')
-      .eq('email', 'autocapitalwheels@gmail.com')
+      .eq('email', 'autocapitalwheelsofficial@gmail.com')
       .single();
 
     // If the admin user doesn't exist in the custom admin table, create one automatically
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       const { data: newAdmin } = await supabase
         .from('admin_users')
         .insert({
-          email: 'autocapitalwheels@gmail.com',
+          email: 'autocapitalwheelsofficial@gmail.com',
           password_hash: '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TiGTbMHCqIqGEMwGgjlH/rCPFtoa', // default dummy
           full_name: 'AutoCapital Wheels Admin',
           role: 'super_admin',

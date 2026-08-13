@@ -8,6 +8,7 @@ import {
   Image, Star, HelpCircle, Settings, LogOut, ChevronLeft, ChevronRight,
   BarChart3, FileText
 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 import type { AdminUser } from '@/types';
 
 const navItems = [
@@ -33,11 +34,18 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
+  const supabase = createClient();
 
   const handleLogout = async () => {
     setLoggingOut(true);
-    await fetch('/api/admin/logout', { method: 'POST' });
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.error('Logout error:', e);
+    }
     router.push('/admin/login');
+    router.refresh();
   };
 
   return (

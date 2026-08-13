@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Loader2, Upload, X, CheckCircle, Save, Phone, Mail, Globe, Clock, ArrowLeft } from 'lucide-react';
+import { Loader2, Upload, X, CheckCircle, Save, Phone, Mail, Globe, Clock, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminSettingsPage() {
@@ -89,6 +89,19 @@ export default function AdminSettingsPage() {
     if (confirm('Delete this slide?')) {
       setExistingSlides((prev) => prev.filter((slide) => slide !== url));
     }
+  };
+
+  const moveSlide = (idx: number, direction: 'left' | 'right') => {
+    const nextIdx = direction === 'left' ? idx - 1 : idx + 1;
+    if (nextIdx < 0 || nextIdx >= existingSlides.length) return;
+    
+    setExistingSlides((prev) => {
+      const copy = [...prev];
+      const temp = copy[idx];
+      copy[idx] = copy[nextIdx];
+      copy[nextIdx] = temp;
+      return copy;
+    });
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -185,10 +198,33 @@ export default function AdminSettingsPage() {
                         ) : (
                           <img src={url} alt="Slide" className="w-full h-full object-cover" />
                         )}
+                        {/* Reordering Controls */}
+                        <div className="absolute top-2 left-2 flex items-center gap-1 z-10">
+                          {idx > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => moveSlide(idx, 'left')}
+                              className="p-1 rounded bg-neutral-900/85 hover:bg-neutral-800 text-white transition-all cursor-pointer shadow"
+                              title="Move Left"
+                            >
+                              <ChevronLeft size={12} />
+                            </button>
+                          )}
+                          {idx < existingSlides.length - 1 && (
+                            <button
+                              type="button"
+                              onClick={() => moveSlide(idx, 'right')}
+                              className="p-1 rounded bg-neutral-900/85 hover:bg-neutral-800 text-white transition-all cursor-pointer shadow"
+                              title="Move Right"
+                            >
+                              <ChevronRight size={12} />
+                            </button>
+                          )}
+                        </div>
                         <button
                           type="button"
                           onClick={() => removeExistingSlide(url)}
-                          className="absolute top-2 right-2 p-1.5 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-all hover:scale-105 cursor-pointer z-10"
+                          className="absolute top-2 right-2 p-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white transition-all hover:scale-105 cursor-pointer z-10 shadow"
                         >
                           <X size={12} />
                         </button>

@@ -71,7 +71,7 @@ function CustomerLoginForm() {
         const user = session.user;
         const phone = user.user_metadata?.phone || user.phone;
         
-        if (user.email?.toLowerCase() === 'autocapitalwheels@gmail.com') {
+        if (user.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com') {
           await fetch('/api/admin/auth-sync', {
             method: 'POST',
             headers: {
@@ -110,7 +110,7 @@ function CustomerLoginForm() {
       } else if (authData.user) {
         const session = (await supabase.auth.getSession()).data.session;
         
-        if (authData.user.email?.toLowerCase() === 'autocapitalwheels@gmail.com') {
+        if (authData.user.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com') {
           await fetch('/api/admin/auth-sync', {
             method: 'POST',
             headers: {
@@ -287,12 +287,24 @@ function CustomerLoginForm() {
 
                 {error && <div className="bg-red-950/20 border border-red-900/60 rounded-lg px-4 py-2.5 text-red-400 text-xs">{error}</div>}
 
-                <button
+                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#b48d36] hover:bg-[#a37e2c] text-black font-bold py-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-all"
+                  className="w-full bg-[#b48d36] hover:bg-[#a37e2c] text-black font-bold py-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   {loading ? <Loader2 size={16} className="animate-spin" /> : 'Complete Registration'}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setNeedsPhone(false);
+                    router.push('/');
+                    router.refresh();
+                  }}
+                  className="w-full bg-transparent hover:bg-neutral-850 text-neutral-400 hover:text-white font-medium py-2 rounded-lg text-xs transition-all cursor-pointer mt-1"
+                >
+                  Skip for now
                 </button>
               </form>
             </div>

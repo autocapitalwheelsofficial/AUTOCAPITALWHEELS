@@ -105,12 +105,17 @@ export default function Header() {
                 { href: '/sell', label: 'SELL YOUR CAR' },
                 { href: '/about', label: 'ABOUT US' },
                 { href: '/contact', label: 'CONTACT US' },
+                ...(user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com'
+                  ? [{ href: '/admin/dashboard', label: 'ADMIN PANEL' }]
+                  : []),
               ].map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   className={`relative px-3.5 py-2 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
-                    pathname === link.href
+                    link.label === 'ADMIN PANEL'
+                      ? 'text-amber-500 hover:text-amber-400 font-extrabold'
+                      : pathname === link.href
                       ? 'text-amber-500'
                       : textColor
                   }`}
@@ -142,6 +147,9 @@ export default function Header() {
                     {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
                   </button>
                   <div className="absolute right-0 top-[90%] pt-2 w-48 bg-[#121215] border border-[#1f1f26] rounded-lg shadow-lg py-2 hidden group-hover:block animate-fade-in-scale">
+                    {user.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
+                      <Link href="/admin/dashboard" className="block px-4 py-2 text-xs font-bold text-amber-500 hover:bg-neutral-800 transition-colors">ADMIN DASHBOARD</Link>
+                    )}
                     <Link href="/profile" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY PROFILE</Link>
                     <Link href="/profile?tab=wishlist" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY WISHLIST</Link>
                     <button
@@ -223,12 +231,19 @@ export default function Header() {
           </div>
 
           <nav className="p-6 flex flex-col gap-1.5">
-            {NAV_LINKS.map((link) => (
+            {[
+              ...NAV_LINKS,
+              ...(user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com'
+                ? [{ href: '/admin/dashboard', label: 'ADMIN PANEL' }]
+                : []),
+            ].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 block ${
-                  pathname === link.href
+                  link.label === 'ADMIN PANEL'
+                    ? 'text-amber-500 font-extrabold border-l-2 border-amber-500 pl-4 w-fit'
+                    : pathname === link.href
                     ? 'text-amber-500 border-l-2 border-amber-500 pl-4 w-fit'
                     : 'text-neutral-400 pl-4'
                 }`}

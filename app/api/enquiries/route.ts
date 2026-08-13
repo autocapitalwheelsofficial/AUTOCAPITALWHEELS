@@ -90,12 +90,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Failed to save enquiry' }, { status: 500 });
     }
 
-    // Increment vehicle enquiry count
+    // Increment vehicle enquiry count (Disabled: enquiry_count column is not in the database schema)
+    /*
     if (data.vehicle_id) {
       supabase.rpc('increment_vehicle_enquiry', { vehicle_id: data.vehicle_id }).then(({ error }) => {
         if (error) console.error('[Enquiry API] increment rpc error:', error);
       });
     }
+    */
 
     // Send email notification (non-blocking)
     const adminEmail = process.env.EMAIL_TO || 'autocapitalwheels@gmail.com';
@@ -106,12 +108,12 @@ export async function POST(request: NextRequest) {
         enquiry_id: enquiry.enquiry_id,
         customer_name: data.customer_name,
         customer_phone: data.customer_phone,
-        customer_email: data.customer_email,
-        customer_city: data.customer_city,
+        customer_email: data.customer_email || undefined,
+        customer_city: data.customer_city || undefined,
         vehicle: vehicleSnapshot || undefined,
-        message: data.message,
+        message: data.message || undefined,
         preferred_contact: data.preferred_contact,
-        preferred_time: data.preferred_time,
+        preferred_time: data.preferred_time || undefined,
         test_drive_requested: data.test_drive_requested,
         created_at: new Date().toISOString(),
       }),

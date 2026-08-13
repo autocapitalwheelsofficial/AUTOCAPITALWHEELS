@@ -22,7 +22,7 @@ async function getDashboardStats() {
     supabase.from('sell_requests').select('id', { count: 'exact' }).eq('status', 'NEW'),
     supabase.from('test_drive_requests').select('id', { count: 'exact' }).eq('status', 'NEW'),
     supabase.from('vehicle_enquiries').select('*, vehicles(make, model, year)').order('created_at', { ascending: false }).limit(5),
-    supabase.from('admin_activity_logs').select('*').order('created_at', { ascending: false }).limit(8),
+    supabase.from('admin_activity_logs').select('*').order('created_at', { ascending: false }).limit(5),
     supabase.from('analytics_events').select('id', { count: 'exact' }).eq('event_type', 'vehicle_view').gte('created_at', today.toISOString()),
   ]);
 
@@ -131,7 +131,7 @@ export default async function AdminDashboard() {
               stats.recentEnquiries.map((enq: any) => (
                 <Link
                   key={enq.id}
-                  href={`/admin/enquiries/${enq.id}`}
+                  href="/admin/enquiries"
                   className="flex items-start justify-between px-5 py-3 hover:bg-gray-50 transition-colors"
                 >
                   <div className="min-w-0">
@@ -164,9 +164,9 @@ export default async function AdminDashboard() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <p className="text-sm text-neutral-900 font-medium">
-                        {log.action.replace(/_/g, ' ')}
+                        {log.action.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                         {log.entity_label && (
-                          <span className="font-normal text-neutral-500"> — {log.entity_label}</span>
+                          <span className="font-normal text-neutral-500 font-mono text-[11px] bg-neutral-50 border border-neutral-200 px-1.5 py-0.5 rounded ml-1.5">{log.entity_label}</span>
                         )}
                       </p>
                       <p className="text-xs text-neutral-400">{log.admin_email}</p>

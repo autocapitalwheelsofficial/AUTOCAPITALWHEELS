@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, Eye, Fuel, Gauge } from 'lucide-react';
@@ -19,13 +20,20 @@ export default function VehicleCard({
   isWishlisted = false,
   variant = 'grid',
 }: VehicleCardProps) {
+  const router = useRouter();
   const title = getVehicleTitle(vehicle);
   const isSold = vehicle.status === 'Sold' || vehicle.availability === 'Sold';
   const imageUrl = vehicle.main_image_url || '/placeholder-car.jpg';
 
   if (variant === 'list') {
     return (
-      <div className={`group flex gap-0 overflow-hidden rounded-2xl bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 ${isSold ? 'opacity-70' : ''}`}>
+      <div
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
+          router.push(`/cars/${vehicle.slug}`);
+        }}
+        className={`group flex gap-0 overflow-hidden rounded-2xl bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 cursor-pointer ${isSold ? 'opacity-70' : ''}`}
+      >
         {/* Image */}
         <div className="relative flex-shrink-0 w-52 h-36 overflow-hidden bg-[#16161a]">
           <Image src={imageUrl} alt={title} fill sizes="208px" className="object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
@@ -75,7 +83,13 @@ export default function VehicleCard({
   }
 
   return (
-    <div className={`group relative flex flex-col rounded-2xl overflow-hidden bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/35 shadow-[0_2px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_0_1px_rgba(180,141,54,0.06)] hover:-translate-y-1.5 transition-all duration-300 ${isSold ? 'opacity-75' : ''}`}>
+    <div
+      onClick={(e) => {
+        if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
+        router.push(`/cars/${vehicle.slug}`);
+      }}
+      className={`group relative flex flex-col rounded-2xl overflow-hidden bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/35 shadow-[0_2px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_0_1px_rgba(180,141,54,0.06)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer ${isSold ? 'opacity-75' : ''}`}
+    >
 
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-[#16161a] flex-shrink-0">

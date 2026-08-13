@@ -163,19 +163,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     }
   };
 
-  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6">
-      <h2 className="font-display font-bold text-lg text-gray-900 mb-5">{title}</h2>
-      {children}
-    </div>
-  );
 
-  const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
-    <div>
-      <label className="form-label">{label}{required && <span className="text-red-500 ml-1">*</span>}</label>
-      {children}
-    </div>
-  );
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
@@ -374,7 +362,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
                   <button
                     type="button"
                     onClick={() => removeExistingImage(img.id)}
-                    className="absolute top-1 right-1 p-1 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-1.5 right-1.5 p-1 rounded-full bg-red-600 hover:bg-red-700 text-white transition-colors shadow z-10 cursor-pointer"
                     aria-label="Remove image"
                   >
                     <X size={10} />
@@ -479,3 +467,17 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     </form>
   );
 }
+
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="bg-white rounded-2xl border border-gray-200 p-6">
+    <h2 className="font-display font-bold text-lg text-gray-900 mb-5">{title}</h2>
+    {children}
+  </div>
+);
+
+const Field = ({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) => (
+  <div>
+    <label className="form-label">{label}{required && <span className="text-red-500 ml-1">*</span>}</label>
+    {children}
+  </div>
+);

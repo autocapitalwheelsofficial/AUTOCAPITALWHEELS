@@ -116,7 +116,7 @@ export function buildEnquiryEmail(data: {
     : 'Not specified';
 
   const priceStr = data.vehicle?.price
-    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(data.vehicle.price)
+    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Number(data.vehicle.price))
     : 'N/A';
 
   return emailWrapper(`
@@ -168,7 +168,7 @@ export function buildSellRequestEmail(data: {
   created_at: string;
 }): string {
   const expectedPrice = data.expected_price
-    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(data.expected_price)
+    ? new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Number(data.expected_price))
     : 'Not specified';
 
   return emailWrapper(`

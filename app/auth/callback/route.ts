@@ -37,20 +37,20 @@ export async function GET(request: Request) {
       const email = session.user.email?.toLowerCase();
       
       // Handle Admin login sync
-      if (email === 'autocapitalwheels@gmail.com') {
+      if (email === 'autocapitalwheelsofficial@gmail.com') {
         const adminSupabase = createAdminClient();
         
         let { data: admin } = await adminSupabase
           .from('admin_users')
           .select('id')
-          .eq('email', 'autocapitalwheels@gmail.com')
+          .eq('email', 'autocapitalwheelsofficial@gmail.com')
           .single();
 
         if (!admin) {
           const { data: newAdmin } = await adminSupabase
             .from('admin_users')
             .insert({
-              email: 'autocapitalwheels@gmail.com',
+              email: 'autocapitalwheelsofficial@gmail.com',
               password_hash: '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TiGTbMHCqIqGEMwGgjlH/rCPFtoa',
               full_name: 'AutoCapital Wheels Admin',
               role: 'super_admin',

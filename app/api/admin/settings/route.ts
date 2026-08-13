@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
           const filename = `hero_slide_${crypto.randomUUID()}.${extension}`;
           
           const { error: uploadError } = await supabase.storage
-            .from('vehicles')
+            .from('vehicle-images')
             .upload(`hero/${filename}`, fileItem, {
               contentType: fileItem.type,
               cacheControl: '3600',
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
           }
 
           const { data: { publicUrl } } = supabase.storage
-            .from('vehicles')
+            .from('vehicle-images')
             .getPublicUrl(`hero/${filename}`);
           uploadedUrls.push(publicUrl);
         }

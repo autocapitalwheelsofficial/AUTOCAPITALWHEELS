@@ -9,8 +9,13 @@ async function getAnalyticsMetrics() {
   // Fetch vehicles
   const { data: vehicles } = await supabase
     .from('vehicles')
-    .select('id, make, model, year, price, view_count')
-    .order('view_count', { ascending: false });
+    .select('id, make, model, year, price');
+
+  // Fetch all vehicle view events
+  const { data: viewEvents } = await supabase
+    .from('analytics_events')
+    .select('vehicle_id')
+    .eq('event_type', 'vehicle_view');
 
   // Fetch all vehicle enquiries to calculate real per-car enquiry counts
   const { data: enquiries } = await supabase
@@ -19,16 +24,22 @@ async function getAnalyticsMetrics() {
 
   // Fetch total counts for other lead metrics
   const [
-    totalViewsEvent,
     whatsappClicks,
     totalSellRequests,
     totalTestDrives,
   ] = await Promise.all([
-    supabase.from('analytics_events').select('id', { count: 'exact', head: true }).eq('event_type', 'vehicle_view'),
     supabase.from('analytics_events').select('id', { count: 'exact', head: true }).eq('event_type', 'whatsapp_click'),
     supabase.from('sell_requests').select('id', { count: 'exact', head: true }),
     supabase.from('test_drive_requests').select('id', { count: 'exact', head: true }),
   ]);
+
+  // Compute view counts per vehicle in memory
+  const viewCountMap: Record<string, number> = {};
+  (viewEvents || []).forEach((evt: any) => {
+    if (evt.vehicle_id) {
+      viewCountMap[evt.vehicle_id] = (viewCountMap[evt.vehicle_id] || 0) + 1;
+    }
+  });
 
   // Compute enquiry counts per vehicle in memory
   const enquiryCountMap: Record<string, number> = {};
@@ -40,10 +51,14 @@ async function getAnalyticsMetrics() {
 
   const vehicleList = (vehicles || []).map((v) => ({
     ...v,
+    real_view_count: viewCountMap[v.id] || 0,
     real_enquiry_count: enquiryCountMap[v.id] || 0,
   }));
 
-  const totalViews = totalViewsEvent.count || vehicleList.reduce((sum, v) => sum + (v.view_count || 0), 0);
+  // Sort vehicles by real view count descending
+  vehicleList.sort((a, b) => b.real_view_count - a.real_view_count);
+
+  const totalViews = viewEvents?.length || 0;
   const totalEnquiries = enquiries?.length || 0;
   const totalLeads = totalEnquiries + (totalSellRequests.count || 0) + (totalTestDrives.count || 0);
 
@@ -203,7 +218,7 @@ export default async function AdminAnalyticsPage() {
                 </tr>
               ) : (
                 data.vehicles.map((v) => {
-                  const rate = v.view_count > 0 ? ((v.real_enquiry_count / v.view_count) * 100).toFixed(1) : '0';
+                  const rate = v.real_view_count > 0 ? ((v.real_enquiry_count / v.real_view_count) * 100).toFixed(1) : '0';
                   return (
                     <tr key={v.id} className="hover:bg-neutral-50/50 transition-colors">
                       <td className="p-4 font-bold text-neutral-800">
@@ -212,7 +227,7 @@ export default async function AdminAnalyticsPage() {
                       <td className="p-4 text-center font-semibold text-neutral-800">
                         <span className="inline-flex items-center gap-1">
                           <Eye size={12} className="text-neutral-400" />
-                          {v.view_count || 0}
+                          {v.real_view_count || 0}
                         </span>
                       </td>
                       <td className="p-4 text-center font-semibold text-neutral-800">

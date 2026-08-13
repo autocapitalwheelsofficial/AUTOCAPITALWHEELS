@@ -27,11 +27,9 @@ export default function VehicleCard({
 
   if (variant === 'list') {
     return (
-      <div
-        onClick={(e) => {
-          if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
-          router.push(`/cars/${vehicle.slug}`);
-        }}
+      <Link
+        href={`/cars/${vehicle.slug}`}
+        prefetch={true}
         className={`group flex gap-0 overflow-hidden rounded-2xl bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 cursor-pointer ${isSold ? 'opacity-70' : ''}`}
       >
         {/* Image */}
@@ -54,9 +52,9 @@ export default function VehicleCard({
         <div className="flex flex-1 flex-col justify-between p-4 bg-[#121215]">
           <div>
             <div className="flex items-start justify-between gap-2 mb-1">
-              <Link href={`/cars/${vehicle.slug}`} className="hover:opacity-80 transition-opacity">
+              <span className="hover:opacity-80 transition-opacity">
                 <h3 className="font-display font-bold text-base text-white leading-snug">{title}</h3>
-              </Link>
+              </span>
               {onWishlistToggle && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWishlistToggle(vehicle.id); }}
@@ -73,21 +71,19 @@ export default function VehicleCard({
           </div>
           <div className="flex items-end justify-between border-t border-[#1f1f26] pt-3 mt-3">
             <span className="font-display font-bold text-base text-white">{formatPrice(vehicle.price)}</span>
-            <Link href={`/cars/${vehicle.slug}`} className="text-[10px] font-bold tracking-widest text-[#b48d36] uppercase hover:opacity-75 transition-opacity">
+            <span className="text-[10px] font-bold tracking-widest text-[#b48d36] uppercase hover:opacity-75 transition-opacity">
               View Details →
-            </Link>
+            </span>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 
   return (
-    <div
-      onClick={(e) => {
-        if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('a')) return;
-        router.push(`/cars/${vehicle.slug}`);
-      }}
+    <Link
+      href={`/cars/${vehicle.slug}`}
+      prefetch={true}
       className={`group relative flex flex-col rounded-2xl overflow-hidden bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/35 shadow-[0_2px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_0_1px_rgba(180,141,54,0.06)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer ${isSold ? 'opacity-75' : ''}`}
     >
 
@@ -132,16 +128,12 @@ export default function VehicleCard({
 
         {/* Quick view on hover */}
         {!isSold && (
-          <Link
-            href={`/cars/${vehicle.slug}`}
-            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[5]"
-            aria-label={`Quick view ${title}`}
-          >
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-[5]">
             <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold tracking-widest uppercase px-3 py-2 rounded-lg border border-white/10">
               <Eye size={11} />
               Quick View
             </span>
-          </Link>
+          </div>
         )}
 
         {/* Marketing badges */}
@@ -175,14 +167,14 @@ export default function VehicleCard({
             )}
           </div>
 
-          <Link href={`/cars/${vehicle.slug}`} className="block group/title">
+          <div className="block group/title">
             <h3 className="font-display font-bold text-sm text-white tracking-tight leading-tight group-hover/title:text-[#b48d36] transition-colors duration-200">
               {vehicle.make} {vehicle.model}
             </h3>
             {vehicle.variant && (
               <p className="text-[10px] text-neutral-500 mt-0.5 font-medium">{vehicle.variant}</p>
             )}
-          </Link>
+          </div>
         </div>
 
         {/* Price & Action */}
@@ -193,15 +185,12 @@ export default function VehicleCard({
               <span className="block text-[10px] text-neutral-500 line-through">{formatPrice(vehicle.original_price)}</span>
             )}
           </div>
-          <Link
-            href={`/cars/${vehicle.slug}`}
-            className="flex-shrink-0 text-[9px] font-bold tracking-widest text-[#b48d36] uppercase hover:text-[#d4a94e] transition-colors duration-200 flex items-center gap-1"
-          >
+          <span className="flex-shrink-0 text-[9px] font-bold tracking-widest text-[#b48d36] uppercase hover:text-[#d4a94e] transition-colors duration-200 flex items-center gap-1">
             Details
             <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-          </Link>
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -1,0 +1,7 @@
+-- ALTER TABLE vehicles to add sales-tracking columns
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS sold_price DECIMAL(12,2);
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS sold_date TIMESTAMPTZ;
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS buyer_name TEXT;
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS buyer_phone TEXT;
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS buyer_email TEXT;
+ALTER TABLE vehicles ADD COLUMN IF NOT EXISTS sales_notes TEXT;

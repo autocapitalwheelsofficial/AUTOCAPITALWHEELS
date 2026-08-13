@@ -13,7 +13,7 @@ async function getVehicles(searchParams: Record<string, string>) {
 
   let query = supabase
     .from('vehicles')
-    .select('id, slug, make, model, variant, year, price, mileage, fuel_type, transmission, status, availability, main_image_url, is_featured, is_hot_deal, is_new_arrival, view_count, enquiry_count, created_at', { count: 'exact' })
+    .select('id, slug, make, model, variant, year, price, mileage, fuel_type, transmission, status, availability, main_image_url, is_featured, is_hot_deal, is_new_arrival, view_count, enquiry_count, created_at, sold_price, sold_date, buyer_name, buyer_phone', { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(offset, offset + per_page - 1);
 
@@ -32,17 +32,36 @@ export default async function AdminVehiclesPage({
   const params = await searchParams;
   const { vehicles, total, page, per_page } = await getVehicles(params);
 
+  let totalRevenue = 0;
+  if (params.status === 'Sold') {
+    const supabase = createAdminClient();
+    const { data: soldData } = await supabase
+      .from('vehicles')
+      .select('price, sold_price')
+      .eq('status', 'Sold');
+    
+    totalRevenue = (soldData || []).reduce((sum, item) => sum + Number(item.sold_price || item.price || 0), 0);
+  }
+
   return (
     <div className="p-6 lg:p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-display font-bold text-2xl text-neutral-900">Vehicles</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">{total} vehicle{total !== 1 ? 's' : ''} total</p>
+          <h1 className="font-display font-bold text-2xl text-neutral-900">
+            {params.status === 'Sold' ? 'Sold Vehicles Register' : 'Vehicles'}
+          </h1>
+          <p className="text-neutral-500 text-sm mt-0.5">
+            {params.status === 'Sold'
+              ? `${total} cars sold • Total Revenue: ₹${(totalRevenue / 100000).toFixed(2)} Lakh`
+              : `${total} vehicle${total !== 1 ? 's' : ''} total`}
+          </p>
         </div>
-        <Link href="/admin/vehicles/new" className="btn-primary text-sm py-2.5 px-5" id="admin-add-vehicle-btn">
-          <Plus size={16} />
-          Add Vehicle
-        </Link>
+        {params.status !== 'Sold' && (
+          <Link href="/admin/vehicles/new" className="btn-primary text-sm py-2.5 px-5" id="admin-add-vehicle-btn">
+            <Plus size={16} />
+            Add Vehicle
+          </Link>
+        )}
       </div>
 
       {/* Filters */}

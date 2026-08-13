@@ -126,6 +126,16 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
                         <div className="min-w-0">
                           <div className="font-semibold text-gray-900 truncate max-w-[180px]">{title}</div>
                           <div className="text-xs text-gray-400 truncate">{vehicle.slug}</div>
+                          {vehicle.status === 'Sold' && (vehicle as any).sold_price && (
+                            <div className="text-[10px] text-[#b48d36] font-semibold mt-0.5">
+                              Sold: ₹{((vehicle as any).sold_price / 100000).toFixed(2)} Lakh
+                            </div>
+                          )}
+                          {vehicle.status === 'Sold' && (vehicle as any).buyer_name && (
+                            <div className="text-[9px] text-neutral-500">
+                              Buyer: {(vehicle as any).buyer_name}
+                            </div>
+                          )}
                         </div>
                         {vehicle.is_featured && <Star size={13} className="text-amber-500 flex-shrink-0" />}
                       </div>

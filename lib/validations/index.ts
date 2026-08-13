@@ -134,6 +134,12 @@ export const vehicleSchema = z.object({
   seo_description: z.string().optional(),
   slug: z.string().optional(),
   status: z.enum(['Draft', 'Active', 'Reserved', 'Sold', 'Archived']).default('Draft'),
+  sold_price: z.number().nullable().optional(),
+  sold_date: z.string().nullable().optional(),
+  buyer_name: z.string().nullable().optional(),
+  buyer_phone: z.string().nullable().optional(),
+  buyer_email: z.string().nullable().optional(),
+  sales_notes: z.string().nullable().optional(),
 });
 
 export type VehicleFormValues = z.infer<typeof vehicleSchema>;

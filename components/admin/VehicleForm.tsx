@@ -70,6 +70,12 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     is_price_drop: vehicle?.is_price_drop || false,
     seo_title: vehicle?.seo_title || '',
     seo_description: vehicle?.seo_description || '',
+    sold_price: vehicle?.sold_price || '',
+    sold_date: vehicle?.sold_date ? new Date(vehicle.sold_date).toISOString().split('T')[0] : '',
+    buyer_name: vehicle?.buyer_name || '',
+    buyer_phone: vehicle?.buyer_phone || '',
+    buyer_email: vehicle?.buyer_email || '',
+    sales_notes: vehicle?.sales_notes || '',
   });
 
   const setField = (key: string, value: any) => setForm((prev) => ({ ...prev, [key]: value }));
@@ -116,6 +122,12 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
         seating_capacity: form.seating_capacity ? parseInt(String(form.seating_capacity)) : null,
         engine_cc: form.engine_cc ? parseInt(String(form.engine_cc)) : null,
         registration_year: form.registration_year ? parseInt(String(form.registration_year)) : null,
+        sold_price: form.status === 'Sold' && form.sold_price ? parseFloat(String(form.sold_price)) : null,
+        sold_date: form.status === 'Sold' && form.sold_date ? new Date(form.sold_date).toISOString() : null,
+        buyer_name: form.status === 'Sold' ? form.buyer_name : null,
+        buyer_phone: form.status === 'Sold' ? form.buyer_phone : null,
+        buyer_email: form.status === 'Sold' ? form.buyer_email : null,
+        sales_notes: form.status === 'Sold' ? form.sales_notes : null,
       };
 
       if (isEdit) {
@@ -291,6 +303,70 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
           ))}
         </div>
       </Section>
+
+      {/* Sales & Transaction Details (Only if status is Sold) */}
+      {form.status === 'Sold' && (
+        <Section title="Sales & Transaction Details">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Field label="Final Sale Price (₹)" required>
+              <input
+                type="number"
+                className="form-input border-amber-500/50 focus:border-amber-500"
+                placeholder="Actual selling price"
+                min="0"
+                value={form.sold_price}
+                onChange={(e) => setField('sold_price', e.target.value)}
+                required
+              />
+            </Field>
+            <Field label="Sale Date" required>
+              <input
+                type="date"
+                className="form-input border-amber-500/50 focus:border-amber-500"
+                value={form.sold_date}
+                onChange={(e) => setField('sold_date', e.target.value)}
+                required
+              />
+            </Field>
+            <Field label="Buyer Name">
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Full name of customer"
+                value={form.buyer_name}
+                onChange={(e) => setField('buyer_name', e.target.value)}
+              />
+            </Field>
+            <Field label="Buyer Phone">
+              <input
+                type="text"
+                className="form-input"
+                placeholder="10-digit mobile number"
+                value={form.buyer_phone}
+                onChange={(e) => setField('buyer_phone', e.target.value)}
+              />
+            </Field>
+            <Field label="Buyer Email">
+              <input
+                type="email"
+                className="form-input"
+                placeholder="email@example.com"
+                value={form.buyer_email}
+                onChange={(e) => setField('buyer_email', e.target.value)}
+              />
+            </Field>
+            <Field label="Sales / Deal Notes">
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Remarks, discount reasons, exchange deal details..."
+                value={form.sales_notes}
+                onChange={(e) => setField('sales_notes', e.target.value)}
+              />
+            </Field>
+          </div>
+        </Section>
+      )}
 
       {/* Documentation */}
       <Section title="Documentation & Condition">

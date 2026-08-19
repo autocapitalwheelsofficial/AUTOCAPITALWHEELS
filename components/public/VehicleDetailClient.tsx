@@ -16,6 +16,7 @@ import { WHATSAPP_NUMBER } from '@/lib/constants';
 import EnquiryModal from './EnquiryModal';
 import TestDriveModal from './TestDriveModal';
 import VehicleCard from './VehicleCard';
+import EmiCalculator from './EmiCalculator';
 
 interface VehicleDetailClientProps {
   vehicle: Vehicle;
@@ -53,12 +54,12 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
       <div className="pt-20 min-h-screen bg-[#0a0a0c]">
         {/* Breadcrumb */}
         <div className="bg-[#0d0d10] border-b border-[#1f1f26]">
-          <div className="container-custom py-3 text-sm text-neutral-400 flex items-center gap-2">
-            <Link href="/" className="hover:text-white">Home</Link>
-            <span>/</span>
-            <Link href="/cars" className="hover:text-white">Cars</Link>
-            <span>/</span>
-            <span className="text-white font-medium truncate">{title}</span>
+          <div className="container-custom py-4 text-[10px] font-bold tracking-widest uppercase text-neutral-500 flex items-center gap-2.5">
+            <Link href="/" className="hover:text-amber-400 transition-colors">Home</Link>
+            <ChevronRight size={12} className="text-neutral-700" />
+            <Link href="/cars" className="hover:text-amber-400 transition-colors">Cars</Link>
+            <ChevronRight size={12} className="text-neutral-700" />
+            <span className="text-metallic-gold truncate drop-shadow-sm">{title}</span>
           </div>
         </div>
 
@@ -219,7 +220,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   { icon: Users, label: 'Ownership', value: getOwnershipLabel(vehicle.ownership) },
                   { icon: MapPin, label: 'Location', value: vehicle.location || 'Gurugram' },
                 ].map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="bg-[#121215] rounded-lg border border-[#1f1f26] p-3">
+                  <div key={label} className="bg-[#121215] rounded-lg border border-[#1f1f26] p-3 hover:border-[#b48d36]/30 hover:shadow-[0_0_20px_rgba(180,141,54,0.05)] transition-all duration-300">
                     <div className="flex items-center gap-1.5 text-neutral-400 mb-1">
                       <Icon size={13} />
                       <span className="text-xs">{label}</span>
@@ -314,6 +315,13 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   <p className="text-xs text-neutral-400 mt-2">Insurance: {vehicle.insurance_status}</p>
                 )}
               </div>
+
+              {/* EMI Calculator */}
+              {!isSold && vehicle.price > 0 && (
+                <div className="pt-2">
+                  <EmiCalculator vehiclePrice={vehicle.price} />
+                </div>
+              )}
             </div>
           </div>
 

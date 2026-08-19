@@ -92,8 +92,8 @@ export default function Header() {
 
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            {/* Desktop Nav with Mega Menu */}
+            <nav className="hidden lg:flex items-center gap-1 group/nav h-full">
               {/* HOME */}
               <Link
                 href="/"
@@ -107,53 +107,33 @@ export default function Header() {
                 )}
               </Link>
 
-              {/* BUY CARS / INVENTORY (Dropdown) */}
-              <div className="relative group px-1">
-                <Link
-                  href="/cars"
-                  className={`relative flex items-center gap-1 px-2.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
-                    pathname.startsWith('/cars') ? 'text-amber-500' : textColor
-                  } group-hover:text-amber-400`}
-                >
-                  BUY CARS
-                  <ChevronDown size={12} className="transition-transform duration-300 group-hover:rotate-180" />
-                  {pathname.startsWith('/cars') && (
-                    <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-amber-500" />
-                  )}
-                </Link>
-                {/* Dropdown Menu */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-48 pt-2 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
-                  <div className="bg-[#121215]/95 backdrop-blur-xl border border-neutral-800 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex flex-col">
-                    <Link href="/cars" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">All Inventory</Link>
-                    <Link href="/cars?body_type=SUV" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">SUVs</Link>
-                    <Link href="/cars?body_type=Sedan" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Sedans</Link>
-                    <Link href="/cars?body_type=Luxury" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Luxury Collection</Link>
-                  </div>
-                </div>
-              </div>
+              {/* BUY CARS */}
+              <Link
+                href="/cars"
+                className={`relative flex items-center gap-1 px-3.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  pathname.startsWith('/cars') ? 'text-amber-500' : textColor
+                } hover:text-amber-400`}
+              >
+                BUY CARS
+                <ChevronDown size={12} className="transition-transform duration-300 group-hover/nav:rotate-180" />
+                {pathname.startsWith('/cars') && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                )}
+              </Link>
 
-              {/* SELL YOUR CAR (Dropdown) */}
-              <div className="relative group px-1">
-                <Link
-                  href="/sell"
-                  className={`relative flex items-center gap-1 px-2.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
-                    pathname === '/sell' ? 'text-amber-500' : textColor
-                  } group-hover:text-amber-400`}
-                >
-                  SELL YOUR CAR
-                  <ChevronDown size={12} className="transition-transform duration-300 group-hover:rotate-180" />
-                  {pathname === '/sell' && (
-                    <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-amber-500" />
-                  )}
-                </Link>
-                {/* Dropdown Menu */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-48 pt-2 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
-                  <div className="bg-[#121215]/95 backdrop-blur-xl border border-neutral-800 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex flex-col">
-                    <Link href="/sell" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Get Free Quote</Link>
-                    <Link href="/about" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">How It Works</Link>
-                  </div>
-                </div>
-              </div>
+              {/* SELL YOUR CAR */}
+              <Link
+                href="/sell"
+                className={`relative flex items-center gap-1 px-3.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  pathname === '/sell' ? 'text-amber-500' : textColor
+                } hover:text-amber-400`}
+              >
+                SELL YOUR CAR
+                <ChevronDown size={12} className="transition-transform duration-300 group-hover/nav:rotate-180" />
+                {pathname === '/sell' && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                )}
+              </Link>
 
               {/* ABOUT US */}
               <Link
@@ -190,6 +170,84 @@ export default function Header() {
                   ADMIN PANEL
                 </Link>
               )}
+
+              {/* FULL WIDTH MEGA MENU */}
+              <div className="absolute top-full left-0 w-full opacity-0 invisible translate-y-4 transition-all duration-500 ease-out group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 z-[60]">
+                <div className="w-full bg-[#121215]/95 backdrop-blur-3xl border-t border-b border-[#2a2a33] shadow-[0_40px_80px_rgba(0,0,0,0.8)] relative overflow-hidden">
+                  
+                  {/* Subtle Glows */}
+                  <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#b48d36]/5 rounded-full filter blur-3xl -translate-y-1/2" />
+                  <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full filter blur-3xl translate-y-1/2" />
+
+                  <div className="container-custom py-10 relative z-10">
+                    <div className="grid grid-cols-4 gap-8">
+                      
+                      {/* Column 1: Buy Cars */}
+                      <div className="space-y-4 border-r border-[#1f1f26]">
+                        <h3 className="font-display font-black text-sm tracking-widest uppercase text-white mb-2 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                          Inventory
+                        </h3>
+                        <div className="flex flex-col gap-1.5">
+                          <Link href="/cars" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">All Inventory</Link>
+                          <Link href="/cars?body_type=SUV" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Premium SUVs</Link>
+                          <Link href="/cars?body_type=Sedan" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Luxury Sedans</Link>
+                          <Link href="/cars?body_type=Luxury" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Exclusive Collection</Link>
+                        </div>
+                      </div>
+
+                      {/* Column 2: Sell Your Car */}
+                      <div className="space-y-4 border-r border-[#1f1f26]">
+                        <h3 className="font-display font-black text-sm tracking-widest uppercase text-white mb-2 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                          Sell / Trade
+                        </h3>
+                        <div className="flex flex-col gap-1.5">
+                          <Link href="/sell" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Get Free Quote</Link>
+                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">How It Works</Link>
+                        </div>
+                      </div>
+
+                      {/* Column 3: Company */}
+                      <div className="space-y-4">
+                        <h3 className="font-display font-black text-sm tracking-widest uppercase text-white mb-2 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                          Company
+                        </h3>
+                        <div className="flex flex-col gap-1.5">
+                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">About Us</Link>
+                          <Link href="/contact" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Contact Us</Link>
+                          <Link href="/privacy-policy" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Privacy Policy</Link>
+                          <Link href="/terms" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Terms of Service</Link>
+                        </div>
+                      </div>
+
+                      {/* Column 4: Premium Card */}
+                      <div className="col-span-1 pl-4">
+                        <div className="relative h-full rounded-2xl overflow-hidden group/card cursor-pointer border border-[#2a2a33]">
+                          <img 
+                            src="/hero-3.jpg" 
+                            alt="Luxury Collection" 
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
+                            onError={(e) => {
+                              e.currentTarget.src = 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=800&auto=format&fit=crop';
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                          <div className="absolute inset-0 p-5 flex flex-col justify-end">
+                            <h4 className="text-white font-display font-black text-lg uppercase tracking-wider mb-1">Discover Luxury</h4>
+                            <p className="text-neutral-300 text-xs mb-3">Explore our handpicked collection of premium vehicles.</p>
+                            <Link href="/cars" className="inline-block bg-[#b48d36] hover:bg-[#a37e2c] text-black font-bold text-[10px] tracking-widest uppercase px-4 py-2 rounded transition-colors w-fit">
+                              View Collection
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </nav>
 
             {/* Right Actions */}

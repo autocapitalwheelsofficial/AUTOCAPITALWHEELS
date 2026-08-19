@@ -94,12 +94,12 @@ export default function VehicleCard({
           alt={title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           loading="lazy"
         />
 
         {/* Subtle dark gradient at bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121215]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/30 to-transparent" />
 
         {/* Sold overlay */}
         {isSold && (

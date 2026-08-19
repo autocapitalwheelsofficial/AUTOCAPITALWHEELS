@@ -61,7 +61,9 @@ export default function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [isMenuOpen]);
 
-  const headerBg = 'bg-[#0a0a0c] border-b border-neutral-800/80 shadow-md';
+  const headerBg = isScrolled 
+    ? 'bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-neutral-800/80 shadow-lg' 
+    : 'bg-[#0a0a0c] border-b border-neutral-800/80 shadow-md';
 
   const isDarkHeader = true;
 
@@ -189,10 +191,10 @@ export default function Header() {
                           Inventory
                         </h3>
                         <div className="flex flex-col gap-1.5">
-                          <Link href="/cars" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">All Inventory</Link>
-                          <Link href="/cars?body_type=SUV" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Premium SUVs</Link>
-                          <Link href="/cars?body_type=Sedan" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Luxury Sedans</Link>
-                          <Link href="/cars?body_type=Luxury" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Exclusive Collection</Link>
+                          <Link href="/cars" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">All Inventory</Link>
+                          <Link href="/cars?body_type=SUV" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Premium SUVs</Link>
+                          <Link href="/cars?body_type=Sedan" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Luxury Sedans</Link>
+                          <Link href="/cars?body_type=Luxury" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Exclusive Collection</Link>
                         </div>
                       </div>
 
@@ -203,8 +205,8 @@ export default function Header() {
                           Sell / Trade
                         </h3>
                         <div className="flex flex-col gap-1.5">
-                          <Link href="/sell" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Get Free Quote</Link>
-                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">How It Works</Link>
+                          <Link href="/sell" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Get Free Quote</Link>
+                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">How It Works</Link>
                         </div>
                       </div>
 
@@ -215,10 +217,10 @@ export default function Header() {
                           Company
                         </h3>
                         <div className="flex flex-col gap-1.5">
-                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">About Us</Link>
-                          <Link href="/contact" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Contact Us</Link>
-                          <Link href="/privacy-policy" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Privacy Policy</Link>
-                          <Link href="/terms" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 transition-colors uppercase py-1">Terms of Service</Link>
+                          <Link href="/about" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">About Us</Link>
+                          <Link href="/contact" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Contact Us</Link>
+                          <Link href="/privacy-policy" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Privacy Policy</Link>
+                          <Link href="/terms" className="text-xs font-bold tracking-wider text-neutral-400 hover:text-amber-400 hover:translate-x-1 transition-all uppercase py-1">Terms of Service</Link>
                         </div>
                       </div>
 
@@ -324,10 +326,10 @@ export default function Header() {
               </button>
               <div className={`overflow-hidden transition-all duration-300 ${openAccordions.buy ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">All Inventory</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">SUVs</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Sedans</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Luxury Collection</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">All Inventory</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">SUVs</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">Sedans</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">Luxury Collection</Link>
                 </div>
               </div>
             </div>
@@ -343,8 +345,8 @@ export default function Header() {
               </button>
               <div className={`overflow-hidden transition-all duration-300 ${openAccordions.sell ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
-                  <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Get Free Quote</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">How It Works</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">Get Free Quote</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">How It Works</Link>
                 </div>
               </div>
             </div>

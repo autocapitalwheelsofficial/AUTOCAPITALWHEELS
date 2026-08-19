@@ -165,24 +165,24 @@ export default function SellCarClient() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Full Name *</label>
-                <input type="text" placeholder="Your full name" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('owner_name')} />
+                <input type="text" placeholder="Your full name" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('owner_name')} />
                 {errors.owner_name && <p className="text-red-500 text-[10px] mt-1">{errors.owner_name.message}</p>}
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Mobile Number *</label>
                 <div className="flex">
                   <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-neutral-800 bg-[#16161a] text-xs text-neutral-500 font-semibold">+91</span>
-                  <input type="tel" placeholder="10-digit number" maxLength={10} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-r-lg focus:outline-none focus:border-amber-500 text-white" {...register('owner_phone')} />
+                  <input type="tel" placeholder="10-digit number" maxLength={10} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-r-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('owner_phone')} />
                 </div>
                 {errors.owner_phone && <p className="text-red-500 text-[10px] mt-1">{errors.owner_phone.message}</p>}
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Email Address (optional)</label>
-                <input type="email" placeholder="your@email.com" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('owner_email')} />
+                <input type="email" placeholder="your@email.com" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('owner_email')} />
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">City *</label>
-                <input type="text" placeholder="Your city" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('owner_city')} />
+                <input type="text" placeholder="Your city" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('owner_city')} />
                 {errors.owner_city && <p className="text-red-500 text-[10px] mt-1">{errors.owner_city.message}</p>}
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function SellCarClient() {
                 <button
                   type="button"
                   onClick={() => setOpenMakeDropdown(!openMakeDropdown)}
-                  className={`w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[#16161a] border ${errors.make ? 'border-red-500' : 'border-neutral-800'} rounded-lg hover:border-amber-500/50 text-white transition-all duration-300 text-left cursor-pointer`}
+                  className={`w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[#16161a] border ${errors.make ? 'border-red-500' : 'border-neutral-800'} rounded-lg hover:border-[#b48d36] focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 text-white transition-all duration-300 text-left cursor-pointer`}
                   id="sell-make-btn"
                 >
                   <span className="truncate">{selectedMakeWatch || 'Select Make'}</span>
@@ -225,25 +225,25 @@ export default function SellCarClient() {
 
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Model *</label>
-                <input type="text" placeholder="e.g. Swift, Creta, Nexon" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('model')} />
+                <input type="text" placeholder="e.g. Swift, Creta, Nexon" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('model')} />
                 {errors.model && <p className="text-red-500 text-[10px] mt-1">{errors.model.message}</p>}
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Variant (optional)</label>
-                <input type="text" placeholder="e.g. VXI, SX, ZX+" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('variant')} />
+                <input type="text" placeholder="e.g. VXI, SX, ZX+" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('variant')} />
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Manufacturing Year *</label>
-                <input type="number" placeholder="e.g. 2020" min="1990" max={new Date().getFullYear()} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('manufacturing_year', { valueAsNumber: true })} />
+                <input type="number" placeholder="e.g. 2020" min="1990" max={new Date().getFullYear()} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('manufacturing_year', { valueAsNumber: true })} />
                 {errors.manufacturing_year && <p className="text-red-500 text-[10px] mt-1">{errors.manufacturing_year.message}</p>}
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Registration Year (optional)</label>
-                <input type="number" placeholder="e.g. 2020" min="1990" max={new Date().getFullYear()} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('registration_year', { valueAsNumber: true })} />
+                <input type="number" placeholder="e.g. 2020" min="1990" max={new Date().getFullYear()} className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('registration_year', { valueAsNumber: true })} />
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Fuel Type *</label>
-                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none" {...register('fuel_type')}>
+                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none" {...register('fuel_type')}>
                   <option value="">Select</option>
                   {FUEL_TYPES.map((f) => <option key={f} value={f}>{f}</option>)}
                 </select>
@@ -251,7 +251,7 @@ export default function SellCarClient() {
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Transmission *</label>
-                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none" {...register('transmission')}>
+                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none" {...register('transmission')}>
                   <option value="">Select</option>
                   {TRANSMISSION_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
@@ -259,28 +259,28 @@ export default function SellCarClient() {
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Kilometres Driven *</label>
-                <input type="number" placeholder="e.g. 45000" min="0" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('kms_driven', { valueAsNumber: true })} />
+                <input type="number" placeholder="e.g. 45000" min="0" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('kms_driven', { valueAsNumber: true })} />
                 {errors.kms_driven && <p className="text-red-500 text-[10px] mt-1">{errors.kms_driven.message}</p>}
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Number of Owners</label>
-                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none" {...register('number_of_owners', { valueAsNumber: true })}>
+                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none" {...register('number_of_owners', { valueAsNumber: true })}>
                   {[1,2,3,4,5].map((n) => <option key={n} value={n}>{n}</option>)}
                 </select>
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Expected Selling Price (₹) (optional)</label>
-                <input type="number" placeholder="e.g. 500000" min="0" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white" {...register('expected_price', { valueAsNumber: true })} />
+                <input type="number" placeholder="e.g. 500000" min="0" className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white" {...register('expected_price', { valueAsNumber: true })} />
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Vehicle Condition *</label>
-                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none" {...register('vehicle_condition')}>
+                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none" {...register('vehicle_condition')}>
                   {VEHICLE_CONDITIONS.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
               <div>
                 <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5 font-sans">Insurance Status (optional)</label>
-                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none" {...register('insurance_status')}>
+                <select className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none" {...register('insurance_status')}>
                   <option value="">Select</option>
                   {INSURANCE_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>

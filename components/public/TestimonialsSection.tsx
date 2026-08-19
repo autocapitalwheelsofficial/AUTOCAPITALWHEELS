@@ -83,7 +83,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
           </div>
           <button
             onClick={handleOpenModal}
-            className="inline-flex items-center justify-center bg-transparent border border-[#b48d36] hover:bg-[#b48d36] text-[#b48d36] hover:text-black font-bold px-6 py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all duration-300 cursor-pointer self-start sm:self-auto"
+            className="btn-accent self-start sm:self-auto"
           >
             Write a Review
           </button>

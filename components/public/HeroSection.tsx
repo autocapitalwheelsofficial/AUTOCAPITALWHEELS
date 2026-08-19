@@ -133,8 +133,8 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
 
             {/* Gradient Overlays */}
             <div className="absolute inset-0 pointer-events-none z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0c]/95 via-[#0a0a0c]/65 to-[#0a0a0c]/20" />
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0c] to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0c] via-[#0a0a0c]/85 to-[#0a0a0c]/40" />
+              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/50 to-transparent" />
             </div>
 
             {/* Content Container */}
@@ -147,10 +147,10 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </div>
 
                 {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tight text-white leading-[1.08] mb-5 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tight text-white leading-[1.08] mb-6 drop-shadow-2xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {titleWhite}
                   <br />
-                  <span style={{ color: '#b48d36' }}>{titleGold}</span>
+                  <span className="text-metallic-gold">{titleGold}</span>
                 </h1>
 
                 {/* Description */}
@@ -174,10 +174,10 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </div>
 
                 {/* CTAs */}
-                <div className={`flex flex-col sm:flex-row gap-3 transition-all duration-700 delay-500 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-500 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   <Link
                     href="/cars"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#d4a94e] text-[#0a0a0c] font-bold px-8 py-4 rounded-xl text-xs tracking-widest uppercase transition-all duration-300 hover:shadow-[0_8px_24px_rgba(180,141,54,0.35)] hover:-translate-y-0.5"
+                    className="btn-primary w-full sm:w-auto"
                     id={`hero-browse-cars-${index}`}
                   >
                     BROWSE INVENTORY
@@ -185,7 +185,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                   </Link>
                   <Link
                     href="/sell"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/15 hover:border-[#b48d36]/50 bg-white/3 hover:bg-[#b48d36]/8 text-white font-bold px-8 py-4 rounded-xl text-xs tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5 backdrop-blur-sm"
+                    className="btn-secondary w-full sm:w-auto"
                     id={`hero-sell-car-${index}`}
                   >
                     SELL YOUR CAR

@@ -211,7 +211,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   </div>
                 ) : (
                   <select
-                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white cursor-pointer appearance-none"
+                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white cursor-pointer appearance-none"
                     onChange={(e) => handleVehicleChange(e.target.value)}
                     value={formData.vehicle_id}
                     required
@@ -234,7 +234,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   type="text"
                   required
                   placeholder="Your full name"
-                  className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white"
+                  className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white"
                   value={formData.customer_name}
                   onChange={(e) => setFormData({ ...formData, customer_name: e.target.value })}
                 />
@@ -249,7 +249,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                     type="tel"
                     required
                     placeholder="10-digit number"
-                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-r-lg focus:outline-none focus:border-amber-500 text-white"
+                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-r-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white"
                     maxLength={10}
                     value={formData.customer_phone}
                     onChange={(e) => setFormData({ ...formData, customer_phone: e.target.value })}
@@ -265,7 +265,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                 <input
                   type="email"
                   placeholder="your@email.com"
-                  className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white"
+                  className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white"
                   value={formData.customer_email}
                   onChange={(e) => setFormData({ ...formData, customer_email: e.target.value })}
                 />
@@ -277,7 +277,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
                   <input
                     type="text"
                     placeholder="Your city"
-                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 pl-10 text-white"
+                    className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 pl-10 text-white"
                     value={formData.customer_city}
                     onChange={(e) => setFormData({ ...formData, customer_city: e.target.value })}
                   />
@@ -291,7 +291,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
               <textarea
                 rows={2}
                 placeholder="Questions about registration state, loan requirements..."
-                className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-amber-500 text-white resize-none"
+                className="w-full text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 text-white resize-none"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               />

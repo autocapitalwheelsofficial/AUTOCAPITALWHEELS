@@ -90,7 +90,7 @@ export default function ContactFormClient() {
           id="contact-name"
           type="text"
           placeholder="Your full name"
-          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.name ? 'border-red-500' : ''}`}
+          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 ${errors.name ? 'border-red-500' : ''}`}
           {...register('name')}
         />
         {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
@@ -106,7 +106,7 @@ export default function ContactFormClient() {
               type="tel"
               placeholder="10-digit number"
               maxLength={10}
-              className={`form-input rounded-l-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.phone ? 'border-red-500' : ''}`}
+              className={`form-input rounded-l-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 ${errors.phone ? 'border-red-500' : ''}`}
               {...register('phone')}
             />
           </div>
@@ -119,7 +119,7 @@ export default function ContactFormClient() {
             id="contact-email"
             type="email"
             placeholder="your@email.com"
-            className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.email ? 'border-red-500' : ''}`}
+            className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 ${errors.email ? 'border-red-500' : ''}`}
             {...register('email')}
           />
           {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
@@ -132,7 +132,7 @@ export default function ContactFormClient() {
           id="contact-subject"
           type="text"
           placeholder="e.g. Enquiry about Creta, Selling queries"
-          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.subject ? 'border-red-500' : ''}`}
+          className={`form-input bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 ${errors.subject ? 'border-red-500' : ''}`}
           {...register('subject')}
         />
         {errors.subject && <p className="text-xs text-red-500 mt-1">{errors.subject.message}</p>}
@@ -144,7 +144,7 @@ export default function ContactFormClient() {
           id="contact-message"
           rows={4}
           placeholder="Write your message here..."
-          className={`form-input resize-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-0 ${errors.message ? 'border-red-500' : ''}`}
+          className={`form-input resize-none bg-neutral-900 border-[#1f1f26] text-white focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/30 transition-all duration-300 ${errors.message ? 'border-red-500' : ''}`}
           {...register('message')}
         />
         {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message.message}</p>}

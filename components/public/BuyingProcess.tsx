@@ -2,6 +2,7 @@
 
 import { Search, FileText, CheckSquare, Handshake, ChevronRight, HelpCircle, Car } from 'lucide-react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import EnquiryModal from './EnquiryModal';
 import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
@@ -15,7 +16,13 @@ export default function BuyingProcess() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           
           {/* Left: How It Works Card */}
-          <div className="lg:col-span-8 bg-[#121215] border border-[#1f1f26] rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+            className="lg:col-span-8 bg-[#121215] border border-[#1f1f26] rounded-2xl p-8 shadow-sm flex flex-col justify-between"
+          >
             <div className="space-y-6">
               <div>
                 <h2 className="text-xs font-extrabold text-[#b48d36] uppercase tracking-widest mb-1.5">How It Works</h2>
@@ -91,10 +98,16 @@ export default function BuyingProcess() {
 
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Interested in a Car? Card */}
-          <div className="lg:col-span-4 bg-[#121215] border border-[#1f1f26] rounded-2xl p-8 shadow-sm relative overflow-hidden flex flex-col justify-between">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 1, 0.5, 1] }}
+            className="lg:col-span-4 bg-[#121215] border border-[#1f1f26] rounded-2xl p-8 shadow-sm relative overflow-hidden flex flex-col justify-between"
+          >
 
             <div className="space-y-6 h-full flex flex-col justify-between">
               <div className="space-y-1">
@@ -125,7 +138,7 @@ export default function BuyingProcess() {
                 <ChevronRight size={14} />
               </button>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

@@ -56,7 +56,7 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
             </p>
           </div>
 
-          <div className="bg-[#121215] border border-[#1f1f26] rounded-2xl p-6 sm:p-8">
+          <div className="bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/20 transition-all duration-300 rounded-2xl p-6 sm:p-8 hover:shadow-[0_0_30px_rgba(180,141,54,0.05)]">
             {faqs.map((faq) => (
               <FAQItem
                 key={faq.id}

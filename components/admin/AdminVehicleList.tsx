@@ -36,11 +36,11 @@ interface AdminVehicleListProps {
 }
 
 const statusColors: Record<string, string> = {
-  Active: 'bg-green-100 text-green-700',
-  Draft: 'bg-gray-100 text-gray-600',
-  Reserved: 'bg-yellow-100 text-yellow-700',
-  Sold: 'bg-red-100 text-red-700',
-  Archived: 'bg-gray-100 text-gray-500',
+  Active: 'bg-green-950/40 text-green-400 border border-green-900/30',
+  Draft: 'bg-neutral-900 text-neutral-400 border border-neutral-800',
+  Reserved: 'bg-yellow-950/40 text-yellow-400 border border-yellow-900/30',
+  Sold: 'bg-red-950/40 text-red-400 border border-red-900/30',
+  Archived: 'bg-neutral-900 text-neutral-400 border border-neutral-800',
 };
 
 export default function AdminVehicleList({ vehicles, total, page, perPage, currentStatus }: AdminVehicleListProps) {
@@ -79,12 +79,12 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
 
   if (vehicles.length === 0) {
     return (
-      <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+      <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-12 text-center">
         <div className="text-5xl mb-3">🚗</div>
-        <h3 className="font-semibold text-lg text-gray-900 mb-1">
+        <h3 className="font-semibold text-lg text-white mb-1">
           {currentStatus ? `No ${currentStatus} vehicles` : 'No vehicles yet'}
         </h3>
-        <p className="text-gray-500 text-sm mb-5">
+        <p className="text-neutral-400 text-sm mb-5">
           {currentStatus ? 'Try a different status filter.' : 'Add your first vehicle to get started.'}
         </p>
         <Link href="/admin/vehicles/new" className="btn-primary text-sm py-2.5 px-6">
@@ -96,36 +96,36 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
 
   return (
     <>
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-[#121215] rounded-xl border border-[#1f1f26] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 bg-gray-50">
-                <th className="text-left px-5 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Vehicle</th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider hidden md:table-cell">Price</th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider hidden lg:table-cell">Details</th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider hidden xl:table-cell">Stats</th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="text-right px-5 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-[#1f1f26] bg-[#16161a]">
+                <th className="text-left px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider">Vehicle</th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider hidden md:table-cell">Price</th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider hidden lg:table-cell">Details</th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider hidden xl:table-cell">Stats</th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider">Status</th>
+                <th className="text-right px-5 py-3 text-xs font-bold text-neutral-400 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-[#1f1f26]/60">
               {vehicles.map((vehicle) => {
                 const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.variant ? ` ${vehicle.variant}` : ''}`;
                 return (
-                  <tr key={vehicle.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={vehicle.id} className="hover:bg-[#16161a]/60 transition-colors">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
-                        <div className="relative w-14 h-10 rounded-md overflow-hidden bg-gray-100 flex-shrink-0">
+                        <div className="relative w-14 h-10 rounded-md overflow-hidden bg-[#16161a] border border-[#1f1f26] flex-shrink-0">
                           {vehicle.main_image_url ? (
                             <Image src={vehicle.main_image_url} alt={title} fill className="object-cover" sizes="56px" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No img</div>
+                            <div className="w-full h-full flex items-center justify-center text-neutral-500 text-xs">No img</div>
                           )}
                         </div>
                         <div className="min-w-0">
-                          <div className="font-semibold text-gray-900 truncate max-w-[180px]">{title}</div>
-                          <div className="text-xs text-gray-400 truncate">{vehicle.slug}</div>
+                          <div className="font-semibold text-white truncate max-w-[180px]">{title}</div>
+                          <div className="text-xs text-neutral-500 truncate">{vehicle.slug}</div>
                           {vehicle.status === 'Sold' && (vehicle as any).sold_price && (
                             <div className="text-[10px] text-[#b48d36] font-semibold mt-0.5">
                               Sold: ₹{((vehicle as any).sold_price / 100000).toFixed(2)} Lakh
@@ -141,21 +141,21 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
                       </div>
                     </td>
                     <td className="px-4 py-3.5 hidden md:table-cell">
-                      <span className="font-semibold text-gray-900">{formatPrice(vehicle.price)}</span>
+                      <span className="font-semibold text-white">{formatPrice(vehicle.price)}</span>
                     </td>
-                    <td className="px-4 py-3.5 hidden lg:table-cell text-gray-500">
+                    <td className="px-4 py-3.5 hidden lg:table-cell text-neutral-400">
                       <div>{vehicle.fuel_type} · {vehicle.transmission}</div>
-                      <div className="text-xs">{formatMileage(vehicle.mileage)}</div>
+                      <div className="text-xs text-neutral-500">{formatMileage(vehicle.mileage)}</div>
                     </td>
-                    <td className="px-4 py-3.5 hidden xl:table-cell text-gray-500">
+                    <td className="px-4 py-3.5 hidden xl:table-cell text-neutral-400">
                       <div className="text-xs">{vehicle.view_count || 0} views</div>
                       <div className="text-xs">{vehicle.enquiry_count || 0} enquiries</div>
-                      <div className="text-xs">{timeAgo(vehicle.created_at)}</div>
+                      <div className="text-xs text-neutral-500">{timeAgo(vehicle.created_at)}</div>
                     </td>
                     <td className="px-4 py-3.5">
                       <button
                         onClick={() => handleStatusToggle(vehicle)}
-                        className={`badge ${statusColors[vehicle.status] || 'bg-gray-100 text-gray-600'} hover:opacity-80 cursor-pointer transition-opacity`}
+                        className={`badge ${statusColors[vehicle.status] || 'bg-neutral-900 text-neutral-400'} hover:opacity-80 cursor-pointer transition-opacity`}
                         title="Click to toggle Active/Draft"
                       >
                         {vehicle.status}
@@ -166,14 +166,14 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
                         <Link
                           href={`/cars/${vehicle.slug}`}
                           target="_blank"
-                          className="p-1.5 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                          className="p-1.5 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
                           title="View on site"
                         >
                           <Eye size={15} />
                         </Link>
                         <Link
                           href={`/admin/vehicles/${vehicle.slug}/edit`}
-                          className="p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                          className="p-1.5 rounded-md text-neutral-400 hover:text-blue-400 hover:bg-blue-950/40 transition-colors"
                           title="Edit"
                         >
                           <Edit size={15} />
@@ -181,7 +181,7 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
                         <button
                           onClick={() => handleDelete(vehicle.slug, title)}
                           disabled={deleting === vehicle.slug}
-                          className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+                          className="p-1.5 rounded-md text-neutral-400 hover:text-red-400 hover:bg-red-950/40 transition-colors disabled:opacity-50"
                           title="Delete"
                         >
                           <Trash2 size={15} />
@@ -197,22 +197,22 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-5 py-3.5 border-t border-gray-100">
-            <p className="text-xs text-gray-500">
+          <div className="flex items-center justify-between px-5 py-3.5 border-t border-[#1f1f26] bg-[#16161a]/30">
+            <p className="text-xs text-neutral-400">
               Showing {(page - 1) * perPage + 1}–{Math.min(page * perPage, total)} of {total}
             </p>
             <div className="flex gap-1.5">
               <Link
                 href={`/admin/vehicles?page=${page - 1}${currentStatus ? `&status=${currentStatus}` : ''}`}
-                className={`p-1.5 rounded-md border text-sm ${page === 1 ? 'opacity-40 pointer-events-none' : 'hover:bg-gray-50'}`}
+                className={`p-1.5 rounded-md border border-[#1f1f26] text-sm text-neutral-400 transition-colors ${page === 1 ? 'opacity-40 pointer-events-none' : 'hover:bg-[#16161a] hover:text-white'}`}
                 aria-disabled={page === 1}
               >
                 <ChevronLeft size={15} />
               </Link>
-              <span className="px-3 py-1.5 text-xs text-gray-600">{page} / {totalPages}</span>
+              <span className="px-3 py-1.5 text-xs text-neutral-400">{page} / {totalPages}</span>
               <Link
                 href={`/admin/vehicles?page=${page + 1}${currentStatus ? `&status=${currentStatus}` : ''}`}
-                className={`p-1.5 rounded-md border text-sm ${page === totalPages ? 'opacity-40 pointer-events-none' : 'hover:bg-gray-50'}`}
+                className={`p-1.5 rounded-md border border-[#1f1f26] text-sm text-neutral-400 transition-colors ${page === totalPages ? 'opacity-40 pointer-events-none' : 'hover:bg-[#16161a] hover:text-white'}`}
                 aria-disabled={page === totalPages}
               >
                 <ChevronRight size={15} />

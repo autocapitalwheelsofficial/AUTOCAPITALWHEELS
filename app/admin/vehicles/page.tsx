@@ -44,13 +44,13 @@ export default async function AdminVehiclesPage({
   }
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-display font-bold text-2xl text-neutral-900">
+          <h1 className="font-display font-bold text-2xl text-white">
             {params.status === 'Sold' ? 'Sold Vehicles Register' : 'Vehicles'}
           </h1>
-          <p className="text-neutral-500 text-sm mt-0.5">
+          <p className="text-neutral-400 text-sm mt-0.5">
             {params.status === 'Sold'
               ? `${total} cars sold • Total Revenue: ₹${(totalRevenue / 100000).toFixed(2)} Lakh`
               : `${total} vehicle${total !== 1 ? 's' : ''} total`}
@@ -65,16 +65,16 @@ export default async function AdminVehiclesPage({
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-neutral-200 p-4 mb-5 flex flex-wrap gap-3 items-center">
+      <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-4 mb-5 flex flex-wrap gap-3 items-center">
         <form className="flex items-center gap-2 flex-1 min-w-48">
           <div className="relative flex-1">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
             <input
               type="text"
               name="search"
               defaultValue={params.search}
               placeholder="Search make, model..."
-              className="form-input pl-9 text-sm py-2"
+              className="form-input pl-9 text-sm py-2 bg-[#16161a] border-[#1f1f26] text-white rounded-lg w-full focus:border-[#b48d36]/50 focus:ring-0"
             />
           </div>
           <button type="submit" className="btn-primary text-sm py-2 px-4">Search</button>
@@ -86,8 +86,8 @@ export default async function AdminVehiclesPage({
               href={`/admin/vehicles${s ? `?status=${s}` : ''}`}
               className={`px-3 py-1.5 text-xs font-medium rounded-md border transition-all ${
                 (params.status || '') === s
-                  ? 'bg-neutral-900 text-white border-neutral-900'
-                  : 'border-neutral-200 text-neutral-600 hover:border-neutral-400'
+                  ? 'bg-[#b48d36] text-black border-[#b48d36]'
+                  : 'border-[#1f1f26] text-neutral-400 hover:text-white hover:border-neutral-700'
               }`}
             >
               {s || 'All'}

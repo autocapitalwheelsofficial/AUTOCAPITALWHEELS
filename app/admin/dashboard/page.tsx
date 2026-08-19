@@ -46,33 +46,33 @@ async function getDashboardStats() {
 }
 
 const statusColors: Record<string, string> = {
-  NEW: 'bg-blue-100 text-blue-700',
-  CONTACTED: 'bg-yellow-100 text-yellow-700',
-  FOLLOW_UP: 'bg-orange-100 text-orange-700',
-  NEGOTIATION: 'bg-purple-100 text-purple-700',
-  CONVERTED: 'bg-green-100 text-green-700',
-  CLOSED: 'bg-gray-100 text-gray-600',
+  NEW: 'bg-blue-950/40 text-blue-400 border border-blue-900/30',
+  CONTACTED: 'bg-yellow-950/40 text-yellow-400 border border-yellow-900/30',
+  FOLLOW_UP: 'bg-orange-950/40 text-orange-400 border border-orange-900/30',
+  NEGOTIATION: 'bg-purple-950/40 text-purple-400 border border-purple-900/30',
+  CONVERTED: 'bg-green-950/40 text-green-400 border border-green-900/30',
+  CLOSED: 'bg-neutral-900 text-neutral-400 border border-neutral-800',
 };
 
 export default async function AdminDashboard() {
   const stats = await getDashboardStats();
 
   const statCards = [
-    { label: 'Active Vehicles', value: stats.activeVehicles, icon: Car, color: 'text-blue-600', bg: 'bg-blue-50', href: '/admin/vehicles?status=Active' },
-    { label: 'Sold Vehicles', value: stats.soldVehicles, icon: TrendingUp, color: 'text-green-600', bg: 'bg-green-50', href: '/admin/vehicles?status=Sold' },
-    { label: 'New Enquiries', value: stats.newEnquiries, icon: MessageSquare, color: 'text-purple-600', bg: 'bg-purple-50', href: '/admin/enquiries?status=NEW' },
-    { label: 'Sell Requests', value: stats.newSellRequests, icon: FileText, color: 'text-orange-600', bg: 'bg-orange-50', href: '/admin/sell-requests?status=NEW' },
-    { label: 'Test Drive Reqs', value: stats.newTestDrives, icon: Navigation, color: 'text-rose-600', bg: 'bg-rose-50', href: '/admin/test-drives?status=NEW' },
-    { label: 'Views Today', value: stats.viewsToday, icon: Eye, color: 'text-indigo-600', bg: 'bg-indigo-50', href: '/admin/analytics' },
+    { label: 'Active Vehicles', value: stats.activeVehicles, icon: Car, color: 'text-blue-400', bg: 'bg-blue-950/30 border border-blue-900/30', href: '/admin/vehicles?status=Active' },
+    { label: 'Sold Vehicles', value: stats.soldVehicles, icon: TrendingUp, color: 'text-green-400', bg: 'bg-green-950/30 border border-green-900/30', href: '/admin/vehicles?status=Sold' },
+    { label: 'New Enquiries', value: stats.newEnquiries, icon: MessageSquare, color: 'text-purple-400', bg: 'bg-purple-950/30 border border-purple-900/30', href: '/admin/enquiries?status=NEW' },
+    { label: 'Sell Requests', value: stats.newSellRequests, icon: FileText, color: 'text-orange-400', bg: 'bg-orange-950/30 border border-orange-900/30', href: '/admin/sell-requests?status=NEW' },
+    { label: 'Test Drive Reqs', value: stats.newTestDrives, icon: Navigation, color: 'text-rose-400', bg: 'bg-rose-950/30 border border-rose-900/30', href: '/admin/test-drives?status=NEW' },
+    { label: 'Views Today', value: stats.viewsToday, icon: Eye, color: 'text-indigo-400', bg: 'bg-indigo-950/30 border border-indigo-900/30', href: '/admin/analytics' },
   ];
 
   return (
-    <div className="p-6 lg:p-8 space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-display font-bold text-2xl text-neutral-900">Dashboard</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">
+          <h1 className="font-display font-bold text-2xl text-white">Dashboard</h1>
+          <p className="text-neutral-400 text-sm mt-0.5">
             {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
         </div>
@@ -89,8 +89,8 @@ export default async function AdminDashboard() {
             <div className={`w-10 h-10 rounded-lg ${bg} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
               <Icon size={20} className={color} />
             </div>
-            <div className="font-display font-bold text-2xl text-neutral-900">{value}</div>
-            <div className="text-xs text-neutral-500 mt-0.5">{label}</div>
+            <div className="font-display font-bold text-2xl text-white">{value}</div>
+            <div className="text-xs text-neutral-400 mt-0.5">{label}</div>
           </Link>
         ))}
       </div>
@@ -106,9 +106,9 @@ export default async function AdminDashboard() {
           <Link
             key={label}
             href={href}
-            className="flex items-center gap-2.5 p-3 bg-white border border-neutral-200 rounded-xl text-sm font-medium text-neutral-700 hover:border-neutral-300 hover:shadow-sm transition-all"
+            className="flex items-center gap-2.5 p-3 bg-[#121215] border border-[#1f1f26] rounded-xl text-sm font-medium text-neutral-300 hover:border-[#b48d36]/35 hover:bg-[#16161a] transition-all"
           >
-            <Icon size={16} className="text-neutral-500" />
+            <Icon size={16} className="text-neutral-400" />
             {label}
           </Link>
         ))}
@@ -119,31 +119,31 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Enquiries */}
-        <div className="bg-white rounded-2xl border border-neutral-200">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
-            <h2 className="font-semibold text-neutral-900">Recent Enquiries</h2>
-            <Link href="/admin/enquiries" className="text-xs text-blue-600 hover:underline flex items-center gap-1">
+        <div className="bg-[#121215] rounded-2xl border border-[#1f1f26]">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[#1f1f26]">
+            <h2 className="font-semibold text-white">Recent Enquiries</h2>
+            <Link href="/admin/enquiries" className="text-xs text-[#b48d36] hover:underline flex items-center gap-1">
               View all <ArrowRight size={12} />
             </Link>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-[#1f1f26]">
             {stats.recentEnquiries.length === 0 ? (
-              <p className="text-sm text-neutral-400 text-center py-8">No enquiries yet</p>
+              <p className="text-sm text-neutral-500 text-center py-8">No enquiries yet</p>
             ) : (
               stats.recentEnquiries.map((enq: any) => (
                 <Link
                   key={enq.id}
                   href="/admin/enquiries"
-                  className="flex items-start justify-between px-5 py-3 hover:bg-gray-50 transition-colors"
+                  className="flex items-start justify-between px-5 py-3 hover:bg-[#16161a] transition-colors"
                 >
                   <div className="min-w-0">
-                    <p className="font-medium text-sm text-neutral-900 truncate">{enq.customer_name}</p>
+                    <p className="font-medium text-sm text-white truncate">{enq.customer_name}</p>
                     <p className="text-xs text-neutral-400 truncate">
                       {enq.vehicles ? `${enq.vehicles.year} ${enq.vehicles.make} ${enq.vehicles.model}` : 'General Enquiry'}
                     </p>
-                    <p className="text-xs text-neutral-400">{timeAgo(enq.created_at)}</p>
+                    <p className="text-xs text-neutral-500">{timeAgo(enq.created_at)}</p>
                   </div>
-                  <span className={`badge ${statusColors[enq.status] || 'bg-neutral-100 text-neutral-600'} ml-2 flex-shrink-0`}>
+                  <span className={`badge ${statusColors[enq.status] || 'bg-neutral-800 text-neutral-400'} ml-2 flex-shrink-0`}>
                     {enq.status}
                   </span>
                 </Link>
@@ -153,27 +153,27 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="bg-white rounded-2xl border border-neutral-200">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
-            <h2 className="font-semibold text-neutral-900">Recent Activity</h2>
+        <div className="bg-[#121215] rounded-2xl border border-[#1f1f26]">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-[#1f1f26]">
+            <h2 className="font-semibold text-white">Recent Activity</h2>
           </div>
-          <div className="divide-y divide-gray-50">
+          <div className="divide-y divide-[#1f1f26]">
             {stats.recentActivity.length === 0 ? (
-              <p className="text-sm text-neutral-400 text-center py-8">No activity yet</p>
+              <p className="text-sm text-neutral-500 text-center py-8">No activity yet</p>
             ) : (
               stats.recentActivity.map((log: any) => (
                 <div key={log.id} className="px-5 py-3">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="text-sm text-neutral-900 font-medium">
+                      <p className="text-sm text-neutral-300 font-medium">
                         {log.action.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                         {log.entity_label && (
-                          <span className="font-normal text-neutral-500 font-mono text-[11px] bg-neutral-50 border border-neutral-200 px-1.5 py-0.5 rounded ml-1.5">{log.entity_label}</span>
+                          <span className="font-normal text-neutral-400 font-mono text-[11px] bg-[#16161a] border border-[#1f1f26] px-1.5 py-0.5 rounded ml-1.5">{log.entity_label}</span>
                         )}
                       </p>
-                      <p className="text-xs text-neutral-400">{log.admin_email}</p>
+                      <p className="text-xs text-neutral-500">{log.admin_email}</p>
                     </div>
-                    <p className="text-xs text-neutral-400 flex-shrink-0">{timeAgo(log.created_at)}</p>
+                    <p className="text-xs text-neutral-500 flex-shrink-0">{timeAgo(log.created_at)}</p>
                   </div>
                 </div>
               ))
@@ -184,11 +184,11 @@ export default async function AdminDashboard() {
 
       {/* Draft vehicles warning */}
       {stats.draftVehicles > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between">
-          <p className="text-sm text-amber-800">
+        <div className="bg-amber-950/30 border border-amber-900/30 rounded-xl p-4 flex items-center justify-between">
+          <p className="text-sm text-amber-300">
             <strong>{stats.draftVehicles}</strong> vehicle{stats.draftVehicles !== 1 ? 's are' : ' is'} in draft — not visible on the public website.
           </p>
-          <Link href="/admin/vehicles?status=Draft" className="text-sm font-semibold text-amber-700 hover:text-amber-900">
+          <Link href="/admin/vehicles?status=Draft" className="text-sm font-semibold text-[#b48d36] hover:text-[#d4a94e]">
             Review →
           </Link>
         </div>

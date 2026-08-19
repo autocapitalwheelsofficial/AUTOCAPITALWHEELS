@@ -79,6 +79,7 @@ export default function SellCarClient() {
   };
 
   const onSubmit = async (data: SellCarFormValues) => {
+    if (formState === 'loading') return;
     setFormState('loading');
     try {
       const formData = new FormData();

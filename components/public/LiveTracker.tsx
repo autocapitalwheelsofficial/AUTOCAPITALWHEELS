@@ -45,13 +45,16 @@ export default function LiveTracker() {
       }
     };
 
-    // Send initial heartbeat
-    sendHeartbeat();
+    // Send heartbeat (debounced on initial page entry to prevent database write spam)
+    const timeout = setTimeout(sendHeartbeat, 3000);
 
-    // Send heartbeat every 30 seconds
-    const interval = setInterval(sendHeartbeat, 30000);
+    // Send heartbeat every 60 seconds
+    const interval = setInterval(sendHeartbeat, 60000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
   }, [pathname]);
 
   return null;

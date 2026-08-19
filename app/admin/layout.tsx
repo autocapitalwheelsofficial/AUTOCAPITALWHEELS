@@ -30,11 +30,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-neutral-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-[#0a0a0c] text-white relative overflow-hidden">
+      {/* Decorative luxury gradient glow background */}
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#b48d36]/5 blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#b48d36]/3 blur-[120px] pointer-events-none z-0" />
+
       <AdminSidebar admin={admin} />
       <AdminRealtimeNotifier />
-      <main className="flex-1 min-w-0 overflow-auto">
-        {children}
+      <main className="flex-1 min-w-0 overflow-auto p-4 lg:p-8 relative z-10">
+        <div className="max-w-7xl xl:max-w-[1440px] mx-auto w-full space-y-8">
+          {children}
+        </div>
       </main>
     </div>
   );

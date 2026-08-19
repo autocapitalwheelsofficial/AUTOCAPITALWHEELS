@@ -42,44 +42,44 @@ export default function LiveUsersTracker() {
   }, []);
 
   return (
-    <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden shadow-sm">
+    <div className="bg-[#121215] rounded-xl border border-[#1f1f26] overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="p-5 border-b border-neutral-100 flex items-center justify-between bg-neutral-50/50">
+      <div className="p-5 border-b border-[#1f1f26] flex items-center justify-between bg-[#16161a]/60">
         <div className="flex items-center gap-2.5">
           <div className="relative">
             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute" />
             <div className="w-2.5 h-2.5 bg-green-500 rounded-full" />
           </div>
           <div>
-            <h3 className="font-display font-semibold text-neutral-800 text-sm">Real-time Live Site Traffic</h3>
-            <p className="text-xs text-neutral-500 mt-0.5">Active users on the website right now</p>
+            <h3 className="font-display font-semibold text-white text-sm">Real-time Live Site Traffic</h3>
+            <p className="text-xs text-neutral-400 mt-0.5">Active users on the website right now</p>
           </div>
         </div>
-        <span className="px-2.5 py-1 text-xs font-semibold bg-green-50 text-green-700 rounded-full border border-green-200 flex items-center gap-1.5">
+        <span className="px-2.5 py-1 text-xs font-semibold bg-green-950/40 text-green-400 rounded-full border border-green-900/30 flex items-center gap-1.5">
           <Users size={12} />
           {activeUsers.length} Active
         </span>
       </div>
 
       {/* List */}
-      <div className="divide-y divide-neutral-100 max-h-[350px] overflow-y-auto">
+      <div className="divide-y divide-[#1f1f26] max-h-[350px] overflow-y-auto">
         {loading && activeUsers.length === 0 ? (
-          <div className="p-8 text-center text-xs text-neutral-400">Loading live site traffic...</div>
+          <div className="p-8 text-center text-xs text-neutral-500">Loading live site traffic...</div>
         ) : activeUsers.length === 0 ? (
           <div className="p-12 text-center">
-            <Monitor size={24} className="mx-auto text-neutral-300 mb-2" />
+            <Monitor size={24} className="mx-auto text-neutral-600 mb-2" />
             <p className="text-xs text-neutral-500">No active visitors on the site right now</p>
           </div>
         ) : (
           activeUsers.map((visitor) => (
-            <div key={visitor.session_id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-neutral-50 transition-colors">
+            <div key={visitor.session_id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#16161a]/60 transition-colors">
               {/* User Identity */}
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 mt-0.5 flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#16161a] border border-[#1f1f26] flex items-center justify-center text-neutral-400 mt-0.5 flex-shrink-0">
                   <User size={15} />
                 </div>
                 <div>
-                  <div className="font-semibold text-xs text-neutral-800">
+                  <div className="font-semibold text-xs text-white">
                     {visitor.user_name || 'Anonymous Guest'}
                   </div>
                   <div className="text-[10px] text-neutral-400 mt-0.5">
@@ -95,16 +95,16 @@ export default function LiveUsersTracker() {
 
               {/* Current Page */}
               <div className="min-w-0 flex-1 max-w-sm sm:text-right">
-                <span className="inline-block px-2 py-0.5 text-[10px] font-medium bg-neutral-100 text-neutral-600 rounded">
+                <span className="inline-block px-2 py-0.5 text-[10px] font-medium bg-[#16161a] border border-[#1f1f26]/60 text-neutral-300 rounded">
                   {visitor.current_path === '/' ? 'Home Page' : visitor.current_path}
                 </span>
-                <div className="text-[11px] text-neutral-500 font-medium truncate mt-1">
+                <div className="text-[11px] text-neutral-400 font-medium truncate mt-1">
                   {visitor.page_title}
                 </div>
               </div>
 
               {/* Activity Timestamp */}
-              <div className="text-right text-[10px] text-neutral-400 whitespace-nowrap self-end sm:self-center">
+              <div className="text-right text-[10px] text-neutral-500 whitespace-nowrap self-end sm:self-center">
                 Active {timeAgo(visitor.last_active_at) === 'just now' ? 'just now' : timeAgo(visitor.last_active_at)}
               </div>
             </div>

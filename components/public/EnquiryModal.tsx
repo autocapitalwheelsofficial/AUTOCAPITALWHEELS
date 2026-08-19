@@ -95,6 +95,7 @@ export default function EnquiryModal({ vehicle, onClose, defaultType = 'enquiry'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formState === 'loading') return;
     setFormValidationErrors({});
 
     // Client-side validations

@@ -55,7 +55,11 @@ export default function AdminCategoriesPage() {
           }
         });
         if (!found) {
-          setCategories([]);
+          setCategories([
+            { id_local: `def-1-${Date.now()}`, name: 'Explore SUVs', body_type: 'SUV', image_url: '' },
+            { id_local: `def-2-${Date.now()}`, name: 'Premium Sedans', body_type: 'Sedan', image_url: '' },
+            { id_local: `def-3-${Date.now()}`, name: 'Luxury Collection', body_type: 'Luxury', image_url: '' }
+          ]);
         }
       }
     } catch (e: any) {

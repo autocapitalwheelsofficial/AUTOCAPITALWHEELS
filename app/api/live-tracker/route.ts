@@ -70,9 +70,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    // Clean up old active sessions (older than 5 minutes) to keep the table clean
-    const oldCutoff = new Date(Date.now() - 5 * 60 * 1000).toISOString();
-    supabase.from('live_site_activity').delete().lt('last_active_at', oldCutoff).then(() => {});
+    // Clean up old active sessions (older than 5 minutes) randomly to reduce DB writes (5% probability)
+    if (Math.random() < 0.05) {
+      const oldCutoff = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+      supabase.from('live_site_activity').delete().lt('last_active_at', oldCutoff).then(() => {});
+    }
 
     return NextResponse.json({ success: true });
   } catch (err: any) {

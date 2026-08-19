@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Tag, Headphones, ChevronLeft, ChevronRight } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import Image from 'next/image';
 
 interface HeroSlide {
   url: string;
@@ -127,7 +128,15 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
               {isVideo ? (
                 <video src={slideUrl} className="w-full h-full object-cover object-center" autoPlay muted loop playsInline />
               ) : (
-                <img src={slideUrl} alt={titleWhite + titleGold} className="w-full h-full object-cover object-center" />
+                <Image
+                  src={slideUrl}
+                  alt={titleWhite + titleGold}
+                  fill
+                  sizes="100vw"
+                  priority={index === 0}
+                  className="object-cover object-center"
+                  unoptimized={slideUrl.startsWith('http') && !slideUrl.includes('supabase.co') && !slideUrl.includes('unsplash.com')}
+                />
               )}
             </div>
 

@@ -36,6 +36,7 @@ export default function ContactFormClient() {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    if (formState === 'loading') return;
     setFormState('loading');
     try {
       const res = await fetch('/api/enquiries', {

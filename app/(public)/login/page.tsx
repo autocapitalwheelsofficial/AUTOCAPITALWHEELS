@@ -210,40 +210,27 @@ function CustomerLoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] flex items-center justify-center p-6 relative overflow-hidden pt-24">
+    <div className="min-h-screen bg-[#0a0a0c] flex flex-col items-center justify-center p-6 relative overflow-hidden pt-20">
       {/* Glow elements matching premium branding */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-[#b48d36]/10 rounded-full filter blur-3xl -translate-y-1/2 -translate-x-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#b48d36]/10 rounded-full filter blur-3xl translate-y-1/2 translate-x-1/2" />
 
-      <div className="w-full max-w-md relative z-10 space-y-6">
-        <Link href="/" className="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-white transition-colors">
+      {/* Back Button Container */}
+      <div className="absolute top-6 left-6 z-20">
+        <Link href="/" className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-neutral-400 hover:text-[#b48d36] transition-colors py-2 px-4 rounded-full bg-[#121215] border border-[#1f1f26] shadow-sm hover:shadow-[0_0_15px_rgba(180,141,54,0.2)]">
           <ArrowLeft size={14} />
-          Back to homepage
+          Back to website
         </Link>
+      </div>
 
-        {/* Brand Header */}
-        <div className="text-center flex flex-col items-center justify-center">
-          <div className="flex items-center gap-2.5 mb-1.5">
-            <img
-              src="/logo.png"
-              alt="AutoCapital Wheels Logo"
-              className="h-10 w-auto object-contain"
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-            />
-            <div className="flex flex-col items-center justify-center leading-none">
-              <div className="font-display font-black text-lg tracking-tight italic select-none">
-                <span className="text-white">AUTO</span>
-                <span className="text-[#b48d36]">CAPITAL</span>
-              </div>
-              <div className="flex items-center gap-1 -mt-0.5 select-none w-full justify-center">
-                <span className="h-[1px] w-2 bg-gradient-to-r from-transparent to-neutral-400/50" />
-                <span className="font-display font-black text-[8px] tracking-[0.25em] text-neutral-400 uppercase">
-                  WHEELS
-                </span>
-                <span className="h-[1px] w-2 bg-gradient-to-l from-transparent to-[#b48d36]/50" />
-              </div>
-            </div>
-          </div>
+      <div className="w-full max-w-md relative z-10 space-y-6">
+        <div className="flex items-center justify-center mb-2">
+          <img
+            src="/logo.png"
+            alt="AutoCapital Wheels Logo"
+            className="h-16 w-auto object-contain"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
         </div>
 
         <div className="bg-[#121215] border border-[#1f1f26] rounded-2xl p-6 sm:p-8 shadow-sm">

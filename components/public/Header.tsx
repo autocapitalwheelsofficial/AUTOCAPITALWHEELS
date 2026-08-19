@@ -199,37 +199,37 @@ export default function Header() {
             </Link>
 
             {/* Buy Cars / Inventory Accordion */}
-            <div className="mb-2">
+            <div>
               <button 
                 onClick={() => toggleAccordion('buy')}
-                className="w-full flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-neutral-900/80 to-transparent border border-neutral-800/50 rounded-xl hover:border-amber-500/30 transition-all duration-300 group cursor-pointer"
+                className="w-full flex items-center justify-between px-4 py-3.5 transition-all duration-300 group cursor-pointer"
               >
-                <span className="text-xs font-bold tracking-[0.15em] text-white group-hover:text-amber-400 uppercase">BUY CARS</span>
-                <ChevronDown size={16} className={`text-neutral-400 transition-transform duration-300 ${openAccordions.buy ? 'rotate-180 text-amber-500' : ''}`} />
+                <span className="text-xs font-bold tracking-widest text-neutral-400 group-hover:text-amber-400 uppercase">BUY CARS</span>
+                <ChevronDown size={14} className={`text-neutral-500 transition-transform duration-300 ${openAccordions.buy ? 'rotate-180 text-amber-500' : ''}`} />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.buy ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}`}>
+              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.buy ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">All Inventory</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">SUVs</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Sedans</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Luxury Collection</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">All Inventory</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">SUVs</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Sedans</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Luxury Collection</Link>
                 </div>
               </div>
             </div>
 
             {/* Sell Your Car Accordion */}
-            <div className="mb-2">
+            <div>
               <button 
                 onClick={() => toggleAccordion('sell')}
-                className="w-full flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-neutral-900/80 to-transparent border border-neutral-800/50 rounded-xl hover:border-amber-500/30 transition-all duration-300 group cursor-pointer"
+                className="w-full flex items-center justify-between px-4 py-3.5 transition-all duration-300 group cursor-pointer"
               >
-                <span className="text-xs font-bold tracking-[0.15em] text-white group-hover:text-amber-400 uppercase">SELL YOUR CAR</span>
-                <ChevronDown size={16} className={`text-neutral-400 transition-transform duration-300 ${openAccordions.sell ? 'rotate-180 text-amber-500' : ''}`} />
+                <span className="text-xs font-bold tracking-widest text-neutral-400 group-hover:text-amber-400 uppercase">SELL YOUR CAR</span>
+                <ChevronDown size={14} className={`text-neutral-500 transition-transform duration-300 ${openAccordions.sell ? 'rotate-180 text-amber-500' : ''}`} />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.sell ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}`}>
+              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.sell ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
-                  <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Get Free Quote</Link>
-                  <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">How It Works</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">Get Free Quote</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-500 hover:text-amber-400 transition-colors uppercase tracking-wider py-2 pl-3">How It Works</Link>
                 </div>
               </div>
             </div>

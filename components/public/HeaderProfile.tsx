@@ -53,7 +53,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
 
       {/* Profile Dropdown */}
       {isOpen && user && (
-        <div className="absolute top-full right-0 mt-3 w-64 bg-[#121215]/90 backdrop-blur-2xl border border-[#2a2a33] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden animate-fade-in-scale z-50">
+        <div className="fixed top-20 right-4 w-[calc(100vw-2rem)] sm:absolute sm:top-full sm:right-0 sm:w-64 mt-3 bg-[#121215]/90 backdrop-blur-2xl border border-[#2a2a33] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden animate-fade-in-scale z-[60]">
           
           <div className="px-5 py-4 border-b border-[#2a2a33] bg-gradient-to-b from-white/[0.05] to-transparent">
             <p className="text-sm font-bold text-white truncate drop-shadow-md">

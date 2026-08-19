@@ -58,15 +58,9 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-5">
-              <div className="font-display font-black text-xl tracking-tight italic select-none leading-none">
-                <span className="text-white">AUTO</span>
-                <span className="text-[#b48d36]">CAPITAL</span>
-              </div>
-              <div className="flex items-center gap-1.5 mt-0.5 select-none">
-                <span className="h-[1px] w-3 bg-gradient-to-r from-transparent to-neutral-600" />
-                <span className="font-display font-black text-[9px] tracking-[0.25em] text-neutral-500 uppercase">WHEELS</span>
-                <span className="h-[1px] w-3 bg-gradient-to-l from-transparent to-[#b48d36]/40" />
-              </div>
+              <Link href="/">
+                <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain select-none" />
+              </Link>
               <p className="text-[9px] font-bold tracking-widest text-[#b48d36] mt-2 uppercase">Trusted Cars. Trusted Deals.</p>
             </div>
 

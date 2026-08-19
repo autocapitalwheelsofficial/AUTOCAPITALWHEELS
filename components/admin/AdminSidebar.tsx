@@ -21,6 +21,7 @@ const navItems = [
   { href: '/admin/testimonials', label: 'Testimonials', icon: Star },
   { href: '/admin/faqs', label: 'FAQs', icon: HelpCircle },
   { href: '/admin/cms', label: 'Website CMS', icon: Settings },
+  { href: '/admin/categories', label: 'Categories', icon: Image },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/settings', label: 'Settings', icon: UserCheck },
 ];

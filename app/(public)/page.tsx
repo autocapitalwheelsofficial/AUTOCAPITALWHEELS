@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import HeroSection from '@/components/public/HeroSection';
 import QuickSearch from '@/components/public/QuickSearch';
 import FeaturedInventory from '@/components/public/FeaturedInventory';
+import BrowseByCategory from '@/components/public/BrowseByCategory';
 import WhyChooseUs from '@/components/public/WhyChooseUs';
 import BuyingProcess from '@/components/public/BuyingProcess';
 import SellCarCTA from '@/components/public/SellCarCTA';
@@ -55,9 +56,8 @@ async function getHomepageData() {
         .order('sort_order', { ascending: true }),
       supabase
         .from('site_settings')
-        .select('value')
-        .eq('key', 'hero_slides')
-        .single(),
+        .select('key, value')
+        .in('key', ['hero_slides', 'homepage_categories']),
     ]);
 
     // Fallback if data is empty (not seeded yet)
@@ -74,15 +74,23 @@ async function getHomepageData() {
       : MOCK_FAQS;
 
     let heroSlides = null;
-    if (slidesRes.data?.value) {
-      try {
-        const parsed = JSON.parse(slidesRes.data.value);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          heroSlides = parsed;
+    let homepageCategories: any[] = [];
+    
+    if (slidesRes.data) {
+      slidesRes.data.forEach((setting) => {
+        if (setting.key === 'hero_slides') {
+          try {
+            const parsed = JSON.parse(setting.value);
+            if (Array.isArray(parsed) && parsed.length > 0) heroSlides = parsed;
+          } catch {}
         }
-      } catch {
-        // ignore
-      }
+        if (setting.key === 'homepage_categories') {
+          try {
+            const parsed = JSON.parse(setting.value);
+            if (Array.isArray(parsed) && parsed.length > 0) homepageCategories = parsed;
+          } catch {}
+        }
+      });
     }
 
     return {
@@ -90,6 +98,7 @@ async function getHomepageData() {
       testimonials: testimonials as Testimonial[],
       faqs: faqs as FAQ[],
       heroSlides,
+      homepageCategories,
     };
   } catch (e) {
     console.warn('[Supabase Fallback] Using mock data because:', e);
@@ -98,6 +107,7 @@ async function getHomepageData() {
       testimonials: MOCK_TESTIMONIALS,
       faqs: MOCK_FAQS,
       heroSlides: null,
+      homepageCategories: [],
     };
   }
 }
@@ -105,7 +115,7 @@ async function getHomepageData() {
 import { ShieldCheck, Tag, Clock, MessageSquare, Users, Headphones } from 'lucide-react';
 
 export default async function HomePage() {
-  const { featuredVehicles, testimonials, faqs, heroSlides } = await getHomepageData();
+  const { featuredVehicles, testimonials, faqs, heroSlides, homepageCategories } = await getHomepageData();
 
   return (
     <>
@@ -181,6 +191,7 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <BrowseByCategory categories={homepageCategories} />
       <FeaturedInventory vehicles={featuredVehicles} />
       <BuyingProcess />
       <WhyChooseUs />

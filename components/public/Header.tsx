@@ -7,6 +7,8 @@ import { NAV_LINKS, WHATSAPP_NUMBER } from '@/lib/constants';
 import { getDefaultWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
 import { usePathname, useRouter } from 'next/navigation';
+import HeaderSearch from '@/components/public/HeaderSearch';
+import HeaderProfile from '@/components/public/HeaderProfile';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,29 +75,17 @@ export default function Header() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
               <img
                 src="/logo.png"
                 alt="AutoCapital Wheels Logo"
-                className="h-16 lg:h-[72px] w-auto object-contain"
+                className="h-10 sm:h-12 lg:h-[72px] w-auto object-contain"
                 onError={(e) => {
                   // Fallback if image not loaded
                   e.currentTarget.style.display = 'none';
                 }}
               />
-              <div className="flex flex-col items-center justify-center leading-none">
-                <div className="font-display font-black text-base lg:text-lg tracking-tight italic select-none">
-                  <span className={isDarkHeader ? 'text-white/90' : 'text-[#5a6065]'}>AUTO</span>
-                  <span className="text-[#b48d36]">CAPITAL</span>
-                </div>
-                <div className="flex items-center gap-1 -mt-0.5 select-none w-full justify-center">
-                  <span className={`h-[1px] w-2 bg-gradient-to-r from-transparent ${isDarkHeader ? 'to-white/40' : 'to-[#5a6065]/50'}`} />
-                  <span className={`font-display font-black text-[8px] tracking-[0.25em] uppercase ${isDarkHeader ? 'text-white/90' : 'text-[#5a6065]'}`}>
-                    WHEELS
-                  </span>
-                  <span className={`h-[1px] w-2 bg-gradient-to-l from-transparent ${isDarkHeader ? 'to-amber-500/40' : 'to-[#b48d36]/50'}`} />
-                </div>
-              </div>
+
             </Link>
 
             {/* Desktop Nav */}
@@ -130,7 +120,7 @@ export default function Header() {
             </nav>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-1 sm:gap-2 lg:gap-6 flex-shrink-0">
               {/* Phone contact */}
               <a
                 href="tel:+918800243707"
@@ -140,39 +130,11 @@ export default function Header() {
                 +91 88002 43707
               </a>
 
-              {/* Login / Profile CTA */}
-              {user ? (
-                <div className="relative group hidden lg:block">
-                  <button className="flex items-center gap-2 bg-[#171717] hover:bg-neutral-800 text-white font-bold px-5 py-2.5 rounded-lg text-xs tracking-wider transition-all duration-200 cursor-pointer">
-                    <User size={13} />
-                    {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
-                  </button>
-                  <div className="absolute right-0 top-[90%] pt-2 w-48 bg-[#121215] border border-[#1f1f26] rounded-lg shadow-lg py-2 hidden group-hover:block animate-fade-in-scale">
-                    {user.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
-                      <Link href="/admin/dashboard" className="block px-4 py-2 text-xs font-bold text-amber-500 hover:bg-neutral-800 transition-colors">ADMIN DASHBOARD</Link>
-                    )}
-                    <Link href="/profile" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY PROFILE</Link>
-                    <Link href="/profile?tab=wishlist" className="block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors">MY WISHLIST</Link>
-                    <button
-                      onClick={async () => {
-                        await supabase.auth.signOut();
-                        router.push('/');
-                        router.refresh();
-                      }}
-                      className="w-full text-left block px-4 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors cursor-pointer"
-                    >
-                      LOG OUT
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <Link
-                  href="/login"
-                  className="hidden lg:inline-flex items-center justify-center bg-[#171717] hover:bg-neutral-800 text-white font-bold px-6 py-2.5 rounded-lg text-xs tracking-wider transition-all duration-200"
-                >
-                  Login / Sign Up
-                </Link>
-              )}
+              {/* Search & Profile Icons */}
+              <div className="flex items-center gap-1">
+                <HeaderSearch isDarkHeader={isDarkHeader} />
+                <HeaderProfile user={user} isDarkHeader={isDarkHeader} />
+              </div>
 
               {/* Mobile Menu Toggle */}
               <button
@@ -280,46 +242,7 @@ export default function Header() {
               CONTACT US
             </Link>
 
-            {user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
-              <Link
-                href="/admin/dashboard"
-                onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-amber-500 font-extrabold border-l-2 border-amber-500 pl-4 w-fit transition-all duration-300 hover:pl-6 block"
-              >
-                ADMIN PANEL
-              </Link>
-            )}
 
-            {user ? (
-              <>
-                <Link 
-                  href="/profile" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-neutral-400 pl-4 hover:pl-6 hover:text-amber-400 transition-all duration-300 block"
-                >
-                  My Profile
-                </Link>
-                <button
-                  onClick={async () => {
-                    await supabase.auth.signOut();
-                    setIsMenuOpen(false);
-                    router.push('/');
-                    router.refresh();
-                  }}
-                  className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-neutral-400 pl-4 hover:pl-6 hover:text-amber-400 transition-all duration-300 text-left w-full cursor-pointer block"
-                >
-                  Log Out
-                </button>
-              </>
-            ) : (
-              <Link 
-                href="/login" 
-                onClick={() => setIsMenuOpen(false)}
-                className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-neutral-400 pl-4 hover:pl-6 hover:text-amber-400 transition-all duration-300 block"
-              >
-                Login / Sign Up
-              </Link>
-            )}
           </nav>
         </div>
       </div>

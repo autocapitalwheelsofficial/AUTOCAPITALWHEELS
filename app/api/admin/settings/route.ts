@@ -91,6 +91,59 @@ export async function POST(request: NextRequest) {
         type: 'json'
       }, { onConflict: 'key' });
 
+    // Process homepage categories uploads (if any)
+    const existingCategoriesStr = formData.get('homepage_categories');
+    if (existingCategoriesStr) {
+      const newCategoryFiles = formData.getAll('category_files');
+      let categoriesList: any[] = JSON.parse(existingCategoriesStr.toString());
+      const uploadedCategoryUrls: string[] = [];
+
+      if (newCategoryFiles.length > 0) {
+        for (const fileItem of newCategoryFiles) {
+          if (fileItem instanceof File) {
+            const extension = fileItem.name.split('.').pop() || 'jpg';
+            const filename = `category_${crypto.randomUUID()}.${extension}`;
+            
+            const { error: uploadError } = await supabase.storage
+              .from('vehicle-images')
+              .upload(`categories/${filename}`, fileItem, {
+                contentType: fileItem.type,
+                cacheControl: '3600',
+              });
+
+            if (uploadError) {
+              console.error('[Upload Category Error]', uploadError);
+              return NextResponse.json({ success: false, error: `Upload failed: ${uploadError.message}` }, { status: 500 });
+            }
+
+            const { data: { publicUrl } } = supabase.storage
+              .from('vehicle-images')
+              .getPublicUrl(`categories/${filename}`);
+            uploadedCategoryUrls.push(publicUrl);
+          }
+        }
+      }
+
+      let catPlaceholderCounter = 0;
+      categoriesList = categoriesList.map((cat) => {
+        if (cat.image_url && cat.image_url.startsWith('PENDING_UPLOAD_')) {
+          const replacementUrl = uploadedCategoryUrls[catPlaceholderCounter++];
+          if (replacementUrl) {
+            return { ...cat, image_url: replacementUrl };
+          }
+        }
+        return cat;
+      });
+
+      await supabase
+        .from('site_settings')
+        .upsert({
+          key: 'homepage_categories',
+          value: JSON.stringify(categoriesList),
+          type: 'json'
+        }, { onConflict: 'key' });
+    }
+
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error('[Settings Update Error]', error);

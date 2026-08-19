@@ -125,14 +125,7 @@ export default function Header() {
 
             {/* Right Actions */}
             <div className="flex items-center gap-1 sm:gap-2 lg:gap-6 flex-shrink-0">
-              {/* Phone contact */}
-              <a
-                href="tel:+918800243707"
-                className={`hidden xl:flex items-center gap-2 text-xs font-bold transition-colors duration-200 ${contactColor}`}
-              >
-                <Phone size={14} className={isDarkHeader ? 'text-white/80' : 'text-neutral-600'} />
-                +91 88002 43707
-              </a>
+              {/* Phone contact removed as per request */}
 
               {/* Search & Profile Icons */}
               <div className="flex items-center gap-1">

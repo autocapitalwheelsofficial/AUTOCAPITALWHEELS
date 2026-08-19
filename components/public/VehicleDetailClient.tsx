@@ -68,7 +68,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
             <div className="space-y-3">
               {/* Main Image */}
               <div
-                className="gallery-main aspect-[4/3] relative cursor-zoom-in"
+                className="gallery-main aspect-[4/3] relative cursor-zoom-in rounded-xl overflow-hidden border border-[#1f1f26]"
                 onClick={() => setLightboxOpen(true)}
               >
                 {images.length > 0 ? (
@@ -172,7 +172,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                     {vehicle.registration_state && `, ${vehicle.registration_state}`}
                   </div>
                 )}
-                <h1 className="font-display font-black text-2xl sm:text-3xl text-neutral-900 leading-tight">{title}</h1>
+                <h1 className="font-display font-black text-2xl sm:text-3xl text-white leading-tight">{title}</h1>
                 {/* Marketing tags */}
                 <div className="flex flex-wrap gap-1.5 mt-2.5">
                   {vehicle.is_featured && (
@@ -450,8 +450,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
           {similarVehicles.length > 0 && (
             <section className="mt-12">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="font-display font-bold text-2xl text-neutral-900">Similar Cars</h2>
-                <Link href="/cars" className="text-sm font-semibold text-neutral-600 hover:text-neutral-900">
+                <h2 className="font-display font-bold text-2xl text-white">Similar Cars</h2>
+                <Link href="/cars" className="text-sm font-semibold text-neutral-400 hover:text-white">
                   View All →
                 </Link>
               </div>

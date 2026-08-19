@@ -34,15 +34,16 @@ export default function FeaturedInventory({ vehicles }: FeaturedInventoryProps) 
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {/* Grid / Carousel */}
+        <div className="flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 snap-x snap-mandatory pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 sm:pb-0 sm:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {vehicles.map((vehicle) => (
-            <VehicleCard
-              key={vehicle.id}
-              vehicle={vehicle}
-              isWishlisted={isWishlisted(vehicle.id)}
-              onWishlistToggle={toggleWishlist}
-            />
+            <div key={vehicle.id} className="min-w-[85vw] sm:min-w-0 snap-center">
+              <VehicleCard
+                vehicle={vehicle}
+                isWishlisted={isWishlisted(vehicle.id)}
+                onWishlistToggle={toggleWishlist}
+              />
+            </div>
           ))}
         </div>
 

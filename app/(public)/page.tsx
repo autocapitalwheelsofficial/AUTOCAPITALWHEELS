@@ -181,8 +181,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <BuyingProcess />
       <FeaturedInventory vehicles={featuredVehicles} />
+      <BuyingProcess />
       <WhyChooseUs />
       <SellCarCTA />
       <TestimonialsSection testimonials={testimonials} />

@@ -7,6 +7,7 @@ import { useWishlist } from '@/lib/hooks/useWishlist';
 import VehicleCard from '@/components/public/VehicleCard';
 import { Loader2, Heart, User, LogOut, Phone, Mail, Award, Calendar, Clock, MapPin, MessageSquare, Car } from 'lucide-react';
 import Link from 'next/link';
+import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
 function ProfileContent() {
   const router = useRouter();
@@ -57,10 +58,20 @@ function ProfileContent() {
           .select('*')
           .in('id', wishlistItems);
 
-        if (error) console.error('Error loading wishlist vehicles:', error);
-        if (data) setVehicles(data);
+        if (error) {
+          console.error('Error loading wishlist vehicles:', error);
+          const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
+          setVehicles(mocks);
+        } else if (!data || data.length === 0) {
+          const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
+          setVehicles(mocks);
+        } else {
+          setVehicles(data);
+        }
       } catch (e) {
         console.error('Error loading wishlist vehicles:', e);
+        const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
+        setVehicles(mocks);
       } finally {
         setLoadingVehicles(false);
       }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, Phone, User } from 'lucide-react';
+import { Menu, X, Search, Phone, User, ChevronDown } from 'lucide-react';
 import { NAV_LINKS, WHATSAPP_NUMBER } from '@/lib/constants';
 import { getDefaultWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -210,16 +211,8 @@ export default function Header() {
       >
         <div>
           <div className="flex items-center justify-between p-6 border-b border-neutral-800/60">
-            <div className="flex flex-col items-start leading-none">
-              <div className="font-display font-black text-sm tracking-tight italic select-none">
-                <span className="text-white">AUTO</span>
-                <span className="text-[#b48d36]">CAPITAL</span>
-              </div>
-              <div className="flex items-center gap-1 -mt-0.5 select-none w-full justify-start">
-                <span className="font-display font-black text-[7px] tracking-[0.25em] text-neutral-400 uppercase">
-                  WHEELS
-                </span>
-              </div>
+            <div className="flex items-center">
+              <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain" />
             </div>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -230,31 +223,78 @@ export default function Header() {
             </button>
           </div>
 
-          <nav className="p-6 flex flex-col gap-1.5">
-            {[
-              ...NAV_LINKS,
-              ...(user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com'
-                ? [{ href: '/admin/dashboard', label: 'ADMIN PANEL' }]
-                : []),
-            ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 block ${
-                  link.label === 'ADMIN PANEL'
-                    ? 'text-amber-500 font-extrabold border-l-2 border-amber-500 pl-4 w-fit'
-                    : pathname === link.href
-                    ? 'text-amber-500 border-l-2 border-amber-500 pl-4 w-fit'
-                    : 'text-neutral-400 pl-4'
-                }`}
+          <nav className="p-6 flex flex-col gap-1.5 overflow-y-auto">
+            <Link
+              href="/"
+              onClick={() => setIsMenuOpen(false)}
+              className={`px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 block ${pathname === '/' ? 'text-amber-500 border-l-2 border-amber-500 pl-4 w-fit' : 'text-neutral-400 pl-4'}`}
+            >
+              HOME
+            </Link>
+
+            {/* Buy Cars / Inventory Accordion */}
+            <div>
+              <button 
+                onClick={() => setOpenAccordion(openAccordion === 'buy' ? null : 'buy')}
+                className={`w-full text-left px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 flex items-center justify-between ${pathname.startsWith('/cars') ? 'text-amber-500 border-l-2 border-amber-500 pl-4' : 'text-neutral-400 pl-4'}`}
               >
-                {link.label}
+                BUY CARS
+                <ChevronDown size={14} className={`transition-transform duration-300 ${openAccordion === 'buy' ? 'rotate-180' : ''}`} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 pl-8 ${openAccordion === 'buy' ? 'max-h-[500px] opacity-100 py-2' : 'max-h-0 opacity-0 py-0'}`}>
+                <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">All Inventory</Link>
+                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">SUVs</Link>
+                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">Sedans</Link>
+                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">Luxury Collection</Link>
+              </div>
+            </div>
+
+            {/* Sell Your Car Accordion */}
+            <div>
+              <button 
+                onClick={() => setOpenAccordion(openAccordion === 'sell' ? null : 'sell')}
+                className={`w-full text-left px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 flex items-center justify-between ${pathname === '/sell' ? 'text-amber-500 border-l-2 border-amber-500 pl-4' : 'text-neutral-400 pl-4'}`}
+              >
+                SELL YOUR CAR
+                <ChevronDown size={14} className={`transition-transform duration-300 ${openAccordion === 'sell' ? 'rotate-180' : ''}`} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 pl-8 ${openAccordion === 'sell' ? 'max-h-[500px] opacity-100 py-2' : 'max-h-0 opacity-0 py-0'}`}>
+                <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">Get Free Quote</Link>
+                <Link onClick={() => setIsMenuOpen(false)} href="/about" className="block py-2.5 text-xs font-semibold text-neutral-500 hover:text-amber-500 transition-colors uppercase tracking-wider">How It Works</Link>
+              </div>
+            </div>
+
+            <Link
+              href="/about"
+              onClick={() => setIsMenuOpen(false)}
+              className={`px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 block ${pathname === '/about' ? 'text-amber-500 border-l-2 border-amber-500 pl-4 w-fit' : 'text-neutral-400 pl-4'}`}
+            >
+              ABOUT US
+            </Link>
+
+            <Link
+              href="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className={`px-4 py-3.5 text-xs font-bold tracking-widest uppercase transition-all duration-300 hover:pl-6 hover:text-amber-400 block ${pathname === '/contact' ? 'text-amber-500 border-l-2 border-amber-500 pl-4 w-fit' : 'text-neutral-400 pl-4'}`}
+            >
+              CONTACT US
+            </Link>
+
+            {user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
+              <Link
+                href="/admin/dashboard"
+                onClick={() => setIsMenuOpen(false)}
+                className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-amber-500 font-extrabold border-l-2 border-amber-500 pl-4 w-fit transition-all duration-300 hover:pl-6 block"
+              >
+                ADMIN PANEL
               </Link>
-            ))}
+            )}
+
             {user ? (
               <>
                 <Link 
                   href="/profile" 
+                  onClick={() => setIsMenuOpen(false)}
                   className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-neutral-400 pl-4 hover:pl-6 hover:text-amber-400 transition-all duration-300 block"
                 >
                   My Profile
@@ -262,6 +302,7 @@ export default function Header() {
                 <button
                   onClick={async () => {
                     await supabase.auth.signOut();
+                    setIsMenuOpen(false);
                     router.push('/');
                     router.refresh();
                   }}
@@ -273,6 +314,7 @@ export default function Header() {
             ) : (
               <Link 
                 href="/login" 
+                onClick={() => setIsMenuOpen(false)}
                 className="px-4 py-3.5 text-xs font-bold tracking-widest uppercase text-neutral-400 pl-4 hover:pl-6 hover:text-amber-400 transition-all duration-300 block"
               >
                 Login / Sign Up
@@ -280,25 +322,6 @@ export default function Header() {
             )}
           </nav>
         </div>
-
-        <div className="p-6 border-t border-neutral-800/60 space-y-3 bg-[#0a0a0c]">
-          <a
-            href={getWhatsAppUrl(WHATSAPP_NUMBER, getDefaultWhatsAppMessage())}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#128C7E] text-white text-xs font-bold py-3.5 rounded-md uppercase tracking-wider transition-colors"
-          >
-            WhatsApp Us
-          </a>
-          <a
-            href="tel:+918800243707"
-            className="flex items-center justify-center gap-2 w-full border border-neutral-700 hover:border-neutral-500 text-white text-xs font-bold py-3.5 rounded-md uppercase tracking-wider transition-colors"
-          >
-            <Phone size={13} className="text-amber-500" />
-            +91 8800243707
-          </a>
-        </div>
-      </div>
     </>
   );
 }

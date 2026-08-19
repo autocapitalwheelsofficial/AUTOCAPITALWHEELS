@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import {
   LayoutDashboard, Car, MessageSquare, UserCheck, Navigation,
   Image, Star, HelpCircle, Settings, LogOut, ChevronLeft, ChevronRight,
-  BarChart3, FileText
+  BarChart3, FileText, Menu, X
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import type { AdminUser } from '@/types';
@@ -34,6 +34,7 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const supabase = createClient();
   const [counts, setCounts] = useState<Record<string, number>>({
@@ -53,6 +54,11 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
     return () => window.removeEventListener('acw-unread-counts', handleCountsUpdate);
   }, []);
 
+  // Close mobile menu when pathname changes (user navigated)
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
@@ -66,28 +72,65 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
   };
 
   return (
-    <aside
-      className={`admin-sidebar flex-shrink-0 flex flex-col transition-all duration-300 ${
-        collapsed ? 'w-16' : 'w-64'
-      } hidden lg:flex`}
-    >
-      {/* Logo */}
-      <div className="p-4 border-b border-white/10 flex items-center justify-between min-h-[64px]">
-        {!collapsed && (
-          <div>
-            <div className="font-display font-black text-white text-sm leading-tight">AUTOCAPITAL</div>
-            <div className="font-display font-black text-white text-sm leading-tight">WHEELS</div>
-            <div className="text-[10px] text-amber-500 font-semibold tracking-widest uppercase">Admin</div>
-          </div>
-        )}
+    <>
+      {/* Mobile Top Bar */}
+      <div className="lg:hidden bg-[#121215] text-white p-4 flex items-center justify-between sticky top-0 z-40 border-b border-neutral-800">
+        <div>
+          <div className="font-display font-black text-sm leading-tight">AUTOCAPITAL</div>
+          <div className="text-[10px] text-amber-500 font-semibold tracking-widest uppercase">Admin Panel</div>
+        </div>
         <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors ml-auto"
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          onClick={() => setMobileMenuOpen(true)}
+          className="p-2 hover:bg-white/10 rounded-md transition-colors"
         >
-          {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          <Menu size={24} />
         </button>
       </div>
+
+      {/* Mobile Overlay Backdrop */}
+      {mobileMenuOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/60 z-[45] backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`admin-sidebar flex-shrink-0 flex flex-col transition-all duration-300 ${
+          collapsed ? 'lg:w-16' : 'lg:w-64'
+        } ${
+          mobileMenuOpen ? 'fixed inset-y-0 left-0 z-50 w-64 translate-x-0' : 'fixed inset-y-0 left-0 z-50 w-64 -translate-x-full lg:static lg:translate-x-0'
+        }`}
+      >
+        {/* Logo / Header Area */}
+        <div className="p-4 border-b border-white/10 flex items-center justify-between min-h-[64px]">
+          {!collapsed && (
+            <div>
+              <div className="font-display font-black text-white text-sm leading-tight">AUTOCAPITAL</div>
+              <div className="font-display font-black text-white text-sm leading-tight">WHEELS</div>
+              <div className="text-[10px] text-amber-500 font-semibold tracking-widest uppercase">Admin</div>
+            </div>
+          )}
+          
+          {/* Desktop Collapse Toggle */}
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="p-1.5 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors ml-auto hidden lg:block"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
+
+          {/* Mobile Close Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="p-1.5 rounded-md text-white/40 hover:text-white hover:bg-white/10 transition-colors ml-auto lg:hidden"
+            aria-label="Close menu"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
       {/* Navigation */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
@@ -137,5 +180,6 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
         </button>
       </div>
     </aside>
+    </>
   );
 }

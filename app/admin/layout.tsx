@@ -30,7 +30,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex min-h-screen bg-neutral-100">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-neutral-100">
       <AdminSidebar admin={admin} />
       <AdminRealtimeNotifier />
       <main className="flex-1 min-w-0 overflow-auto">

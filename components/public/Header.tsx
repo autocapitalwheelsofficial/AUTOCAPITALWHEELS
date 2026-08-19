@@ -94,33 +94,102 @@ export default function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center gap-1">
-              {[
-                { href: '/', label: 'HOME' },
-                { href: '/cars', label: 'INVENTORY' },
-                { href: '/sell', label: 'SELL YOUR CAR' },
-                { href: '/about', label: 'ABOUT US' },
-                { href: '/contact', label: 'CONTACT US' },
-                ...(user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com'
-                  ? [{ href: '/admin/dashboard', label: 'ADMIN PANEL' }]
-                  : []),
-              ].map((link) => (
+              {/* HOME */}
+              <Link
+                href="/"
+                className={`relative px-3.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  pathname === '/' ? 'text-amber-500' : textColor
+                } hover:text-amber-400`}
+              >
+                HOME
+                {pathname === '/' && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                )}
+              </Link>
+
+              {/* BUY CARS / INVENTORY (Dropdown) */}
+              <div className="relative group px-1">
                 <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`relative px-3.5 py-2 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
-                    link.label === 'ADMIN PANEL'
-                      ? 'text-amber-500 hover:text-amber-400 font-extrabold'
-                      : pathname === link.href
-                      ? 'text-amber-500'
-                      : textColor
-                  }`}
+                  href="/cars"
+                  className={`relative flex items-center gap-1 px-2.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                    pathname.startsWith('/cars') ? 'text-amber-500' : textColor
+                  } group-hover:text-amber-400`}
                 >
-                  {link.label}
-                  {pathname === link.href && (
-                    <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                  BUY CARS
+                  <ChevronDown size={12} className="transition-transform duration-300 group-hover:rotate-180" />
+                  {pathname.startsWith('/cars') && (
+                    <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-amber-500" />
                   )}
                 </Link>
-              ))}
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-48 pt-2 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+                  <div className="bg-[#121215]/95 backdrop-blur-xl border border-neutral-800 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex flex-col">
+                    <Link href="/cars" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">All Inventory</Link>
+                    <Link href="/cars?body_type=SUV" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">SUVs</Link>
+                    <Link href="/cars?body_type=Sedan" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Sedans</Link>
+                    <Link href="/cars?body_type=Luxury" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Luxury Collection</Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* SELL YOUR CAR (Dropdown) */}
+              <div className="relative group px-1">
+                <Link
+                  href="/sell"
+                  className={`relative flex items-center gap-1 px-2.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                    pathname === '/sell' ? 'text-amber-500' : textColor
+                  } group-hover:text-amber-400`}
+                >
+                  SELL YOUR CAR
+                  <ChevronDown size={12} className="transition-transform duration-300 group-hover:rotate-180" />
+                  {pathname === '/sell' && (
+                    <span className="absolute bottom-0 left-2.5 right-2.5 h-[2px] bg-amber-500" />
+                  )}
+                </Link>
+                {/* Dropdown Menu */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-48 pt-2 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+                  <div className="bg-[#121215]/95 backdrop-blur-xl border border-neutral-800 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex flex-col">
+                    <Link href="/sell" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">Get Free Quote</Link>
+                    <Link href="/about" className="px-5 py-3 text-xs font-bold tracking-wider text-neutral-400 hover:text-white hover:bg-white/5 transition-colors uppercase">How It Works</Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* ABOUT US */}
+              <Link
+                href="/about"
+                className={`relative px-3.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  pathname === '/about' ? 'text-amber-500' : textColor
+                } hover:text-amber-400`}
+              >
+                ABOUT US
+                {pathname === '/about' && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                )}
+              </Link>
+
+              {/* CONTACT US */}
+              <Link
+                href="/contact"
+                className={`relative px-3.5 py-6 text-[11px] font-bold tracking-widest uppercase transition-all duration-200 ${
+                  pathname === '/contact' ? 'text-amber-500' : textColor
+                } hover:text-amber-400`}
+              >
+                CONTACT US
+                {pathname === '/contact' && (
+                  <span className="absolute bottom-0 left-3.5 right-3.5 h-[2px] bg-amber-500" />
+                )}
+              </Link>
+
+              {/* ADMIN PANEL (if applicable) */}
+              {user?.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
+                <Link
+                  href="/admin/dashboard"
+                  className="relative px-3.5 py-6 text-[11px] font-extrabold tracking-widest uppercase transition-all duration-200 text-amber-500 hover:text-amber-400"
+                >
+                  ADMIN PANEL
+                </Link>
+              )}
             </nav>
 
             {/* Right Actions */}

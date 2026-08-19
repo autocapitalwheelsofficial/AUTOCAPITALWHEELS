@@ -90,7 +90,7 @@ export default function HeaderSearch({ isDarkHeader }: { isDarkHeader?: boolean 
 
       {/* Search Dropdown / Overlay */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-3 w-[calc(100vw-2rem)] sm:w-[400px] bg-[#121215] border border-neutral-800 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden animate-fade-in-scale z-50">
+        <div className="fixed top-20 left-4 right-4 sm:absolute sm:top-full sm:right-0 sm:left-auto sm:w-[400px] mt-3 bg-[#121215]/95 backdrop-blur-xl border border-neutral-800 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden animate-fade-in-scale z-50">
           
           <div className="p-3 border-b border-neutral-800 relative">
             <Search size={16} className="absolute left-6 top-1/2 -translate-y-1/2 text-neutral-500" />

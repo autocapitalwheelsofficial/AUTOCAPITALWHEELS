@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { User } from 'lucide-react';
+import { User, Heart, LayoutDashboard, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -53,46 +53,50 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
 
       {/* Profile Dropdown */}
       {isOpen && user && (
-        <div className="absolute top-full right-0 mt-3 w-56 bg-[#121215] border border-neutral-800 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden animate-fade-in-scale z-50">
+        <div className="absolute top-full right-0 mt-3 w-64 bg-[#121215]/90 backdrop-blur-2xl border border-[#2a2a33] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden animate-fade-in-scale z-50">
           
-          <div className="px-4 py-3 border-b border-neutral-800 bg-[#1c1c21]/50">
-            <p className="text-sm font-bold text-white truncate">
+          <div className="px-5 py-4 border-b border-[#2a2a33] bg-gradient-to-b from-white/[0.05] to-transparent">
+            <p className="text-sm font-bold text-white truncate drop-shadow-md">
               {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
             </p>
-            <p className="text-[10px] text-neutral-500 truncate">{user.email}</p>
+            <p className="text-[11px] text-neutral-400 truncate mt-0.5">{user.email}</p>
           </div>
 
-          <div className="py-2">
+          <div className="py-2 px-2">
             {user.email?.toLowerCase() === 'autocapitalwheelsofficial@gmail.com' && (
               <Link 
                 href="/admin/dashboard" 
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-2.5 text-xs font-bold text-amber-500 hover:bg-neutral-800 transition-colors"
+                className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-amber-500 hover:bg-amber-500/10 hover:translate-x-1 rounded-xl transition-all duration-300"
               >
+                <LayoutDashboard size={14} />
                 ADMIN DASHBOARD
               </Link>
             )}
             <Link 
               href="/profile" 
               onClick={() => setIsOpen(false)}
-              className="block px-4 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors"
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white hover:translate-x-1 rounded-xl transition-all duration-300"
             >
+              <User size={14} />
               MY PROFILE
             </Link>
             <Link 
               href="/profile?tab=wishlist" 
               onClick={() => setIsOpen(false)}
-              className="block px-4 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-[#b48d36] transition-colors"
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white hover:translate-x-1 rounded-xl transition-all duration-300"
             >
+              <Heart size={14} />
               MY WISHLIST
             </Link>
           </div>
 
-          <div className="py-2 border-t border-neutral-800">
+          <div className="p-2 border-t border-[#2a2a33] bg-black/20">
             <button
               onClick={handleLogout}
-              className="w-full text-left px-4 py-2.5 text-xs font-semibold text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl transition-all duration-300 cursor-pointer"
             >
+              <LogOut size={14} />
               LOG OUT
             </button>
           </div>

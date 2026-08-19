@@ -13,7 +13,13 @@ interface BrowseByCategoryProps {
 }
 
 export default function BrowseByCategory({ categories }: BrowseByCategoryProps) {
-  if (!categories || categories.length === 0) return null;
+  const defaultCategories: CategoryItem[] = [
+    { name: 'Explore SUVs', body_type: 'SUV', image_url: '' },
+    { name: 'Premium Sedans', body_type: 'Sedan', image_url: '' },
+    { name: 'Luxury Collection', body_type: 'Luxury', image_url: '' }
+  ];
+
+  const displayCategories = categories && categories.length > 0 ? categories : defaultCategories;
 
   return (
     <section className="py-12 bg-neutral-950 overflow-hidden relative">
@@ -33,7 +39,7 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
 
         {/* Scrollable Container */}
         <div className="flex overflow-x-auto gap-6 sm:gap-8 lg:gap-12 pb-8 px-4 -mx-4 sm:mx-0 sm:px-0 sm:justify-center snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {categories.map((cat, idx) => (
+          {displayCategories.map((cat, idx) => (
             <Link 
               key={idx} 
               href={`/cars?body_type=${encodeURIComponent(cat.body_type)}`}

@@ -65,7 +65,7 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-neutral-500 leading-relaxed font-light max-w-xs">
-              Delhi's premium destination for certified pre-owned cars. Transparent pricing, expert team, and hassle-free deals.
+              Gurugram's premium destination for certified pre-owned cars. Transparent pricing, expert team, and hassle-free deals.
             </p>
 
             {/* Social Links */}
@@ -175,7 +175,7 @@ export default function Footer() {
                 <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">
                   <MapPin size={12} className="text-neutral-500" />
                 </div>
-                <span className="leading-relaxed">Plot No. 12, Wazirpur Industrial Area, New Delhi, Delhi 110052</span>
+                <span className="leading-relaxed uppercase">PLOT NO-16 KILLA NO-12,13,25,21,<br/>NEW PALAM VIHAR PHASE II,<br/>SECTOR 110, GURUGRAM</span>
               </li>
               <li className="flex items-start gap-3 text-xs text-neutral-500">
                 <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">

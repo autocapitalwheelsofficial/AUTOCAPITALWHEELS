@@ -51,7 +51,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     engine_cc: vehicle?.engine_cc || '',
     engine_description: vehicle?.engine_description || '',
     ownership: vehicle?.ownership || '1',
-    location: vehicle?.location || 'Delhi',
+    location: vehicle?.location || 'Gurugram',
     vehicle_category: vehicle?.vehicle_category || 'Private',
     status: vehicle?.status || 'Draft',
     availability: vehicle?.availability || 'Available',

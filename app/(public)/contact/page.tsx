@@ -13,7 +13,7 @@ export default function ContactPage() {
       icon: Phone,
       title: 'Call or WhatsApp',
       value: '+91 88002 43707',
-      subValue: '+91 78408 15818',
+      subValue: 'Available Mon–Sat',
       link: 'tel:+918800243707',
     },
     {
@@ -26,9 +26,9 @@ export default function ContactPage() {
     {
       icon: MapPin,
       title: 'Showroom Location',
-      value: 'Plot No. 12, Wazirpur Industrial Area, New Delhi, Delhi 110052',
+      value: 'PLOT NO-16 KILLA NO-12,13,25,21, NEW PALAM VIHAR PHASE II, SECTOR 110, GURUGRAM',
       subValue: 'Visit us for physical inspection & test drives',
-      link: 'https://maps.google.com/?q=Wazirpur+Industrial+Area+New+Delhi',
+      link: 'https://maps.google.com/?q=New+Palam+Vihar+Phase+II+Sector+110+Gurugram',
     },
     {
       icon: Clock,

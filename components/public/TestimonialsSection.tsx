@@ -220,7 +220,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
                     <input
                       type="text"
                       required
-                      placeholder="e.g. New Delhi"
+                      placeholder="e.g. Gurugram"
                       className="w-full text-xs font-semibold px-3 py-2 bg-[#16161a] border border-neutral-800 rounded-lg focus:outline-none focus:border-[#b48d36] text-white"
                       value={formData.customer_location}
                       onChange={(e) => setFormData({ ...formData, customer_location: e.target.value })}

@@ -217,7 +217,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   { icon: Fuel, label: 'Fuel', value: vehicle.fuel_type },
                   { icon: Settings, label: 'Transmission', value: vehicle.transmission },
                   { icon: Users, label: 'Ownership', value: getOwnershipLabel(vehicle.ownership) },
-                  { icon: MapPin, label: 'Location', value: vehicle.location || 'Delhi' },
+                  { icon: MapPin, label: 'Location', value: vehicle.location || 'Gurugram' },
                 ].map(({ icon: Icon, label, value }) => (
                   <div key={label} className="bg-[#121215] rounded-lg border border-[#1f1f26] p-3">
                     <div className="flex items-center gap-1.5 text-neutral-400 mb-1">

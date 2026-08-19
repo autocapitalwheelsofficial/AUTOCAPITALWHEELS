@@ -16,7 +16,7 @@ interface HeroSlide {
 const DEFAULT_SLIDES: HeroSlide[] = [
   {
     url: '/hero_full_background.png',
-    subtitle: "Delhi's Premium Used Cars",
+    subtitle: "Gurugram's Premium Used Cars",
     title_white: "Trusted Cars. ",
     title_gold: "Trusted Deals.",
     description: "We buy and sell certified, premium pre-owned cars. Get transparent pricing, 100+ checkpoint verified vehicles, and expert support."
@@ -103,7 +103,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
       {/* Background Slides */}
       {slides.map((slide, index) => {
         const slideUrl = typeof slide === 'string' ? slide : slide.url;
-        const subtitle = typeof slide === 'string' ? "Delhi's Premium Used Cars" : (slide.subtitle || "Delhi's Premium Used Cars");
+        const subtitle = typeof slide === 'string' ? "Gurugram's Premium Used Cars" : (slide.subtitle || "Gurugram's Premium Used Cars");
         const titleWhite = typeof slide === 'string' ? "Trusted Cars. " : (slide.title_white || "Trusted Cars. ");
         const titleGold = typeof slide === 'string' ? "Trusted Deals." : (slide.title_gold || "Trusted Deals.");
         const description = typeof slide === 'string' 

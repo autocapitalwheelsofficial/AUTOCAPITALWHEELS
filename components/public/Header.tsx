@@ -226,7 +226,7 @@ export default function Header() {
                       <div className="col-span-1 pl-4">
                         <div className="relative h-full rounded-2xl overflow-hidden group/card cursor-pointer border border-[#2a2a33]">
                           <img 
-                            src="/hero-3.jpg" 
+                            src="/mega-menu-luxury.png" 
                             alt="Luxury Collection" 
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
                             onError={(e) => {

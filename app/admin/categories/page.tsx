@@ -31,7 +31,7 @@ export default function AdminCategoriesPage() {
   const fetchSettings = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/settings');
+      const res = await fetch('/api/admin/settings', { cache: 'no-store' });
       const json = await res.json();
       if (json.success) {
         let found = false;

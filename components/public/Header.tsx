@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, Phone, User } from 'lucide-react';
+import { Menu, X, Search, Phone, User, ChevronDown } from 'lucide-react';
 import { NAV_LINKS, WHATSAPP_NUMBER } from '@/lib/constants';
 import { getDefaultWhatsAppMessage, getWhatsAppUrl } from '@/lib/utils';
 import { createClient } from '@/lib/supabase/client';
@@ -12,6 +12,11 @@ import HeaderProfile from '@/components/public/HeaderProfile';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openAccordions, setOpenAccordions] = useState<Record<string, boolean>>({ buy: true, sell: true });
+
+  const toggleAccordion = (key: string) => {
+    setOpenAccordions(prev => ({ ...prev, [key]: !prev[key] }));
+  };
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -193,23 +198,39 @@ export default function Header() {
               HOME
             </Link>
 
-            {/* Buy Cars / Inventory Section */}
-            <div className="px-4 py-3 border-b border-[#1f1f26]">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#b48d36] uppercase mb-3 block drop-shadow-md">Buy Cars</span>
-              <div className="flex flex-col gap-1 pl-3 border-l border-[#2a2a33]">
-                <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>All Inventory</Link>
-                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>SUVs</Link>
-                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>Sedans</Link>
-                <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>Luxury Collection</Link>
+            {/* Buy Cars / Inventory Accordion */}
+            <div className="mb-2">
+              <button 
+                onClick={() => toggleAccordion('buy')}
+                className="w-full flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-neutral-900/80 to-transparent border border-neutral-800/50 rounded-xl hover:border-amber-500/30 transition-all duration-300 group cursor-pointer"
+              >
+                <span className="text-xs font-bold tracking-[0.15em] text-white group-hover:text-amber-400 uppercase">BUY CARS</span>
+                <ChevronDown size={16} className={`text-neutral-400 transition-transform duration-300 ${openAccordions.buy ? 'rotate-180 text-amber-500' : ''}`} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.buy ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}`}>
+                <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">All Inventory</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">SUVs</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Sedans</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Luxury Collection</Link>
+                </div>
               </div>
             </div>
 
-            {/* Sell Your Car Section */}
-            <div className="px-4 py-3 border-b border-[#1f1f26]">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#b48d36] uppercase mb-3 block drop-shadow-md">Sell Your Car</span>
-              <div className="flex flex-col gap-1 pl-3 border-l border-[#2a2a33]">
-                <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>Get Free Quote</Link>
-                <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-300 hover:text-white transition-colors uppercase tracking-wider py-1.5 flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-neutral-600"></span>How It Works</Link>
+            {/* Sell Your Car Accordion */}
+            <div className="mb-2">
+              <button 
+                onClick={() => toggleAccordion('sell')}
+                className="w-full flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-neutral-900/80 to-transparent border border-neutral-800/50 rounded-xl hover:border-amber-500/30 transition-all duration-300 group cursor-pointer"
+              >
+                <span className="text-xs font-bold tracking-[0.15em] text-white group-hover:text-amber-400 uppercase">SELL YOUR CAR</span>
+                <ChevronDown size={16} className={`text-neutral-400 transition-transform duration-300 ${openAccordions.sell ? 'rotate-180 text-amber-500' : ''}`} />
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${openAccordions.sell ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}`}>
+                <div className="flex flex-col gap-1 pl-4 border-l-2 border-neutral-800 ml-4 py-1">
+                  <Link onClick={() => setIsMenuOpen(false)} href="/sell" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">Get Free Quote</Link>
+                  <Link onClick={() => setIsMenuOpen(false)} href="/about" className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors uppercase tracking-wider py-2 pl-3 hover:bg-white/5 rounded-lg">How It Works</Link>
+                </div>
               </div>
             </div>
 

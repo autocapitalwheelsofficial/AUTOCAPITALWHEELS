@@ -32,17 +32,17 @@ export default function ToastContainer() {
       {toasts.map((t) => (
         <div
           key={t.id}
-          className="flex items-center gap-3 bg-[#121215]/95 border border-neutral-800 rounded-xl px-4 py-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.6)] text-white pointer-events-auto border-l-4 border-l-[#b48d36]"
+          className="flex items-center gap-3 bg-white border border-neutral-200 rounded-xl px-4 py-3.5 shadow-[0_15px_30px_rgba(0,0,0,0.08)] text-neutral-800 pointer-events-auto border-l-4 border-l-[#b48d36]"
           style={{
             animation: 'fadeInScale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
           }}
         >
           {t.type === 'success' ? (
-            <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+            <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
           ) : (
             <Info size={16} className="text-[#b48d36] shrink-0" />
           )}
-          <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-200">{t.message}</span>
+          <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-800">{t.message}</span>
         </div>
       ))}
     </div>

@@ -53,10 +53,10 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
 
       {/* Profile Dropdown */}
       {isOpen && user && (
-        <div className="fixed top-20 right-4 w-[calc(100vw-2rem)] sm:absolute sm:top-full sm:right-0 sm:w-64 mt-3 bg-[#121215]/90 backdrop-blur-2xl border border-[#2a2a33] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden animate-fade-in-scale z-[60]">
+        <div className="fixed top-20 right-4 w-[calc(100vw-2rem)] sm:absolute sm:top-full sm:right-0 sm:w-64 mt-3 bg-white border border-neutral-100 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden animate-fade-in-scale z-[60]">
           
-          <div className="px-5 py-4 border-b border-[#2a2a33] bg-gradient-to-b from-white/[0.05] to-transparent">
-            <p className="text-sm font-bold text-white truncate drop-shadow-md">
+          <div className="px-5 py-4 border-b border-neutral-50 bg-neutral-50/50">
+            <p className="text-sm font-bold text-neutral-800 truncate">
               {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
             </p>
             <p className="text-[11px] text-neutral-400 truncate mt-0.5">{user.email}</p>
@@ -67,7 +67,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
               <Link 
                 href="/admin/dashboard" 
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-amber-500 hover:bg-amber-500/10 hover:translate-x-1 rounded-xl transition-all duration-300"
+                className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-amber-600 hover:bg-amber-50 hover:translate-x-1 rounded-xl transition-all duration-300"
               >
                 <LayoutDashboard size={14} />
                 ADMIN DASHBOARD
@@ -76,7 +76,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
             <Link 
               href="/profile" 
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white hover:translate-x-1 rounded-xl transition-all duration-300"
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
             >
               <User size={14} />
               MY PROFILE
@@ -84,17 +84,17 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
             <Link 
               href="/profile?tab=wishlist" 
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white hover:translate-x-1 rounded-xl transition-all duration-300"
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
             >
               <Heart size={14} />
               MY WISHLIST
             </Link>
           </div>
 
-          <div className="p-2 border-t border-[#2a2a33] bg-black/20">
+          <div className="p-2 border-t border-neutral-100 bg-neutral-50/50">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl transition-all duration-300 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-300 cursor-pointer"
             >
               <LogOut size={14} />
               LOG OUT

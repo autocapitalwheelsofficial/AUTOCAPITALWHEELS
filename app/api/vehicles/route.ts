@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
     query = query.range(offset, offset + per_page - 1);
 
     const { data, error, count } = await query;
-    if (error || !data || data.length === 0) throw new Error();
+    if (error) throw new Error(error.message);
 
     const headers: Record<string, string> = {};
     if (!admin) {
@@ -139,7 +139,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data,
+      data: data || [],
       total: count || 0,
       page,
       per_page,

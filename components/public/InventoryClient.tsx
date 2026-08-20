@@ -402,8 +402,14 @@ export default function InventoryClient() {
       {/* Page Header */}
       <div className="bg-[var(--color-bg-card)] border-b border-[var(--color-border)] py-8 px-4">
         <div className="container-custom">
-          <h1 className="font-display font-black text-3xl text-[var(--color-text-primary)]">Find Your Next Car</h1>
-          <p className="text-[var(--color-text-secondary)] text-sm font-light mt-1">Browse our curated selection of quality pre-owned vehicles</p>
+          <h1 className="font-display font-black text-3xl text-[var(--color-text-primary)]">
+            {filters.body_type ? `${filters.body_type} Collection` : 'Find Your Next Car'}
+          </h1>
+          <p className="text-[var(--color-text-secondary)] text-sm font-light mt-1">
+            {filters.body_type
+              ? `Showing all available ${filters.body_type} vehicles`
+              : 'Browse our curated selection of quality pre-owned vehicles'}
+          </p>
         </div>
       </div>
 

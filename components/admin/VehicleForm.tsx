@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, Upload, X, Star, CheckCircle, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -80,7 +80,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
 
   const [dbCategories, setDbCategories] = useState<any[]>([]);
 
-  useState(() => {
+  useEffect(() => {
     const fetchCats = async () => {
       try {
         const res = await fetch('/api/admin/settings');
@@ -97,7 +97,7 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
       } catch {}
     };
     fetchCats();
-  });
+  }, []);
 
   const setField = (key: string, value: any) => setForm((prev) => ({ ...prev, [key]: value }));
 

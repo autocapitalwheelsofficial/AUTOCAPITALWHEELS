@@ -1128,7 +1128,6 @@ textarea.bg-\[\#16161a\],
 .bg-\[\#16161a\]\/95,
 .bg-neutral-950\/80 {
   background-color: var(--color-bg-input) !important;
-  color: var(--color-text-primary) !important;
 }
 
 /* Ensure borders map to variables */
@@ -1170,8 +1169,7 @@ body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[
 }
 
 /* Force typed text to be visible inside all input forms and select elements */
-input, textarea, select, .form-input, .form-select,
-input *, textarea *, select *, .form-input *, .form-select * {
+input, textarea, select, .form-input, .form-select {
   color: #000000 !important;
 }
 

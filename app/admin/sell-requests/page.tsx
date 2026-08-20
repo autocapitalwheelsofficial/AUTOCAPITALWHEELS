@@ -36,6 +36,7 @@ export default function AdminSellRequestsPage() {
         
         if (!error) {
           setRequests(prev => prev.map(item => item.id === req.id ? { ...item, status: 'UNDER_REVIEW' } : item));
+          window.dispatchEvent(new Event('acw-refresh-notifications'));
         }
       } catch (err) {
         console.error(err);
@@ -72,7 +73,10 @@ export default function AdminSellRequestsPage() {
         .eq('id', id);
 
       if (error) alert('Failed: ' + error.message);
-      else await loadRequests();
+      else {
+        await loadRequests();
+        window.dispatchEvent(new Event('acw-refresh-notifications'));
+      }
     } finally {
       setUpdatingId(null);
     }

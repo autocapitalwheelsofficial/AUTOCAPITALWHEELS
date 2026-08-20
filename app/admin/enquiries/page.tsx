@@ -43,6 +43,7 @@ export default function AdminEnquiriesPage() {
         
         if (!error) {
           setEnquiries(prev => prev.map(item => item.id === enq.id ? { ...item, status: 'CONTACTED' } : item));
+          window.dispatchEvent(new Event('acw-refresh-notifications'));
         }
       } catch (err) {
         console.error(err);
@@ -70,6 +71,7 @@ export default function AdminEnquiriesPage() {
       } else {
         // Reload list
         await loadEnquiries();
+        window.dispatchEvent(new Event('acw-refresh-notifications'));
       }
     } catch (err) {
       console.error(err);

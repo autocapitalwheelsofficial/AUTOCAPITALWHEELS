@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { WHATSAPP_NUMBER } from '@/lib/constants';
+import { useSettings } from '@/components/public/SettingsProvider';
 import { getWhatsAppUrl, getDefaultWhatsAppMessage } from '@/lib/utils';
 
 interface WhatsAppFloatProps {
@@ -9,7 +9,8 @@ interface WhatsAppFloatProps {
 }
 
 export default function WhatsAppFloat({ message }: WhatsAppFloatProps) {
-  const url = getWhatsAppUrl(WHATSAPP_NUMBER, message || getDefaultWhatsAppMessage());
+  const { business_whatsapp } = useSettings();
+  const url = getWhatsAppUrl(business_whatsapp, message || getDefaultWhatsAppMessage());
   const [isHovered, setIsHovered] = useState(false);
 
   return (

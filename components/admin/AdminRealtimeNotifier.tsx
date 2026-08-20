@@ -52,6 +52,8 @@ export default function AdminRealtimeNotifier() {
     }
   };
 
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
@@ -91,8 +93,16 @@ export default function AdminRealtimeNotifier() {
     // Poll every 5 seconds
     const interval = setInterval(fetchNotifications, 5000);
 
-    return () => clearInterval(interval);
-  }, [shownIds]);
+    const handleRefresh = () => {
+      fetchNotifications();
+    };
+    window.addEventListener('acw-refresh-notifications', handleRefresh);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('acw-refresh-notifications', handleRefresh);
+    };
+  }, [shownIds, refreshTrigger]);
 
   const removeAlert = (id: string) => {
     setAlerts((prev) => prev.filter((item) => item.id !== id));

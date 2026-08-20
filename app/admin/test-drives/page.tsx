@@ -43,6 +43,7 @@ export default function AdminTestDrivesPage() {
         
         if (!error) {
           setTestDrives(prev => prev.map(item => item.id === td.id ? { ...item, status: 'CONFIRMED' } : item));
+          window.dispatchEvent(new Event('acw-refresh-notifications'));
         }
       } catch (err) {
         console.error(err);
@@ -70,6 +71,7 @@ export default function AdminTestDrivesPage() {
       } else {
         // Reload list
         await loadTestDrives();
+        window.dispatchEvent(new Event('acw-refresh-notifications'));
       }
     } catch (err) {
       console.error(err);

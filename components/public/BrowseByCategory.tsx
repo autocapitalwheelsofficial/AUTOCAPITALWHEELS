@@ -57,11 +57,29 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
               >
                 <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-neutral-100 group-hover:bg-amber-500 transition-colors duration-500 overflow-hidden flex items-center justify-center border-0 shadow-none">
                   {cat.image_url ? (
-                    <img 
-                      src={cat.image_url} 
-                      alt={cat.name} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                    (() => {
+                      const lower = cat.image_url.toLowerCase();
+                      const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || lower.includes('/categories/category_') && !lower.includes('.png') && !lower.includes('.jpg') && !lower.includes('.jpeg') && !lower.includes('.webp');
+                      if (isVideo) {
+                        return (
+                          <video 
+                            src={cat.image_url} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                            autoPlay 
+                            muted 
+                            loop 
+                            playsInline 
+                          />
+                        );
+                      }
+                      return (
+                        <img 
+                          src={cat.image_url} 
+                          alt={cat.name} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      );
+                    })()
                   ) : (
                     <div className="text-neutral-700 group-hover:text-white text-xs font-bold uppercase tracking-widest transition-colors duration-300">
                       {cat.body_type}

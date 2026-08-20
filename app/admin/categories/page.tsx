@@ -106,7 +106,7 @@ export default function AdminCategoriesPage() {
   const handleNewCategorySelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
     const validFiles = files.filter(
-      (f) => f.type.startsWith('image/') && f.size <= 10 * 1024 * 1024
+      (f) => (f.type.startsWith('image/') || f.type.startsWith('video/')) && f.size <= 10 * 1024 * 1024
     );
 
     const newCategories = validFiles.map((file, idx) => {
@@ -290,7 +290,25 @@ export default function AdminCategoriesPage() {
 
                     <div className="relative aspect-square rounded-full overflow-hidden bg-neutral-900 border-2 border-neutral-800 group/media mx-auto w-32">
                       {cat.image_url ? (
-                        <img src={cat.image_url} alt="Preview" className="w-full h-full object-cover" />
+                        (() => {
+                          const lower = cat.image_url.toLowerCase();
+                          const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || lower.includes('/categories/category_') || (cat.pendingFile && cat.pendingFile.type.startsWith('video/'));
+                          if (isVideo) {
+                            return (
+                              <video 
+                                src={cat.image_url} 
+                                className="w-full h-full object-cover" 
+                                autoPlay 
+                                muted 
+                                loop 
+                                playsInline 
+                              />
+                            );
+                          }
+                          return (
+                            <img src={cat.image_url} alt="Preview" className="w-full h-full object-cover" />
+                          );
+                        })()
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-neutral-600">No Image</div>
                       )}
@@ -341,16 +359,16 @@ export default function AdminCategoriesPage() {
 
           {/* Upload Area */}
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
-            <h3 className="font-display font-bold text-lg text-amber-500 border-b border-neutral-800 pb-3">Quick Add Multiple Images</h3>
+            <h3 className="font-display font-bold text-lg text-amber-500 border-b border-neutral-800 pb-3">Quick Add Multiple Images/Videos</h3>
             <div>
               <div
                 onClick={() => fileInputRef.current?.click()}
                 className="border-2 border-dashed border-neutral-800 hover:border-neutral-700 rounded-2xl p-8 text-center cursor-pointer hover:bg-neutral-900/30 transition-colors"
               >
                 <Upload size={28} className="text-neutral-500 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-neutral-200">Upload Multiple Category Photos</p>
-                <input ref={fileInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleNewCategorySelect} />
-                <input ref={replaceFileInputRef} type="file" accept="image/*" className="hidden" onChange={handleReplaceMediaSelect} />
+                <p className="text-sm font-semibold text-neutral-200">Upload Multiple Category Photos/Videos</p>
+                <input ref={fileInputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleNewCategorySelect} />
+                <input ref={replaceFileInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleReplaceMediaSelect} />
               </div>
             </div>
           </div>

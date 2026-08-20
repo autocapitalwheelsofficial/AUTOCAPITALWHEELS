@@ -1146,8 +1146,8 @@ textarea.bg-\[\#16161a\],
 }
 
 /* Force all text-white utility classes on non-badge/non-button text elements to use primary dark charcoal color */
-body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep):not(.text-white):not(.text-white *).text-white,
-body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep):not(.text-white):not(.text-white *) > .text-white {
+body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep):not(.text-white):not(.text-white *):not(input):not(textarea):not(select).text-white,
+body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep):not(.text-white):not(.text-white *):not(input):not(textarea):not(select) > .text-white {
   color: var(--color-text-primary) !important;
 }
 /* Buttons and gold bg elements use white text */

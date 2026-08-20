@@ -97,9 +97,51 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
     }, 50);
   };
 
+  // Add scroll wheel and touch swipe events for smooth slide navigation
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 70) {
+      // swipe left
+      goNext();
+    }
+    if (touchStart - touchEnd < -70) {
+      // swipe right
+      goPrev();
+    }
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    // Only intercept wheel scroll at top of page
+    if (window.scrollY === 0) {
+      if (e.deltaY > 50) {
+        e.preventDefault();
+        goNext();
+      } else if (e.deltaY < -50) {
+        e.preventDefault();
+        goPrev();
+      }
+    }
+  };
+
   return (
-    <section className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)]"
-      style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '80px' }}>
+    <section 
+      className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)]"
+      style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '80px' }}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
 
       {/* Background Slides */}
       {slides.map((slide, index) => {

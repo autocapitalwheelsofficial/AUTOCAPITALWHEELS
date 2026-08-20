@@ -121,72 +121,32 @@ export default async function HomePage() {
     <>
       <HeroSection initialSlides={heroSlides} />
       <QuickSearch />
-      
-      {/* Target Screenshot Trust Badges Row */}
-      <section className="-mt-4 pb-12 bg-[#0a0a0c]">
+      {/* Trust Badges Row — light theme, horizontal scroll on mobile */}
+      <section className="py-4 bg-[var(--color-bg-base)]">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6 border-y border-[#1f1f26] bg-[#121215]/50 rounded-xl px-6">
-            
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <ShieldCheck size={18} className="stroke-[1.5]" />
+          {/* Mobile: horizontal scroll strip */}
+          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-1 snap-x snap-mandatory lg:grid lg:grid-cols-6 lg:gap-5 lg:overflow-visible lg:pb-0">
+            {[
+              { icon: ShieldCheck, label: '100% Transparency', sub: 'No hidden charges' },
+              { icon: Tag, label: 'Best Market Price', sub: 'Get the best deals' },
+              { icon: Clock, label: 'Easy & Quick', sub: 'Hassle free experience' },
+              { icon: MessageSquare, label: 'Instant Quotes', sub: 'Quick response' },
+              { icon: Users, label: 'Trusted by Many', sub: '1000+ happy customers' },
+              { icon: Headphones, label: '24/7 Support', sub: 'We\'re always here' },
+            ].map(({ icon: Icon, label, sub }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 min-w-[160px] snap-start flex-shrink-0 lg:min-w-0 lg:flex-shrink bg-white rounded-xl px-4 py-3.5 border border-neutral-200 shadow-sm hover:border-[#b48d36]/40 hover:shadow-md transition-all duration-200"
+              >
+                <div className="w-9 h-9 rounded-lg bg-[#b48d36]/10 flex items-center justify-center flex-shrink-0">
+                  <Icon size={17} className="text-[#b48d36] stroke-[1.75]" />
+                </div>
+                <div>
+                  <span className="block text-[11px] font-bold text-neutral-800 leading-tight">{label}</span>
+                  <span className="block text-[10px] text-neutral-500 font-normal leading-tight mt-0.5">{sub}</span>
+                </div>
               </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">100% Transparency</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">No hidden charges</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <Tag size={18} className="stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">Best Market Price</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">Get the best deals</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <Clock size={18} className="stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">Easy & Quick Process</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">Hassle free experience</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <MessageSquare size={18} className="stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">Instant Quotes</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">Quick response</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <Users size={18} className="stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">Trusted by Many</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">1000+ happy customers</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 justify-center md:justify-start">
-              <div className="text-[#b48d36] flex-shrink-0">
-                <Headphones size={18} className="stroke-[1.5]" />
-              </div>
-              <div className="space-y-0.5">
-                <span className="block text-xs font-bold text-white leading-tight">24/7 Support</span>
-                <span className="block text-[9px] text-neutral-400 font-light leading-none">We're always here</span>
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
       </section>

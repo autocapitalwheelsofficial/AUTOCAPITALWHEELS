@@ -69,15 +69,15 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
   };
 
   return (
-    <section className="py-16 bg-[#0a0a0c] border-t border-[#1f1f26]">
+    <section className="py-12 bg-[var(--color-bg-base)] border-t border-[var(--color-border)]">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 border-b border-[#1f1f26] pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 border-b border-[var(--color-border)] pb-6">
           <div className="text-left">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-bold text-[#b48d36] tracking-[0.2em] uppercase">TESTIMONIALS</span>
             </div>
-            <h2 className="font-display font-light text-3xl sm:text-4xl text-white">
+            <h2 className="font-display font-light text-3xl sm:text-4xl text-[var(--color-text-primary)]">
               What Our Customers <span className="font-bold text-[#b48d36]">Say</span>
             </h2>
           </div>
@@ -100,7 +100,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               {testimonials.slice(0, 3).map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="flex flex-col justify-between border-t border-[#1f1f26] pt-6 group"
+                  className="flex flex-col justify-between border-t border-[var(--color-border)] pt-6 group"
                 >
                   <div className="space-y-4">
                     {/* Stars */}

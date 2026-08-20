@@ -1280,3 +1280,12 @@ input[type="range"]::-moz-range-thumb:hover {
 .btn-secondary.lg\:hidden:hover {
   background-color: var(--color-bg-hover) !important;
 }
+
+/* Hide scrollbar but keep scroll functionality (for horizontal badge strip) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

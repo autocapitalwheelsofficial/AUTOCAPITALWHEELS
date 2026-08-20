@@ -23,9 +23,9 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
   const displayCategories = categories && categories.length > 0 ? categories : defaultCategories;
 
   return (
-    <section className="py-12 bg-neutral-950 overflow-hidden relative">
-      {/* Background Decor */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[1px] bg-gradient-to-r from-transparent via-neutral-800 to-transparent" />
+    <section className="py-10 bg-[var(--color-bg-base)] overflow-hidden relative">
+      {/* Subtle divider */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container-custom relative z-10">

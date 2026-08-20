@@ -65,7 +65,8 @@ function FilterPanel({
             placeholder="Search make, model..."
             value={filters.search}
             onChange={(e) => updateFilter('search', e.target.value)}
-            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 pl-9 pr-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/20 transition-all"
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 pl-9 pr-3 focus:outline-none focus:border-[#b48d36] transition-all"
+            style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
             id="inventory-search"
           />
         </div>
@@ -176,14 +177,16 @@ function FilterPanel({
             placeholder="Min ₹"
             value={filters.min_price}
             onChange={(e) => updateFilter('min_price', e.target.value)}
-            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all"
+            style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
           />
           <input
             type="number"
             placeholder="Max ₹"
             value={filters.max_price}
             onChange={(e) => updateFilter('max_price', e.target.value)}
-            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all"
+            style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
           />
         </div>
       </div>
@@ -197,7 +200,8 @@ function FilterPanel({
             placeholder="From"
             value={filters.min_year}
             onChange={(e) => updateFilter('min_year', e.target.value)}
-            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all"
+            style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
             min="1990"
             max={currentYear}
           />
@@ -206,7 +210,8 @@ function FilterPanel({
             placeholder="To"
             value={filters.max_year}
             onChange={(e) => updateFilter('max_year', e.target.value)}
-            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all"
+            style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
             min="1990"
             max={currentYear}
           />
@@ -339,15 +344,17 @@ export default function InventoryClient() {
     fetchVehicles(filters, page, sort);
   }, [filters, page, sort, fetchVehicles]);
 
-  const updateFilter = (key: keyof Filters, value: string) => {
+
+  const updateFilter = useCallback((key: keyof Filters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
     setPage(1);
-  };
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setFilters(defaultFilters);
     setPage(1);
-  };
+  }, []);
+
 
   // FilterPanel is extracted outside this component (above) to preserve stable identity.
   // This prevents React from remounting inputs on every keystroke.

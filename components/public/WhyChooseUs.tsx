@@ -44,7 +44,7 @@ const trustPoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-white border-t border-[var(--color-border)] relative overflow-hidden">
+    <section className="py-12 bg-white border-t border-[var(--color-border)] relative overflow-hidden">
       {/* Decorative luxury backgrounds */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#b48d36]/3 rounded-full filter blur-3xl -translate-y-1/2" />
       

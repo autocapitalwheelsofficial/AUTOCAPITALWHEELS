@@ -77,10 +77,10 @@ function ProfileContent() {
       }
     };
 
-    if (user && activeTab === 'wishlist') {
+    if (user) {
       loadWishlistVehicles();
     }
-  }, [user, wishlistItems, activeTab, supabase]);
+  }, [user, wishlistItems, supabase]);
 
   // Load test drives and quotations history
   useEffect(() => {

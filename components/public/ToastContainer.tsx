@@ -42,7 +42,7 @@ export default function ToastContainer() {
           ) : (
             <Info size={16} className="text-[#b48d36] shrink-0" />
           )}
-          <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-800">{t.message}</span>
+          <span className="text-[10px] font-bold tracking-widest uppercase" style={{ color: '#1a1a1a' }}>{t.message}</span>
         </div>
       ))}
     </div>

@@ -201,19 +201,23 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   <p className="text-neutral-500 mt-1">{vehicle.variant}</p>
                 )}
 
-                <div className="flex items-center gap-3 mt-3 flex-wrap">
+                <div className="flex items-center gap-6 mt-3 pt-3 border-t border-neutral-100 w-full">
                   <div>
                     <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest block mb-0.5">Selling Price</span>
-                    <div className="price-main text-2xl sm:text-3xl text-neutral-900 font-extrabold" style={{ color: '#1a1a1a' }}>{formatPrice(vehicle.price)}</div>
+                    <span className="text-3xl font-extrabold block text-neutral-800" style={{ color: '#1a1a1a', fontFamily: 'var(--font-display)' }}>
+                      {formatPrice(vehicle.price)}
+                    </span>
                   </div>
                   {vehicle.original_price && vehicle.original_price > vehicle.price && (
                     <div>
                       <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-0.5">Original Price</span>
-                      <div className="price-original text-sm line-through text-neutral-400 font-medium" style={{ color: '#9ca3af' }}>{formatPrice(vehicle.original_price)}</div>
+                      <span className="text-base line-through block text-neutral-400 font-medium" style={{ color: '#9ca3af', fontFamily: 'var(--font-display)' }}>
+                        {formatPrice(vehicle.original_price)}
+                      </span>
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-neutral-500 mt-1.5 font-medium">Price is indicative. Contact us for final quote.</p>
+                <p className="text-xs text-neutral-500 mt-2 font-medium">Price is indicative. Contact us for final quote.</p>
               </div>
 
               {/* Key Specs Grid */}
@@ -282,10 +286,10 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   </div>
                   <a
                     href="tel:+918800243707"
-                    className="flex items-center justify-center gap-2 w-full py-3 border border-neutral-300 hover:border-neutral-400 rounded-md text-sm font-semibold text-neutral-800 bg-neutral-50 hover:bg-neutral-100 transition-all cursor-pointer"
-                    style={{ color: '#1f2937' }}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 border border-neutral-300 hover:border-neutral-400 rounded-md text-sm font-bold bg-neutral-100 hover:bg-neutral-200 transition-all cursor-pointer"
+                    style={{ color: '#1a1a1a' }}
                   >
-                    <Phone size={15} />
+                    <Phone size={15} style={{ color: '#1a1a1a' }} />
                     Call +91 8800243707
                   </a>
                 </div>
@@ -469,9 +473,14 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
                 {/* Contact */}
                 <div className="mt-4 pt-4 border-t border-neutral-100 text-center">
-                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1">AutoCapital Wheels</p>
-                  <a href="tel:+918800243707" className="text-base font-bold text-neutral-800 hover:text-[#b48d36] transition-colors">
-                    +91 88002 43707
+                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-2">AutoCapital Wheels</p>
+                  <a
+                    href="tel:+918800243707"
+                    className="flex items-center justify-center gap-2 w-full py-3 border border-neutral-300 hover:border-neutral-400 rounded-xl text-sm font-bold bg-neutral-100 hover:bg-neutral-200 transition-all cursor-pointer"
+                    style={{ color: '#1a1a1a' }}
+                  >
+                    <Phone size={14} style={{ color: '#1a1a1a' }} />
+                    Call +91 8800243707
                   </a>
                 </div>
               </div>

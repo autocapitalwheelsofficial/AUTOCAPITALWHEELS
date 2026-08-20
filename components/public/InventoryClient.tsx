@@ -8,6 +8,7 @@ import VehicleCard from './VehicleCard';
 import type { Vehicle, VehicleSortOption } from '@/types';
 import { CAR_MAKES, FUEL_TYPES, TRANSMISSION_TYPES, BODY_TYPES, VEHICLE_CATEGORIES, SORT_OPTIONS } from '@/lib/constants';
 
+// ─── Interfaces ───────────────────────────────────────────────────────────────
 interface Filters {
   search: string;
   make: string;
@@ -35,6 +36,217 @@ const defaultFilters: Filters = {
   max_year: '',
   availability: '',
 };
+
+// ─── FilterPanel (MUST be outside InventoryClient so React doesn't remount inputs) ──
+interface FilterPanelProps {
+  filters: Filters;
+  availableMakes: string[];
+  activeFilterCount: number;
+  openMakeDropdown: boolean;
+  setOpenMakeDropdown: (v: boolean) => void;
+  updateFilter: (key: keyof Filters, value: string) => void;
+  clearFilters: () => void;
+}
+
+function FilterPanel({
+  filters, availableMakes, activeFilterCount,
+  openMakeDropdown, setOpenMakeDropdown,
+  updateFilter, clearFilters,
+}: FilterPanelProps) {
+  const currentYear = new Date().getFullYear();
+  return (
+    <div className="space-y-5">
+      {/* Search */}
+      <div className="pb-4 border-b border-neutral-200">
+        <div className="relative">
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search make, model..."
+            value={filters.search}
+            onChange={(e) => updateFilter('search', e.target.value)}
+            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 pl-9 pr-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] focus:ring-1 focus:ring-[#b48d36]/20 transition-all"
+            id="inventory-search"
+          />
+        </div>
+      </div>
+
+      {/* Make */}
+      <div className="relative">
+        <p className="filter-section-title">Make</p>
+        <button
+          type="button"
+          onClick={() => setOpenMakeDropdown(!openMakeDropdown)}
+          className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-white border border-neutral-200 rounded-lg hover:border-[#b48d36]/50 text-neutral-700 transition-all duration-300 text-left cursor-pointer"
+          id="filter-make-btn"
+        >
+          <span className="truncate">{filters.make || 'All Makes'}</span>
+          <ChevronDown size={14} className={`text-neutral-400 transition-transform duration-300 ${openMakeDropdown ? 'rotate-180' : ''}`} />
+        </button>
+
+        {openMakeDropdown && (
+          <div className="absolute left-0 right-0 mt-2 bg-white border border-neutral-200 rounded-xl shadow-lg max-h-60 overflow-y-auto z-50 py-1.5 animate-fade-in">
+            <div
+              onClick={() => { updateFilter('make', ''); setOpenMakeDropdown(false); }}
+              className="flex items-center justify-between px-4 py-2 hover:bg-[#b48d36]/5 text-xs font-semibold text-neutral-700 cursor-pointer transition-all"
+            >
+              <span>All Makes</span>
+              {!filters.make && <Check size={12} className="text-[#b48d36]" />}
+            </div>
+            {availableMakes.map((make) => (
+              <div
+                key={make}
+                onClick={() => { updateFilter('make', make); setOpenMakeDropdown(false); }}
+                className="flex items-center justify-between px-4 py-2 hover:bg-[#b48d36]/5 text-xs font-semibold text-neutral-700 cursor-pointer transition-all"
+              >
+                <span>{make}</span>
+                {filters.make === make && <Check size={12} className="text-[#b48d36]" />}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Body Type */}
+      <div>
+        <p className="filter-section-title">Body Type</p>
+        <div className="flex flex-wrap gap-2">
+          {BODY_TYPES.map((type) => (
+            <button
+              key={type}
+              onClick={() => updateFilter('body_type', filters.body_type === type ? '' : type)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
+                filters.body_type === type
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36]'
+                  : 'border-neutral-200 text-neutral-600 bg-white hover:border-[#b48d36]/40'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Fuel */}
+      <div>
+        <p className="filter-section-title">Fuel Type</p>
+        <div className="flex flex-wrap gap-2">
+          {FUEL_TYPES.map((fuel) => (
+            <button
+              key={fuel}
+              onClick={() => updateFilter('fuel_type', filters.fuel_type === fuel ? '' : fuel)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
+                filters.fuel_type === fuel
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36]'
+                  : 'border-neutral-200 text-neutral-600 bg-white hover:border-[#b48d36]/40'
+              }`}
+            >
+              {fuel}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Transmission */}
+      <div>
+        <p className="filter-section-title">Transmission</p>
+        <div className="flex flex-wrap gap-2">
+          {TRANSMISSION_TYPES.map((trans) => (
+            <button
+              key={trans}
+              onClick={() => updateFilter('transmission', filters.transmission === trans ? '' : trans)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
+                filters.transmission === trans
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36]'
+                  : 'border-neutral-200 text-neutral-600 bg-white hover:border-[#b48d36]/40'
+              }`}
+            >
+              {trans}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Range */}
+      <div>
+        <p className="filter-section-title">Budget</p>
+        <div className="flex gap-2">
+          <input
+            type="number"
+            placeholder="Min ₹"
+            value={filters.min_price}
+            onChange={(e) => updateFilter('min_price', e.target.value)}
+            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+          />
+          <input
+            type="number"
+            placeholder="Max ₹"
+            value={filters.max_price}
+            onChange={(e) => updateFilter('max_price', e.target.value)}
+            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+          />
+        </div>
+      </div>
+
+      {/* Year Range */}
+      <div>
+        <p className="filter-section-title">Year</p>
+        <div className="flex gap-2">
+          <input
+            type="number"
+            placeholder="From"
+            value={filters.min_year}
+            onChange={(e) => updateFilter('min_year', e.target.value)}
+            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            min="1990"
+            max={currentYear}
+          />
+          <input
+            type="number"
+            placeholder="To"
+            value={filters.max_year}
+            onChange={(e) => updateFilter('max_year', e.target.value)}
+            className="w-full text-sm bg-white border border-neutral-200 rounded-lg py-2.5 px-3 text-neutral-800 placeholder:text-neutral-400 focus:outline-none focus:border-[#b48d36] transition-all"
+            min="1990"
+            max={currentYear}
+          />
+        </div>
+      </div>
+
+      {/* Availability */}
+      <div>
+        <p className="filter-section-title">Availability</p>
+        <div className="flex gap-2">
+          {['Available', 'Reserved'].map((avail) => (
+            <button
+              key={avail}
+              onClick={() => updateFilter('availability', filters.availability === avail ? '' : avail)}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
+                filters.availability === avail
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36]'
+                  : 'border-neutral-200 text-neutral-600 bg-white hover:border-[#b48d36]/40'
+              }`}
+            >
+              {avail}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Clear */}
+      {activeFilterCount > 0 && (
+        <button
+          onClick={clearFilters}
+          className="w-full mt-2 text-sm text-red-500 hover:text-red-600 font-medium py-2 border border-red-200 rounded-lg hover:bg-red-50 transition-colors"
+        >
+          Clear All Filters ({activeFilterCount})
+        </button>
+      )}
+    </div>
+  );
+}
+
+// (Interfaces and FilterPanel component moved above for stable React identity)
 
 export default function InventoryClient() {
   const searchParams = useSearchParams();
@@ -137,205 +349,17 @@ export default function InventoryClient() {
     setPage(1);
   };
 
-  const FilterPanel = () => (
-    <div className="space-y-0">
-      {/* Search */}
-      <div className="pb-4 border-b border-neutral-200">
-        <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-          <input
-            type="text"
-            placeholder="Search make, model..."
-            value={filters.search}
-            onChange={(e) => updateFilter('search', e.target.value)}
-            className="form-input text-sm text-neutral-800"
-            style={{ paddingLeft: '2.5rem' }}
-            id="inventory-search"
-          />
-        </div>
-      </div>
+  // FilterPanel is extracted outside this component (above) to preserve stable identity.
+  // This prevents React from remounting inputs on every keystroke.
 
-      {/* Make */}
-      <div className="relative">
-        <p className="filter-section-title">Make</p>
-        <button
-          type="button"
-          onClick={() => setOpenMakeDropdown(!openMakeDropdown)}
-          className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[#16161a] border border-neutral-800 rounded-lg hover:border-amber-500/50 text-white transition-all duration-300 text-left cursor-pointer"
-          id="filter-make-btn"
-        >
-          <span className="truncate">{filters.make || 'All Makes'}</span>
-          <ChevronDown size={14} className={`text-neutral-500 transition-transform duration-300 ${openMakeDropdown ? 'rotate-180' : ''}`} />
-        </button>
-
-        {openMakeDropdown && (
-          <div className="absolute left-0 right-0 mt-2 bg-[#16161a] border border-neutral-800 rounded-xl shadow-2xl max-h-60 overflow-y-auto z-50 py-1.5 animate-fade-in scrollbar-thin">
-            <div
-              onClick={() => { updateFilter('make', ''); setOpenMakeDropdown(false); }}
-              className="flex items-center justify-between px-4 py-2 hover:bg-[#b48d36]/10 text-xs font-semibold text-white cursor-pointer transition-all"
-            >
-              <span>All Makes</span>
-              {!filters.make && <Check size={12} className="text-[#b48d36]" />}
-            </div>
-            {availableMakes.map((make) => (
-              <div
-                key={make}
-                onClick={() => { updateFilter('make', make); setOpenMakeDropdown(false); }}
-                className="flex items-center justify-between px-4 py-2 hover:bg-[#b48d36]/10 text-xs font-semibold text-white cursor-pointer transition-all"
-              >
-                <span>{make}</span>
-                {filters.make === make && <Check size={12} className="text-[#b48d36]" />}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Body Type */}
-      <div>
-        <p className="filter-section-title">Body Type</p>
-        <div className="flex flex-wrap gap-2">
-          {BODY_TYPES.map((type) => (
-            <button
-              key={type}
-              onClick={() => updateFilter('body_type', filters.body_type === type ? '' : type)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
-                filters.body_type === type
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
-                  : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
-              }`}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Fuel */}
-      <div>
-        <p className="filter-section-title">Fuel Type</p>
-        <div className="flex flex-wrap gap-2">
-          {FUEL_TYPES.map((fuel) => (
-            <button
-              key={fuel}
-              onClick={() => updateFilter('fuel_type', filters.fuel_type === fuel ? '' : fuel)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
-                filters.fuel_type === fuel
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
-                  : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
-              }`}
-            >
-              {fuel}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Transmission */}
-      <div>
-        <p className="filter-section-title">Transmission</p>
-        <div className="flex flex-wrap gap-2">
-          {TRANSMISSION_TYPES.map((trans) => (
-            <button
-              key={trans}
-              onClick={() => updateFilter('transmission', filters.transmission === trans ? '' : trans)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
-                filters.transmission === trans
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
-                  : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
-              }`}
-            >
-              {trans}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Price Range */}
-      <div>
-        <p className="filter-section-title">Budget</p>
-        <div className="flex gap-2">
-          <input
-            type="number"
-            placeholder="Min ₹"
-            value={filters.min_price}
-            onChange={(e) => updateFilter('min_price', e.target.value)}
-            className="form-input text-sm w-full"
-          />
-          <input
-            type="number"
-            placeholder="Max ₹"
-            value={filters.max_price}
-            onChange={(e) => updateFilter('max_price', e.target.value)}
-            className="form-input text-sm w-full"
-          />
-        </div>
-      </div>
-
-      {/* Year Range */}
-      <div>
-        <p className="filter-section-title">Year</p>
-        <div className="flex gap-2">
-          <input
-            type="number"
-            placeholder="From"
-            value={filters.min_year}
-            onChange={(e) => updateFilter('min_year', e.target.value)}
-            className="form-input text-sm w-full"
-            min="1990"
-            max={new Date().getFullYear()}
-          />
-          <input
-            type="number"
-            placeholder="To"
-            value={filters.max_year}
-            onChange={(e) => updateFilter('max_year', e.target.value)}
-            className="form-input text-sm w-full"
-            min="1990"
-            max={new Date().getFullYear()}
-          />
-        </div>
-      </div>
-
-      {/* Availability */}
-      <div>
-        <p className="filter-section-title">Availability</p>
-        <div className="flex gap-2">
-          {['Available', 'Reserved'].map((avail) => (
-            <button
-              key={avail}
-              onClick={() => updateFilter('availability', filters.availability === avail ? '' : avail)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
-                filters.availability === avail
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
-                  : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
-              }`}
-            >
-              {avail}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Clear */}
-      {activeFilterCount > 0 && (
-        <button
-          onClick={clearFilters}
-          className="w-full mt-4 text-sm text-red-600 hover:text-red-700 font-medium py-2 border border-red-200 rounded-md hover:bg-red-50 transition-colors"
-        >
-          Clear All Filters ({activeFilterCount})
-        </button>
-      )}
-    </div>
-  );
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c]">
+    <div className="min-h-screen bg-[var(--color-bg-base)]">
       {/* Page Header */}
-      <div className="bg-[#0d0d10] border-b border-[#1f1f26] py-8 px-4">
+      <div className="bg-[var(--color-bg-card)] border-b border-[var(--color-border)] py-8 px-4">
         <div className="container-custom">
-          <h1 className="font-display font-black text-3xl text-white">Find Your Next Car</h1>
-          <p className="text-neutral-400 text-sm font-light mt-1">Browse our curated selection of quality pre-owned vehicles</p>
+          <h1 className="font-display font-black text-3xl text-[var(--color-text-primary)]">Find Your Next Car</h1>
+          <p className="text-[var(--color-text-secondary)] text-sm font-light mt-1">Browse our curated selection of quality pre-owned vehicles</p>
         </div>
       </div>
 
@@ -343,14 +367,22 @@ export default function InventoryClient() {
         <div className="flex gap-6">
           {/* Desktop Filter Sidebar */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-5 sticky top-20">
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="font-display font-bold text-base text-white">Filters</h2>
+            <div className="bg-white rounded-xl border border-neutral-200 p-5 sticky top-20 shadow-sm">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-display font-bold text-base text-neutral-800">Filters</h2>
                 {activeFilterCount > 0 && (
-                  <span className="text-xs bg-[#b48d36] text-black font-semibold px-2 py-0.5 rounded-full">{activeFilterCount}</span>
+                  <span className="text-xs bg-[#b48d36] text-white font-semibold px-2 py-0.5 rounded-full">{activeFilterCount}</span>
                 )}
               </div>
-              {FilterPanel()}
+              <FilterPanel
+                filters={filters}
+                availableMakes={availableMakes}
+                activeFilterCount={activeFilterCount}
+                openMakeDropdown={openMakeDropdown}
+                setOpenMakeDropdown={setOpenMakeDropdown}
+                updateFilter={updateFilter}
+                clearFilters={clearFilters}
+              />
             </div>
           </aside>
 
@@ -526,16 +558,24 @@ export default function InventoryClient() {
       {/* Mobile Filter Drawer */}
       {showFilters && (
         <>
-          <div className="fixed inset-0 bg-black/70 z-40 lg:hidden" onClick={() => setShowFilters(false)} />
-          <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#121215] rounded-t-2xl max-h-[85vh] overflow-y-auto lg:hidden border-t border-[#1f1f26]">
-            <div className="sticky top-0 bg-[#121215] border-b border-[#1f1f26] px-5 py-4 flex items-center justify-between">
-              <h3 className="font-display font-bold text-base text-white">Filters</h3>
-              <button onClick={() => setShowFilters(false)} className="p-1.5 rounded-md hover:bg-neutral-800 text-neutral-400 hover:text-white" aria-label="Close filters">
+          <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setShowFilters(false)} />
+          <div className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl max-h-[85vh] overflow-y-auto lg:hidden border-t border-neutral-200 shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-neutral-100 px-5 py-4 flex items-center justify-between">
+              <h3 className="font-display font-bold text-base text-neutral-800">Filters</h3>
+              <button onClick={() => setShowFilters(false)} className="p-1.5 rounded-md hover:bg-neutral-100 text-neutral-500" aria-label="Close filters">
                 <X size={20} />
               </button>
             </div>
             <div className="p-5">
-              {FilterPanel()}
+              <FilterPanel
+                filters={filters}
+                availableMakes={availableMakes}
+                activeFilterCount={activeFilterCount}
+                openMakeDropdown={openMakeDropdown}
+                setOpenMakeDropdown={setOpenMakeDropdown}
+                updateFilter={updateFilter}
+                clearFilters={clearFilters}
+              />
               <button
                 onClick={() => setShowFilters(false)}
                 className="btn-primary w-full mt-4 py-3 justify-center"

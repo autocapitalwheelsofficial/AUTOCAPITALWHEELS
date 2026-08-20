@@ -381,13 +381,14 @@ strong, b {
   border: 1px solid transparent;
 }
 
-.badge-featured  { background: var(--color-gold); color: #0a0a0c; }
-.badge-new       { background: #059669; color: white; }
-.badge-hot       { background: #dc2626; color: white; }
-.badge-price-drop{ background: #7c3aed; color: white; }
-.badge-sold      { background: #374151; color: #9ca3af; border-color: #4b5563; }
-.badge-available { background: rgba(5,150,105,0.15); color: #34d399; border-color: rgba(52,211,153,0.3); }
-.badge-reserved  { background: rgba(180,141,54,0.12); color: var(--color-gold); border-color: rgba(180,141,54,0.3); }
+.badge-featured   { background: var(--color-gold); color: #0a0a0c; }
+.badge-new        { background: #059669; color: white; }
+.badge-hot        { background: #dc2626; color: white; }
+.badge-price-drop { background: #7c3aed; color: white; }
+.badge-sold       { background: #e5e7eb; color: #6b7280; border-color: #d1d5db; }
+/* Available badge — solid dark green so it reads on both light & dark cards */
+.badge-available  { background: #dcfce7; color: #166534; border-color: #bbf7d0; font-weight: 700; }
+.badge-reserved   { background: rgba(180,141,54,0.12); color: #92680f; border-color: rgba(180,141,54,0.35); font-weight: 700; }
 
 /* ============================================================
    FORMS — Dark Premium
@@ -396,13 +397,13 @@ strong, b {
 .form-input {
   width: 100%;
   padding: 11px 14px;
-  background: var(--color-bg-input);
+  background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: 13px;
   font-family: var(--font-primary);
   font-weight: 500;
-  color: var(--color-white);
+  color: var(--color-text-primary);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   outline: none;
 }
@@ -427,8 +428,19 @@ strong, b {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   margin-bottom: 6px;
+}
+
+/* Filter panel section title */
+.filter-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+  margin-top: 4px;
 }
 
 .form-error {
@@ -1143,14 +1155,9 @@ body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[
 body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep) > .text-white {
   color: var(--color-text-primary) !important;
 }
+/* Buttons and gold bg elements use white text */
 .btn-primary,
-.btn-primary *,
-.btn-secondary,
-.btn-secondary *,
-.bg-\[\#b48d36\],
-.bg-\[\#b48d36\] *,
-.badge,
-.badge * {
+.btn-primary * {
   color: #ffffff !important;
 }
 
@@ -1170,35 +1177,14 @@ input *, textarea *, select *, .form-input *, .form-select * {
 
 input::placeholder, textarea::placeholder {
 }
-.btn-primary,
-.btn-primary *,
-.btn-secondary,
-.btn-secondary *,
-.bg-\[\#b48d36\],
-.bg-\[\#b48d36\] *,
-.badge,
-.badge * {
-  color: #ffffff !important;
-}
-
-.text-metallic-gold {
-  background: linear-gradient(135deg, #a37e2c 0%, #c9a227 30%, #b48d36 50%, #c9a227 70%, #a37e2c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  display: inline-block;
-}
-
-/* Force typed text to be visible inside all input forms and select elements */
-input, textarea, select, .form-input, .form-select,
-input *, textarea *, select *, .form-input *, .form-select * {
-  color: var(--color-text-primary) !important;
-}
-
-input::placeholder, textarea::placeholder {
-  color: var(--color-text-muted) !important;
-  opacity: 0.8 !important;
-}
+/* Badge-specific color overrides take precedence — do NOT force badge text to white */
+.badge-available  { background: #dcfce7 !important; color: #166534 !important; border-color: #bbf7d0 !important; }
+.badge-reserved   { background: rgba(180,141,54,0.12) !important; color: #92680f !important; border-color: rgba(180,141,54,0.35) !important; }
+.badge-sold       { background: #e5e7eb !important; color: #6b7280 !important; border-color: #d1d5db !important; }
+.badge-featured   { background: var(--color-gold) !important; color: #0a0a0c !important; }
+.badge-new        { background: #059669 !important; color: #fff !important; }
+.badge-hot        { background: #dc2626 !important; color: #fff !important; }
+.badge-price-drop { background: #7c3aed !important; color: #fff !important; }
 
 /* Ensure selected option dropdown labels in forms display clearly */
 option {

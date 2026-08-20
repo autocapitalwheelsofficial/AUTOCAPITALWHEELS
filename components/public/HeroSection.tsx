@@ -98,7 +98,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative w-full overflow-hidden flex items-center bg-[#0a0a0c]"
+    <section className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)]"
       style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '80px' }}>
 
       {/* Background Slides */}
@@ -140,10 +140,10 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
               )}
             </div>
 
-            {/* Gradient Overlays */}
+            {/* Gradient Overlays adapted to Light Theme */}
             <div className="absolute inset-0 pointer-events-none z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0c] via-[#0a0a0c]/85 to-[#0a0a0c]/40" />
-              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-base)] via-[var(--color-bg-base)]/95 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[var(--color-bg-base)] via-[var(--color-bg-base)]/40 to-transparent" />
             </div>
 
             {/* Content Container */}
@@ -156,27 +156,27 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </div>
 
                 {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tight text-white leading-[1.08] mb-6 drop-shadow-2xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tight text-[var(--color-text-primary)] leading-[1.08] mb-6 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {titleWhite}
                   <br />
                   <span className="text-metallic-gold">{titleGold}</span>
                 </h1>
 
                 {/* Description */}
-                <p className={`text-neutral-400 text-sm sm:text-base max-w-md font-light leading-relaxed mb-8 transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <p className={`text-[var(--color-text-secondary)] text-sm sm:text-base max-w-md font-light leading-relaxed mb-8 transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {description}
                 </p>
 
                 {/* Trust Badges */}
-                <div className={`grid grid-cols-3 gap-4 border-t border-white/8 pt-6 max-w-sm mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className={`grid grid-cols-3 gap-4 border-t border-[var(--color-border)] pt-6 max-w-sm mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {TRUST_BADGES.map(({ icon: Icon, title, sub }) => (
                     <div key={title} className="flex flex-col gap-1.5 items-start">
                       <div className="w-8 h-8 rounded-lg bg-[#b48d36]/12 border border-[#b48d36]/20 flex items-center justify-center">
                         <Icon size={16} className="text-[#b48d36]" />
                       </div>
                       <div>
-                        <h3 className="text-[10px] font-bold text-white uppercase tracking-wider leading-tight">{title}</h3>
-                        <p className="text-[9px] text-neutral-500 font-light mt-0.5 leading-tight">{sub}</p>
+                        <h3 className="text-[10px] font-bold text-[var(--color-text-primary)] uppercase tracking-wider leading-tight">{title}</h3>
+                        <p className="text-[9px] text-[var(--color-text-muted)] font-light mt-0.5 leading-tight">{sub}</p>
                       </div>
                     </div>
                   ))}
@@ -213,14 +213,14 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
           {/* Prev/Next Arrows */}
           <button
             onClick={goPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 border border-white/10 text-white/60 hover:text-white hover:bg-black/70 hover:border-white/20 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/10 border border-black/5 text-neutral-600 hover:text-black hover:bg-neutral-200 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
             aria-label="Previous slide"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={goNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/40 border border-white/10 text-white/60 hover:text-white hover:bg-black/70 hover:border-white/20 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/10 border border-black/5 text-neutral-600 hover:text-black hover:bg-neutral-200 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
             aria-label="Next slide"
           >
             <ChevronRight size={18} />
@@ -235,7 +235,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   i === activeSlide
                     ? 'w-6 h-1.5 bg-[#b48d36]'
-                    : 'w-1.5 h-1.5 bg-white/25 hover:bg-white/50'
+                    : 'w-1.5 h-1.5 bg-neutral-300 hover:bg-neutral-400'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />

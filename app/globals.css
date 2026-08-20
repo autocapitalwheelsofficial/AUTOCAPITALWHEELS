@@ -1120,3 +1120,21 @@ h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
   background-clip: text;
   display: inline-block;
 }
+
+/* Force typed text to be visible inside all input forms and select elements */
+input, textarea, select, .form-input, .form-select {
+  background-color: var(--color-bg-input) !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-muted) !important;
+  opacity: 0.8 !important;
+}
+
+/* Ensure selected option dropdown labels in forms display clearly */
+option {
+  background-color: var(--color-bg-card) !important;
+  color: var(--color-text-primary) !important;
+}

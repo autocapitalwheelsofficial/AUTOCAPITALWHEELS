@@ -55,11 +55,11 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
       {isOpen && user && (
         <div className="fixed top-20 right-4 w-[calc(100vw-2rem)] sm:absolute sm:top-full sm:right-0 sm:w-64 mt-3 bg-white border border-neutral-100 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden animate-fade-in-scale z-[60]">
           
-          <div className="px-5 py-4 border-b border-neutral-50 bg-neutral-50/50">
-            <p className="text-sm font-bold text-neutral-800 truncate">
+          <div className="px-5 py-4 border-b border-neutral-100 bg-neutral-50/50">
+            <p className="text-sm font-bold text-neutral-800 truncate" style={{ color: '#1a1a1a' }}>
               {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
             </p>
-            <p className="text-[11px] text-neutral-400 truncate mt-0.5">{user.email}</p>
+            <p className="text-[11px] text-neutral-500 truncate mt-0.5" style={{ color: '#666666' }}>{user.email}</p>
           </div>
 
           <div className="py-2 px-2">
@@ -68,6 +68,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
                 href="/admin/dashboard" 
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold text-amber-600 hover:bg-amber-50 hover:translate-x-1 rounded-xl transition-all duration-300"
+                style={{ color: '#d97706' }}
               >
                 <LayoutDashboard size={14} />
                 ADMIN DASHBOARD
@@ -77,6 +78,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
               href="/profile" 
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
+              style={{ color: '#333333' }}
             >
               <User size={14} />
               MY PROFILE
@@ -85,6 +87,7 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
               href="/profile?tab=wishlist" 
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
+              style={{ color: '#333333' }}
             >
               <Heart size={14} />
               MY WISHLIST

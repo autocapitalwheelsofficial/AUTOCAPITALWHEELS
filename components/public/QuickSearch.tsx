@@ -135,8 +135,8 @@ export default function QuickSearch() {
                   <input
                     type="text"
                     placeholder="Type brand, model..."
-                    className="w-full text-xs font-semibold px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-amber-500 pr-10 transition-all duration-300"
-                    style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
+                    className="w-full text-xs font-semibold px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-amber-500 pr-10 transition-all duration-300 text-neutral-800"
+                    style={{ color: '#1a1a1a !important', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
                     value={filters.query}
                     onChange={(e) => handleQueryChange(e.target.value)}
                     onFocus={() => {

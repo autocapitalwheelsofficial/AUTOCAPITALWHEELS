@@ -107,113 +107,166 @@ export default function AdminFAQsPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8">
+    <div className="p-4 lg:p-8 bg-[#0a0a0c] text-white min-h-screen">
+      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <Link href="/admin/dashboard" className="p-2 rounded-lg bg-neutral-100 border border-neutral-200 text-neutral-500 hover:text-neutral-900 transition-colors">
+          <Link href="/admin/dashboard" className="p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
             <ArrowLeft size={16} />
           </Link>
           <div>
-            <h1 className="font-display font-bold text-2xl text-neutral-900">Frequently Asked Questions (FAQs)</h1>
-            <p className="text-neutral-500 text-sm mt-0.5">{faqs.length} FAQ{faqs.length !== 1 ? 's' : ''} configured on site</p>
+            <h1 className="font-display font-black text-2xl text-white uppercase tracking-wider">Frequently Asked Questions</h1>
+            <p className="text-neutral-500 text-xs uppercase tracking-widest mt-1">{faqs.length} FAQ{faqs.length !== 1 ? 's' : ''} configured on site</p>
           </div>
         </div>
         <button
           onClick={handleOpenAdd}
-          className="flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-white font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#a37e2c] text-black font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer self-start sm:self-auto"
         >
           <Plus size={14} />
           Add FAQ
         </button>
       </div>
 
-      {/* Table grid */}
-      <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-sm">
-        {loading ? (
-          <div className="p-12 text-center flex flex-col items-center justify-center gap-2 text-neutral-500">
-            <Loader2 className="animate-spin text-amber-500" size={24} />
-            <span className="text-xs font-semibold">Loading FAQs...</span>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-neutral-50 border-b border-neutral-200">
-                  <th className="p-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Order</th>
-                  <th className="p-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Category</th>
-                  <th className="p-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Question</th>
-                  <th className="p-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Answer</th>
-                  <th className="p-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-100 text-xs text-neutral-600">
-                {faqs.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="p-12 text-center text-neutral-400 font-light italic">
-                      No FAQs created yet. Click "Add FAQ" to create one.
-                    </td>
+      {loading ? (
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="animate-spin text-[#b48d36]" size={32} />
+        </div>
+      ) : (
+        <>
+          {/* Desktop Table View */}
+          <div className="hidden md:block bg-[#121215] border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#16161a] border-b border-neutral-800">
+                    <th className="p-4 text-xs font-bold text-neutral-400 uppercase tracking-widest">Order</th>
+                    <th className="p-4 text-xs font-bold text-neutral-400 uppercase tracking-widest">Category</th>
+                    <th className="p-4 text-xs font-bold text-neutral-400 uppercase tracking-widest">Question</th>
+                    <th className="p-4 text-xs font-bold text-neutral-400 uppercase tracking-widest">Answer</th>
+                    <th className="p-4 text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">Actions</th>
                   </tr>
-                ) : (
-                  faqs.map((faq) => (
-                    <tr key={faq.id} className="hover:bg-neutral-50/50 transition-colors">
-                      <td className="p-4 whitespace-nowrap font-mono text-neutral-400 font-bold">
-                        #{faq.sort_order || 0}
-                      </td>
-                      <td className="p-4 whitespace-nowrap font-bold text-neutral-700">
-                        {faq.category || 'General'}
-                      </td>
-                      <td className="p-4 font-bold text-neutral-800">
-                        <div className="flex items-center gap-1.5">
-                          <HelpCircle size={12} className="text-neutral-400 flex-shrink-0" />
-                          {faq.question}
-                        </div>
-                      </td>
-                      <td className="p-4 max-w-sm break-words font-light leading-relaxed">
-                        {faq.answer}
-                      </td>
-                      <td className="p-4 text-center whitespace-nowrap">
-                        <div className="flex items-center justify-center gap-2">
-                          <button
-                            onClick={() => handleOpenEdit(faq)}
-                            className="p-1.5 rounded bg-neutral-100 text-neutral-600 hover:text-neutral-900 border border-neutral-200 hover:scale-105 transition-all cursor-pointer"
-                            title="Edit FAQ"
-                          >
-                            <Edit2 size={12} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(faq.id)}
-                            className="p-1.5 rounded bg-red-50 text-red-600 hover:text-red-700 border border-red-100 hover:scale-105 transition-all cursor-pointer"
-                            title="Delete FAQ"
-                          >
-                            <Trash2 size={12} />
-                          </button>
-                        </div>
+                </thead>
+                <tbody className="divide-y divide-neutral-800/60 text-xs text-neutral-300">
+                  {faqs.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="p-8 text-center text-neutral-500 font-light italic">
+                        No FAQs created yet. Click "Add FAQ" to create one.
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    faqs.map((faq) => (
+                      <tr key={faq.id} className="hover:bg-neutral-800/10 transition-colors align-top">
+                        <td className="p-4 whitespace-nowrap font-mono text-[#b48d36] font-bold">
+                          #{faq.sort_order || 0}
+                        </td>
+                        <td className="p-4 whitespace-nowrap font-bold text-neutral-200">
+                          {faq.category || 'General'}
+                        </td>
+                        <td className="p-4 font-bold text-white max-w-xs">
+                          <div className="flex items-start gap-1.5 leading-relaxed">
+                            <HelpCircle size={14} className="text-[#b48d36] flex-shrink-0 mt-0.5" />
+                            {faq.question}
+                          </div>
+                        </td>
+                        <td className="p-4 max-w-sm break-words font-light leading-relaxed text-neutral-400">
+                          {faq.answer}
+                        </td>
+                        <td className="p-4 text-center whitespace-nowrap">
+                          <div className="flex items-center justify-center gap-1.5">
+                            <button
+                              onClick={() => handleOpenEdit(faq)}
+                              className="p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-800 transition-all cursor-pointer"
+                              title="Edit FAQ"
+                            >
+                              <Edit2 size={12} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(faq.id)}
+                              className="p-2 rounded-lg bg-red-950/20 border border-red-900/30 text-red-400 hover:text-white hover:bg-red-900 transition-all cursor-pointer"
+                              title="Delete FAQ"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-        )}
-      </div>
+
+          {/* Mobile Cards View */}
+          <div className="block md:hidden space-y-4">
+            {faqs.length === 0 ? (
+              <div className="bg-[#121215] border border-neutral-800 rounded-2xl p-8 text-center text-neutral-500 italic">
+                No FAQs created yet.
+              </div>
+            ) : (
+              faqs.map((faq) => (
+                <div key={faq.id} className="bg-[#121215] border border-neutral-800 rounded-2xl p-5 space-y-3.5 shadow-xl">
+                  {/* Card Header: Order and Category */}
+                  <div className="flex items-center justify-between border-b border-neutral-850 pb-2.5">
+                    <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest bg-neutral-900 px-2 py-0.5 rounded-md">Order #{faq.sort_order || 0}</span>
+                    <span className="text-xs font-bold text-[#b48d36] uppercase tracking-wider">{faq.category || 'General'}</span>
+                  </div>
+
+                  {/* Question */}
+                  <div className="space-y-1">
+                    <p className="text-[9px] font-bold text-neutral-550 uppercase tracking-widest">Question</p>
+                    <p className="text-xs font-bold text-white leading-relaxed flex items-start gap-1.5">
+                      <HelpCircle size={14} className="text-[#b48d36] shrink-0 mt-0.5" />
+                      {faq.question}
+                    </p>
+                  </div>
+
+                  {/* Answer */}
+                  <div className="space-y-1 bg-neutral-900/40 p-3 rounded-xl border border-neutral-850">
+                    <p className="text-[9px] font-bold text-neutral-550 uppercase tracking-widest">Answer</p>
+                    <p className="text-xs font-light text-neutral-400 leading-relaxed whitespace-pre-wrap">{faq.answer}</p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 pt-2 border-t border-neutral-855">
+                    <button
+                      onClick={() => handleOpenEdit(faq)}
+                      className="flex-1 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-widest transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Edit2 size={12} className="text-neutral-400" />
+                      Edit FAQ
+                    </button>
+                    <button
+                      onClick={() => handleDelete(faq.id)}
+                      className="bg-red-950/20 border border-red-900/35 hover:bg-red-900 text-red-400 hover:text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-widest transition-all cursor-pointer"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </>
+      )}
 
       {/* Add / Edit FAQ Modal */}
       {showModal && (
         <div className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden border border-neutral-200 animate-fade-in-scale">
+          <div className="relative w-full max-w-md bg-[#121215] border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-scale">
             
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
-              <h2 className="font-display font-bold text-neutral-800 text-sm uppercase tracking-wider">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800 bg-[#16161a]">
+              <h2 className="font-display font-bold text-white text-base uppercase tracking-wider">
                 {modalType === 'add' ? 'Add FAQ' : 'Edit FAQ'}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-1.5 rounded-lg text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-all cursor-pointer"
+                className="p-1.5 rounded-lg text-neutral-450 hover:text-white hover:bg-neutral-800 transition-all cursor-pointer"
               >
-                <X size={16} />
+                <X size={18} />
               </button>
             </div>
 
@@ -221,22 +274,22 @@ export default function AdminFAQsPage() {
             <form onSubmit={handleSubmitModal} className="p-6 space-y-4">
               <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-[9px] font-bold text-neutral-500 uppercase tracking-widest mb-1.5">Category *</label>
+                  <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Category *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Buying / Finance"
-                    className="w-full text-xs px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 text-neutral-800"
+                    className="w-full text-xs px-3.5 py-2.5 bg-[#16161a] border border-neutral-800 rounded-xl focus:outline-none focus:border-amber-500 text-white font-semibold"
                     value={currentFaq.category}
                     onChange={(e) => setCurrentFaq({ ...currentFaq, category: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-[9px] font-bold text-neutral-500 uppercase tracking-widest mb-1.5">Sort Order *</label>
+                  <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Sort Order *</label>
                   <input
                     type="number"
                     required
-                    className="w-full text-xs px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 text-neutral-800"
+                    className="w-full text-xs px-3.5 py-2.5 bg-[#16161a] border border-neutral-800 rounded-xl focus:outline-none focus:border-amber-500 text-white font-semibold"
                     value={currentFaq.sort_order}
                     onChange={(e) => setCurrentFaq({ ...currentFaq, sort_order: parseInt(e.target.value) || 0 })}
                   />
@@ -244,36 +297,45 @@ export default function AdminFAQsPage() {
               </div>
 
               <div>
-                <label className="block text-[9px] font-bold text-neutral-500 uppercase tracking-widest mb-1.5">Question Text *</label>
+                <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Question Text *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. What documents are needed to sell my car?"
-                  className="w-full text-xs px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 text-neutral-800"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#16161a] border border-neutral-800 rounded-xl focus:outline-none focus:border-amber-500 text-white font-semibold"
                   value={currentFaq.question}
                   onChange={(e) => setCurrentFaq({ ...currentFaq, question: e.target.value })}
                 />
               </div>
 
               <div>
-                <label className="block text-[9px] font-bold text-neutral-500 uppercase tracking-widest mb-1.5">Answer Text *</label>
+                <label className="block text-[9px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Answer Text *</label>
                 <textarea
                   required
                   rows={5}
                   placeholder="Provide the detailed explanation response..."
-                  className="w-full text-xs px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-lg focus:outline-none focus:border-amber-500 text-neutral-800 resize-none leading-relaxed font-light"
+                  className="w-full text-xs px-3.5 py-2.5 bg-[#16161a] border border-neutral-800 rounded-xl focus:outline-none focus:border-amber-500 text-white resize-none leading-relaxed font-light"
                   value={currentFaq.answer}
                   onChange={(e) => setCurrentFaq({ ...currentFaq, answer: e.target.value })}
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={saving}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-white font-bold py-3 rounded-lg text-xs uppercase tracking-wider transition-all cursor-pointer mt-2"
-              >
-                {saving ? <Loader2 size={14} className="animate-spin" /> : 'Save FAQ'}
-              </button>
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="flex-1 px-4 py-3 border border-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={saving}
+                  className="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer inline-flex items-center justify-center gap-1.5"
+                >
+                  {saving ? <Loader2 size={12} className="animate-spin" /> : 'Save FAQ'}
+                </button>
+              </div>
             </form>
           </div>
         </div>

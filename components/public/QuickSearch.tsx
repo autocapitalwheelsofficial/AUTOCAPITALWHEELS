@@ -122,7 +122,7 @@ export default function QuickSearch() {
   };
 
   return (
-    <section className="relative z-20 mt-6 lg:-mt-14 pb-6" ref={dropdownRef}>
+    <section className="relative z-20 mt-6 lg:-mt-14 pb-8 bg-[var(--color-bg-base)]" ref={dropdownRef}>
       <div className="container-custom">
         <div className="bg-[var(--color-bg-card)] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-[var(--color-border)] p-6 lg:p-8">
           <form onSubmit={handleSearch} className="space-y-4">
@@ -135,7 +135,8 @@ export default function QuickSearch() {
                   <input
                     type="text"
                     placeholder="Type brand, model..."
-                    className="w-full text-xs font-semibold px-4 py-3 bg-[var(--color-bg-input)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-amber-500 pr-10 text-[var(--color-text-primary)] transition-all duration-300"
+                    className="w-full text-xs font-semibold px-4 py-3 border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-amber-500 pr-10 transition-all duration-300"
+                    style={{ color: '#1a1a1a', backgroundColor: '#ffffff', caretColor: '#1a1a1a' }}
                     value={filters.query}
                     onChange={(e) => handleQueryChange(e.target.value)}
                     onFocus={() => {

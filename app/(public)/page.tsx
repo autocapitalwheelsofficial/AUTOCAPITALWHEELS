@@ -10,6 +10,7 @@ import SellCarCTA from '@/components/public/SellCarCTA';
 import TestimonialsSection from '@/components/public/TestimonialsSection';
 import FAQSection from '@/components/public/FAQSection';
 import type { Vehicle, Testimonial, FAQ } from '@/types';
+import { ShieldCheck, Tag, Clock, MessageSquare, Users, Headphones } from 'lucide-react';
 
 export const revalidate = 10;
 
@@ -60,7 +61,6 @@ async function getHomepageData() {
         .in('key', ['hero_slides', 'homepage_categories']),
     ]);
 
-    // Fallback if data is empty (not seeded yet)
     const featuredVehicles = featuredRes.data && featuredRes.data.length > 0
       ? featuredRes.data
       : MOCK_VEHICLES;
@@ -75,7 +75,7 @@ async function getHomepageData() {
 
     let heroSlides = null;
     let homepageCategories: any[] = [];
-    
+
     if (slidesRes.data) {
       slidesRes.data.forEach((setting) => {
         if (setting.key === 'hero_slides') {
@@ -112,7 +112,14 @@ async function getHomepageData() {
   }
 }
 
-import { ShieldCheck, Tag, Clock, MessageSquare, Users, Headphones } from 'lucide-react';
+const TRUST_ITEMS = [
+  { icon: ShieldCheck, label: '100% Transparency',  sub: 'No hidden charges' },
+  { icon: Tag,         label: 'Best Market Price',   sub: 'Honest, fair deals' },
+  { icon: Clock,       label: 'Quick & Easy',        sub: 'Hassle-free process' },
+  { icon: MessageSquare, label: 'Instant Quotes',    sub: 'Fast response' },
+  { icon: Users,       label: 'Trusted by Many',     sub: '1000+ customers' },
+  { icon: Headphones,  label: '24/7 Support',        sub: 'Always available' },
+];
 
 export default async function HomePage() {
   const { featuredVehicles, testimonials, faqs, heroSlides, homepageCategories } = await getHomepageData();
@@ -121,29 +128,25 @@ export default async function HomePage() {
     <>
       <HeroSection initialSlides={heroSlides} />
       <QuickSearch />
-      {/* Trust Badges Row — light theme, horizontal scroll on mobile */}
-      <section className="py-4 bg-[var(--color-bg-base)]">
-        <div className="container-custom">
-          {/* Mobile: horizontal scroll strip */}
-          <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-1 snap-x snap-mandatory lg:grid lg:grid-cols-6 lg:gap-5 lg:overflow-visible lg:pb-0">
-            {[
-              { icon: ShieldCheck, label: '100% Transparency', sub: 'No hidden charges' },
-              { icon: Tag, label: 'Best Market Price', sub: 'Get the best deals' },
-              { icon: Clock, label: 'Easy & Quick', sub: 'Hassle free experience' },
-              { icon: MessageSquare, label: 'Instant Quotes', sub: 'Quick response' },
-              { icon: Users, label: 'Trusted by Many', sub: '1000+ happy customers' },
-              { icon: Headphones, label: '24/7 Support', sub: 'We\'re always here' },
-            ].map(({ icon: Icon, label, sub }) => (
+
+      {/* ── Premium Trust Bar ─────────────────────────────────────────── */}
+      <section className="bg-white border-y border-neutral-100" style={{ boxShadow: '0 1px 0 0 #f1f5f9' }}>
+        <div className="container-custom overflow-x-auto scrollbar-hide">
+          <div className="flex lg:grid lg:grid-cols-6 min-w-max lg:min-w-0">
+            {TRUST_ITEMS.map(({ icon: Icon, label, sub }, i) => (
               <div
                 key={label}
-                className="flex items-center gap-3 min-w-[160px] snap-start flex-shrink-0 lg:min-w-0 lg:flex-shrink bg-white rounded-xl px-4 py-3.5 border border-neutral-200 shadow-sm hover:border-[#b48d36]/40 hover:shadow-md transition-all duration-200"
+                className={`flex items-center gap-3 px-5 py-4 lg:py-5 flex-shrink-0 lg:flex-shrink group cursor-default ${
+                  i < TRUST_ITEMS.length - 1 ? 'border-r border-neutral-100' : ''
+                }`}
               >
-                <div className="w-9 h-9 rounded-lg bg-[#b48d36]/10 flex items-center justify-center flex-shrink-0">
-                  <Icon size={17} className="text-[#b48d36] stroke-[1.75]" />
+                {/* Gold icon square */}
+                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0 group-hover:bg-[#b48d36] group-hover:border-[#b48d36] transition-all duration-300">
+                  <Icon size={15} className="text-[#b48d36] group-hover:text-white stroke-[2] transition-colors duration-300" />
                 </div>
                 <div>
-                  <span className="block text-[11px] font-bold text-neutral-800 leading-tight">{label}</span>
-                  <span className="block text-[10px] text-neutral-500 font-normal leading-tight mt-0.5">{sub}</span>
+                  <p className="text-[11.5px] font-bold text-neutral-800 leading-tight whitespace-nowrap">{label}</p>
+                  <p className="text-[10px] text-neutral-500 leading-tight mt-0.5 whitespace-nowrap">{sub}</p>
                 </div>
               </div>
             ))}

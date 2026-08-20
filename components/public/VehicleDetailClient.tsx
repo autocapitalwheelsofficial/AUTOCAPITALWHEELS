@@ -412,42 +412,53 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
             {/* Right: Contact sticky */}
             <div className="space-y-4">
-              <div className="bg-[var(--color-bg-card)] rounded-xl border border-[var(--color-border)] p-5 lg:sticky lg:top-20">
-                <h3 className="font-display font-bold text-base text-[var(--color-text-primary)] mb-4">Interested in this car?</h3>
+              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-5 lg:sticky lg:top-20">
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-1.5 h-5 bg-[#b48d36] rounded-full" />
+                  <h3 className="font-display font-bold text-base text-neutral-800">Interested in this car?</h3>
+                </div>
+
                 {!isSold ? (
                   <div className="space-y-2.5">
+                    {/* Primary CTA */}
                     <button
                       onClick={() => setShowEnquiry(true)}
-                      className="btn-primary w-full py-3 justify-center text-sm shadow-md"
+                      className="w-full flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#9a7a2f] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98]"
                     >
                       Get Quotation
                     </button>
+
+                    {/* Secondary CTA */}
                     <button
                       onClick={() => setShowTestDrive(true)}
-                      className="btn-secondary w-full py-3 justify-center text-xs font-bold tracking-widest uppercase shadow-sm"
+                      className="w-full flex items-center justify-center gap-2 bg-neutral-50 hover:bg-neutral-100 text-neutral-800 font-bold py-3 px-4 rounded-xl text-sm border border-neutral-200 transition-all duration-200 active:scale-[0.98]"
                     >
                       Request Test Drive
                     </button>
+
+                    {/* WhatsApp CTA */}
                     <a
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-whatsapp w-full py-3 justify-center text-sm"
+                      className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-200 active:scale-[0.98]"
                     >
                       <MessageCircle size={15} />
                       WhatsApp Us
                     </a>
                   </div>
                 ) : (
-                  <Link href="/cars" className="btn-primary w-full py-3 justify-center text-sm">
+                  <Link href="/cars" className="w-full flex items-center justify-center bg-[#b48d36] hover:bg-[#9a7a2f] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-200">
                     View Available Cars
                   </Link>
                 )}
 
-                <div className="mt-4 pt-4 border-t border-[#1f1f26] text-center">
-                  <p className="text-xs text-neutral-500">AutoCapital Wheels</p>
-                  <a href="tel:+918800243707" className="text-sm font-semibold text-white hover:text-[#b48d36] transition-colors">
-                    +91 8800243707
+                {/* Contact */}
+                <div className="mt-4 pt-4 border-t border-neutral-100 text-center">
+                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1">AutoCapital Wheels</p>
+                  <a href="tel:+918800243707" className="text-base font-bold text-neutral-800 hover:text-[#b48d36] transition-colors">
+                    +91 88002 43707
                   </a>
                 </div>
               </div>
@@ -458,8 +469,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
           {similarVehicles.length > 0 && (
             <section className="mt-12">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="font-display font-bold text-2xl text-white">Similar Cars</h2>
-                <Link href="/cars" className="text-sm font-semibold text-neutral-400 hover:text-white">
+                <h2 className="font-display font-bold text-2xl text-neutral-800">Similar Cars</h2>
+                <Link href="/cars" className="text-sm font-semibold text-neutral-500 hover:text-[#b48d36] transition-colors">
                   View All →
                 </Link>
               </div>

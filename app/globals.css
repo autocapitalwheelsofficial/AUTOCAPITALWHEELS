@@ -21,19 +21,19 @@
    ============================================================ */
 
 :root {
-  --color-bg-base: #0c0e12;
-  --color-bg-card: #14171e;
-  --color-bg-input: #1a1e27;
-  --color-bg-hover: #212733;
-  --color-border: #1e2430;
-  --color-border-subtle: #272f3e;
+  --color-bg-base: #f5f6f8;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #eef0f3;
+  --color-bg-hover: #e4e7ec;
+  --color-border: #e4e7ec;
+  --color-border-subtle: #d8dce3;
   --color-gold: #b48d36;
   --color-gold-light: #d4a94e;
   --color-gold-dim: rgba(180,141,54,0.15);
   --color-white: #ffffff;
-  --color-text-primary: #f3f4f6;
-  --color-text-secondary: #9ca3af;
-  --color-text-muted: #6b7280;
+  --color-text-primary: #12151c;
+  --color-text-secondary: #495057;
+  --color-text-muted: #748393;
 
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -1074,27 +1074,49 @@ footer {
 }
 
 /* ============================================================
-   STRICT DARK LUXURY BACKGROUNDS OVERRIDE
+   STRICT LIGHT LUXURY THEME OVERRIDE
    ============================================================ */
 html, body {
-  background-color: #0a0a0c !important;
-  color: #f3f4f6 !important;
+  background-color: var(--color-bg-base) !important;
+  color: var(--color-text-primary) !important;
 }
 
-/* Fix any default browser autofill or light theme sections */
-.bg-white, .bg-neutral-50, .bg-gray-50, .bg-neutral-100 {
-  background-color: #121215 !important;
+/* Overwrite headings to always use primary dark charcoal text */
+h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
+  color: var(--color-text-primary) !important;
+}
+
+/* Force backgrounds of sections or containers to support light mode */
+.bg-neutral-900, .bg-\[\#121215\], .bg-\[\#0a0a0c\], .bg-\[\#16161a\] {
+  background-color: var(--color-bg-card) !important;
+}
+
+.border-neutral-800, .border-\[\#1f1f26\], .border-\[\#2a2a33\], .border-neutral-800\/80 {
+  border-color: var(--color-border) !important;
+}
+
+/* Override dark theme text classes to dynamic grays on light backgrounds */
+.text-neutral-100, .text-neutral-200, .text-neutral-300 {
+  color: var(--color-text-primary) !important;
+}
+.text-neutral-400, .text-neutral-500 {
+  color: var(--color-text-secondary) !important;
+}
+
+/* Retain white text readability inside primary buttons, badges, and dark card exceptions */
+.btn-primary,
+.btn-primary *,
+.bg-\[\#b48d36\],
+.bg-\[\#b48d36\] *,
+.badge,
+.badge * {
   color: #ffffff !important;
 }
 
-.text-neutral-900, .text-gray-900, .text-black {
-  color: #ffffff !important;
-}
-
-.text-neutral-600, .text-gray-600, .text-neutral-500 {
-  color: #9ca3af !important;
-}
-
-.border-neutral-200, .border-gray-200, .border-neutral-100 {
-  border-color: #1f1f26 !important;
+.text-metallic-gold {
+  background: linear-gradient(135deg, #a37e2c 0%, #c9a227 30%, #b48d36 50%, #c9a227 70%, #a37e2c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
 }

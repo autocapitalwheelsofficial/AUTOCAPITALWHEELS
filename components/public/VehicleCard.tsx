@@ -30,10 +30,10 @@ export default function VehicleCard({
       <Link
         href={`/cars/${vehicle.slug}`}
         prefetch={true}
-        className={`group flex gap-0 overflow-hidden rounded-2xl bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 cursor-pointer ${isSold ? 'opacity-70' : ''}`}
+        className={`group flex gap-0 overflow-hidden rounded-2xl bg-[var(--color-bg-card)] border border-[var(--color-border)] hover:border-[#b48d36]/30 hover:shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 cursor-pointer ${isSold ? 'opacity-70' : ''}`}
       >
         {/* Image */}
-        <div className="relative flex-shrink-0 w-52 h-36 overflow-hidden bg-[#16161a]">
+        <div className="relative flex-shrink-0 w-52 h-36 overflow-hidden bg-[var(--color-bg-input)]">
           <Image src={imageUrl} alt={title} fill sizes="208px" className="object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
           {isSold && (
             <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
@@ -49,19 +49,19 @@ export default function VehicleCard({
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col justify-between p-4 bg-[#121215]">
+        <div className="flex flex-1 flex-col justify-between p-4 bg-[var(--color-bg-card)]">
           <div>
             <div className="flex items-start justify-between gap-2 mb-1">
               <span className="hover:opacity-80 transition-opacity">
-                <h3 className="font-display font-bold text-base text-white leading-snug">{title}</h3>
+                <h3 className="font-display font-bold text-base text-[var(--color-text-primary)] leading-snug">{title}</h3>
               </span>
               {onWishlistToggle && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWishlistToggle(vehicle.id); }}
-                  className={`flex-shrink-0 p-1.5 rounded-full transition-all duration-200 cursor-pointer ${isWishlisted ? 'bg-red-950/40' : 'hover:bg-white/5'}`}
+                  className={`flex-shrink-0 p-1.5 rounded-full transition-all duration-200 cursor-pointer ${isWishlisted ? 'bg-red-500/10' : 'hover:bg-black/5'}`}
                   aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                 >
-                  <Heart size={14} className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-neutral-500 hover:text-red-400'} />
+                  <Heart size={14} className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-neutral-450 hover:text-red-400'} />
                 </button>
               )}
             </div>
@@ -69,8 +69,8 @@ export default function VehicleCard({
               {vehicle.year} &bull; {vehicle.fuel_type} &bull; {vehicle.transmission} &bull; {formatMileage(vehicle.mileage)}
             </p>
           </div>
-          <div className="flex items-end justify-between border-t border-[#1f1f26] pt-3 mt-3">
-            <span className="font-display font-bold text-base text-white">{formatPrice(vehicle.price)}</span>
+          <div className="flex items-end justify-between border-t border-[var(--color-border)] pt-3 mt-3">
+            <span className="font-display font-bold text-base text-[var(--color-text-primary)]">{formatPrice(vehicle.price)}</span>
             <span className="text-[10px] font-bold tracking-widest text-[#b48d36] uppercase hover:opacity-75 transition-opacity">
               View Details →
             </span>
@@ -84,11 +84,11 @@ export default function VehicleCard({
     <Link
       href={`/cars/${vehicle.slug}`}
       prefetch={true}
-      className={`group relative flex flex-col rounded-2xl overflow-hidden bg-[#121215] border border-[#1f1f26] hover:border-[#b48d36]/35 shadow-[0_2px_16px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.5),0_0_0_1px_rgba(180,141,54,0.06)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer ${isSold ? 'opacity-75' : ''}`}
+      className={`group relative flex flex-col rounded-2xl overflow-hidden bg-[var(--color-bg-card)] border border-[var(--color-border)] hover:border-[#b48d36]/35 shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.12),0_0_0_1px_rgba(180,141,54,0.06)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer ${isSold ? 'opacity-75' : ''}`}
     >
 
       {/* Image */}
-      <div className="relative h-48 overflow-hidden bg-[#16161a] flex-shrink-0">
+      <div className="relative h-48 overflow-hidden bg-[var(--color-bg-input)] flex-shrink-0">
         <Image
           src={imageUrl}
           alt={title}
@@ -99,7 +99,7 @@ export default function VehicleCard({
         />
 
         {/* Subtle dark gradient at bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-[#121215]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
         {/* Sold overlay */}
         {isSold && (
@@ -114,7 +114,7 @@ export default function VehicleCard({
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWishlistToggle(vehicle.id); }}
             className={`absolute top-3 right-3 p-1.5 rounded-full transition-all duration-200 z-10 cursor-pointer shadow-md ${
               isWishlisted
-                ? 'bg-red-950/70 border border-red-800/50'
+                ? 'bg-red-500/20 border border-red-500/30'
                 : 'bg-black/50 border border-white/10 hover:bg-black/70 hover:border-white/20'
             }`}
             aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -146,7 +146,7 @@ export default function VehicleCard({
       </div>
 
       {/* Content */}
-      <div className="p-4 flex flex-col flex-1 justify-between bg-[#121215]">
+      <div className="p-4 flex flex-col flex-1 justify-between bg-[var(--color-bg-card)]">
         <div>
           {/* Metadata chips */}
           <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -168,7 +168,7 @@ export default function VehicleCard({
           </div>
 
           <div className="block group/title">
-            <h3 className="font-display font-bold text-sm text-white tracking-tight leading-tight group-hover/title:text-[#b48d36] transition-colors duration-200">
+            <h3 className="font-display font-bold text-sm text-[var(--color-text-primary)] tracking-tight leading-tight group-hover/title:text-[#b48d36] transition-colors duration-200">
               {vehicle.make} {vehicle.model}
             </h3>
             {vehicle.variant && (
@@ -178,9 +178,9 @@ export default function VehicleCard({
         </div>
 
         {/* Price & Action */}
-        <div className="border-t border-[#1f1f26] mt-3.5 pt-3 flex items-center justify-between gap-2">
+        <div className="border-t border-[var(--color-border)] mt-3.5 pt-3 flex items-center justify-between gap-2">
           <div>
-            <span className="font-display font-bold text-sm text-white">{formatPrice(vehicle.price)}</span>
+            <span className="font-display font-bold text-sm text-[var(--color-text-primary)]">{formatPrice(vehicle.price)}</span>
             {vehicle.is_price_drop && vehicle.original_price && (
               <span className="block text-[10px] text-neutral-500 line-through">{formatPrice(vehicle.original_price)}</span>
             )}

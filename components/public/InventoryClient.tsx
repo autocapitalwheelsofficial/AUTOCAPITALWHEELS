@@ -50,7 +50,7 @@ function BudgetInput({ placeholder, value, onChange, min, max }: { placeholder: 
       if (localVal !== value) {
         onChange(localVal);
       }
-    }, 450);
+    }, 1200);
     return () => clearTimeout(handler);
   }, [localVal, value, onChange]);
 
@@ -62,7 +62,7 @@ function BudgetInput({ placeholder, value, onChange, min, max }: { placeholder: 
       onChange={(e) => setLocalVal(e.target.value)}
       min={min}
       max={max}
-      className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+      className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all"
       style={{ color: '#000000', backgroundColor: '#f8f9fa', caretColor: '#000000' }}
     />
   );

@@ -22,6 +22,8 @@ export default function Header() {
   const supabase = createClient();
   const isHomePage = pathname === '/';
 
+  const [dbCategories, setDbCategories] = useState<any[]>([]);
+
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -29,19 +31,13 @@ export default function Header() {
     };
     checkUser();
 
-    // Fetch dynamic categories
+    // Fetch dynamic categories — via public API (bypasses RLS)
     const loadCategories = async () => {
       try {
-        const { data } = await supabase
-          .from('site_settings')
-          .select('value')
-          .eq('key', 'homepage_categories')
-          .single();
-        if (data?.value) {
-          const parsed = JSON.parse(data.value);
-          if (Array.isArray(parsed)) {
-            setDbCategories(parsed);
-          }
+        const res = await fetch('/api/public-settings');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data?.homepage_categories)) {
+          setDbCategories(json.data.homepage_categories);
         }
       } catch (err) {
         // ignore
@@ -55,8 +51,6 @@ export default function Header() {
 
     return () => subscription.unsubscribe();
   }, []);
-
-  const [dbCategories, setDbCategories] = useState<any[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {

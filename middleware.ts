@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+
   // Admin panel protection
   if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
     const sessionToken = request.cookies.get('acw_admin_session')?.value;
@@ -18,7 +21,11 @@ export async function middleware(request: NextRequest) {
     // Just pass through — page-level auth check will redirect
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    }
+  });
 }
 
 export const config = {

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { createAdminClient } from '@/lib/supabase/admin';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminRealtimeNotifier from '@/components/admin/AdminRealtimeNotifier';
@@ -23,6 +23,13 @@ const getAdminUser = cache(async () => {
 });
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const headerList = await headers();
+  const pathname = headerList.get('x-pathname') || '';
+
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
+
   const admin = await getAdminUser();
 
   if (!admin) {

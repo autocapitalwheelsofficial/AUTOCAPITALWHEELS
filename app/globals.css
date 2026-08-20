@@ -21,12 +21,12 @@
    ============================================================ */
 
 :root {
-  --color-bg-base: #0a0a0c;
-  --color-bg-card: #121215;
-  --color-bg-input: #16161a;
-  --color-bg-hover: #1c1c21;
-  --color-border: #1f1f26;
-  --color-border-subtle: #252530;
+  --color-bg-base: #0c0e12;
+  --color-bg-card: #14171e;
+  --color-bg-input: #1a1e27;
+  --color-bg-hover: #212733;
+  --color-border: #1e2430;
+  --color-border-subtle: #272f3e;
   --color-gold: #b48d36;
   --color-gold-light: #d4a94e;
   --color-gold-dim: rgba(180,141,54,0.15);

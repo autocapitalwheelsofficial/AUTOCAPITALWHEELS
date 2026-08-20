@@ -58,10 +58,10 @@ export default function VehicleCard({
               {onWishlistToggle && (
                 <button
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWishlistToggle(vehicle.id); }}
-                  className={`flex-shrink-0 p-1.5 rounded-full transition-all duration-200 cursor-pointer ${isWishlisted ? 'bg-red-500/10' : 'hover:bg-black/5'}`}
+                  className={`flex-shrink-0 p-2 rounded-full transition-all duration-300 cursor-pointer bg-white border border-neutral-100 shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:scale-105 active:scale-95`}
                   aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
                 >
-                  <Heart size={14} className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-neutral-450 hover:text-red-400'} />
+                  <Heart size={14} className={`transition-all duration-200 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : 'text-neutral-400 hover:text-red-500'}`} />
                 </button>
               )}
             </div>
@@ -112,16 +112,12 @@ export default function VehicleCard({
         {onWishlistToggle && !isSold && (
           <button
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); onWishlistToggle(vehicle.id); }}
-            className={`absolute top-3 right-3 p-1.5 rounded-full transition-all duration-200 z-10 cursor-pointer shadow-md ${
-              isWishlisted
-                ? 'bg-red-500/20 border border-red-500/30'
-                : 'bg-black/50 border border-white/10 hover:bg-black/70 hover:border-white/20'
-            }`}
+            className="absolute top-3 right-3 p-2 rounded-full transition-all duration-300 z-10 cursor-pointer shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white border border-neutral-100 hover:scale-105 active:scale-95"
             aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             <Heart
               size={13}
-              className={`transition-all duration-200 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : 'text-white/70 hover:text-red-400'}`}
+              className={`transition-all duration-200 ${isWishlisted ? 'fill-red-500 text-red-500 scale-110' : 'text-neutral-400 hover:text-red-500'}`}
             />
           </button>
         )}

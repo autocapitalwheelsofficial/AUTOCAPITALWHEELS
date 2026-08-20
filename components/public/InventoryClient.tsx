@@ -148,7 +148,7 @@ export default function InventoryClient() {
             placeholder="Search make, model..."
             value={filters.search}
             onChange={(e) => updateFilter('search', e.target.value)}
-            className="form-input text-sm"
+            className="form-input text-sm text-neutral-800"
             style={{ paddingLeft: '2.5rem' }}
             id="inventory-search"
           />
@@ -201,7 +201,7 @@ export default function InventoryClient() {
               onClick={() => updateFilter('body_type', filters.body_type === type ? '' : type)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
                 filters.body_type === type
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-white shadow-[0_0_12px_rgba(180,141,54,0.15)]'
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
                   : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
               }`}
             >
@@ -221,7 +221,7 @@ export default function InventoryClient() {
               onClick={() => updateFilter('fuel_type', filters.fuel_type === fuel ? '' : fuel)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
                 filters.fuel_type === fuel
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-white shadow-[0_0_12px_rgba(180,141,54,0.15)]'
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
                   : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
               }`}
             >
@@ -241,7 +241,7 @@ export default function InventoryClient() {
               onClick={() => updateFilter('transmission', filters.transmission === trans ? '' : trans)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
                 filters.transmission === trans
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-white shadow-[0_0_12px_rgba(180,141,54,0.15)]'
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
                   : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
               }`}
             >
@@ -307,7 +307,7 @@ export default function InventoryClient() {
               onClick={() => updateFilter('availability', filters.availability === avail ? '' : avail)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all duration-200 cursor-pointer ${
                 filters.availability === avail
-                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-white shadow-[0_0_12px_rgba(180,141,54,0.15)]'
+                  ? 'border-[#b48d36] bg-[#b48d36]/10 text-[#b48d36] shadow-[0_0_12px_rgba(180,141,54,0.15)]'
                   : 'border-neutral-800 text-neutral-400 hover:border-[#b48d36]/40 hover:bg-[#b48d36]/5'
               }`}
             >
@@ -350,7 +350,7 @@ export default function InventoryClient() {
                   <span className="text-xs bg-[#b48d36] text-black font-semibold px-2 py-0.5 rounded-full">{activeFilterCount}</span>
                 )}
               </div>
-              <FilterPanel />
+              {FilterPanel()}
             </div>
           </aside>
 
@@ -535,7 +535,7 @@ export default function InventoryClient() {
               </button>
             </div>
             <div className="p-5">
-              <FilterPanel />
+              {FilterPanel()}
               <button
                 onClick={() => setShowFilters(false)}
                 className="btn-primary w-full mt-4 py-3 justify-center"

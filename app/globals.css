@@ -1206,14 +1206,85 @@ option {
   color: var(--color-text-primary) !important;
 }
 
-/* Range slider inputs tracks visibility overrides for calculators */
-input[type="range"],
-input[type="range"]::-webkit-slider-runnable-track,
-input[type="range"]::-moz-range-track {
-  background-color: var(--color-border-subtle) !important;
+/* Range slider inputs tracks and thumbs visibility overrides for calculators */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px !important;
+  border-radius: 4px;
+  background: var(--color-border-subtle) !important;
+  outline: none;
 }
 
-/* Ensure mobile list filter button has high visibility outline */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--color-border-subtle) !important;
+  height: 6px;
+  border-radius: 4px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: var(--color-border-subtle) !important;
+  height: 6px;
+  border-radius: 4px;
+}
+
+/* Custom premium slider knob (thumb) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #b48d36 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 6px rgba(180, 141, 54, 0.4) !important;
+  cursor: pointer;
+  transition: all 150ms ease;
+  margin-top: -6px;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: #a37e2c !important;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #b48d36 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 6px rgba(180, 141, 54, 0.4) !important;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: #a37e2c !important;
+}
+
+/* Global button-secondary high contrast luxury styles overrides */
+.btn-secondary {
+  background-color: var(--color-bg-card) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--color-border-subtle) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+}
+
+.btn-secondary * {
+  color: var(--color-text-primary) !important;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-gold) !important;
+  background-color: var(--color-bg-hover) !important;
+  color: var(--color-text-primary) !important;
+  box-shadow: 0 8px 20px rgba(180,141,54,0.1) !important;
+}
+
+/* Ensure mobile list filter button matches theme rules */
 .btn-secondary.lg\:hidden,
 .btn-secondary.lg\:hidden * {
   background-color: var(--color-bg-card) !important;

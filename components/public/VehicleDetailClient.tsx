@@ -404,27 +404,27 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
               )}
 
               {/* Disclaimer */}
-              <div className="bg-amber-950/20 border border-amber-900/60 rounded-xl p-4 text-xs text-amber-300 leading-relaxed">
-                <Shield size={14} className="inline mr-1.5" />
+              <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-4 text-xs text-amber-800 leading-relaxed">
+                <Shield size={14} className="inline mr-1.5 text-amber-600" />
                 Vehicle specifications and details are provided as supplied and verified where possible. We recommend a thorough physical inspection before purchase. Final price subject to confirmation.
               </div>
             </div>
 
             {/* Right: Contact sticky */}
             <div className="space-y-4">
-              <div className="bg-[#121215] rounded-xl border border-[#1f1f26] p-5 lg:sticky lg:top-20">
-                <h3 className="font-display font-bold text-base text-white mb-4">Interested in this car?</h3>
+              <div className="bg-[var(--color-bg-card)] rounded-xl border border-[var(--color-border)] p-5 lg:sticky lg:top-20">
+                <h3 className="font-display font-bold text-base text-[var(--color-text-primary)] mb-4">Interested in this car?</h3>
                 {!isSold ? (
                   <div className="space-y-2.5">
                     <button
                       onClick={() => setShowEnquiry(true)}
-                      className="btn-primary w-full py-3 justify-center text-sm"
+                      className="btn-primary w-full py-3 justify-center text-sm shadow-md"
                     >
                       Get Quotation
                     </button>
                     <button
                       onClick={() => setShowTestDrive(true)}
-                      className="inline-flex items-center justify-center gap-2 border border-[#b48d36]/40 hover:border-[#b48d36] bg-[#b48d36]/10 hover:bg-[#b48d36]/20 text-[#b48d36] hover:text-white font-bold py-3 w-full rounded-lg text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer shadow-lg shadow-[#b48d36]/5"
+                      className="btn-secondary w-full py-3 justify-center text-xs font-bold tracking-widest uppercase shadow-sm"
                     >
                       Request Test Drive
                     </button>

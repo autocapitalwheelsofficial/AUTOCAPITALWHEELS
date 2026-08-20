@@ -62,8 +62,8 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-5">
-              <Link href="/" className="inline-block bg-neutral-900 px-4 py-1.5 rounded-xl border border-neutral-800 shadow-md">
-                <img src="/logo.png" alt="AutoCapital Wheels" className="h-8 w-auto object-contain select-none" />
+              <Link href="/">
+                <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain select-none" />
               </Link>
               <p className="text-[9px] font-bold tracking-widest text-[#b48d36] mt-2 uppercase">{brand_tagline}</p>
             </div>

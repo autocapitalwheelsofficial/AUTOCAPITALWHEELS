@@ -44,7 +44,7 @@ const trustPoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-[var(--color-bg-base)] border-t border-[var(--color-border)] relative overflow-hidden">
+    <section className="py-20 bg-white border-t border-[var(--color-border)] relative overflow-hidden">
       {/* Decorative luxury backgrounds */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#b48d36]/3 rounded-full filter blur-3xl -translate-y-1/2" />
       
@@ -77,7 +77,7 @@ export default function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.25, 1, 0.5, 1] }}
-              className="p-8 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-2xl transition-all duration-300 hover:border-[#b48d36]/40 group hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
+              className="p-8 bg-[#fafafc] border border-neutral-200/60 rounded-2xl transition-all duration-300 hover:border-[#b48d36]/40 group hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.03)]"
             >
               {/* Icon Container */}
               <div className="w-12 h-12 rounded-xl bg-[#b48d36]/10 border border-[#b48d36]/20 flex items-center justify-center text-[#b48d36] mb-6 group-hover:bg-[#b48d36] group-hover:text-white transition-all duration-300">

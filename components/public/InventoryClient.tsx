@@ -54,6 +54,24 @@ function FilterPanel({
   updateFilter, clearFilters,
 }: FilterPanelProps) {
   const currentYear = new Date().getFullYear();
+  
+  // Local state for search input to prevent re-rendering page on every single character keystroke
+  const [localSearch, setLocalSearch] = useState(filters.search);
+  
+  useEffect(() => {
+    setLocalSearch(filters.search);
+  }, [filters.search]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (localSearch !== filters.search) {
+        updateFilter('search', localSearch);
+      }
+    }, 400);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [localSearch, filters.search, updateFilter]);
+
   return (
     <div className="space-y-5">
       {/* Search */}
@@ -63,8 +81,8 @@ function FilterPanel({
           <input
             type="text"
             placeholder="Search make, model..."
-            value={filters.search}
-            onChange={(e) => updateFilter('search', e.target.value)}
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
             className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 pl-9 pr-3 focus:outline-none focus:border-[#b48d36] transition-all text-black"
             style={{ color: '#000000', backgroundColor: '#ffffff', caretColor: '#000000' }}
             id="inventory-search"

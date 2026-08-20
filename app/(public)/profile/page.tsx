@@ -307,7 +307,7 @@ function ProfileContent() {
               <div className="flex items-center justify-center py-20">
                 <Loader2 className="animate-spin text-amber-500" size={32} />
               </div>
-            ) : vehicles.length === 0 ? (
+            ) : wishlistItems.length === 0 ? (
               <div className="bg-[#121215] border border-neutral-800 rounded-2xl p-10 text-center shadow-xl">
                 <Heart className="mx-auto text-neutral-600 mb-4" size={40} />
                 <h3 className="font-display font-bold text-lg text-white mb-2">Your Wishlist is Empty</h3>

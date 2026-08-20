@@ -60,18 +60,13 @@ function ProfileContent() {
 
         if (error) {
           console.error('Error loading wishlist vehicles:', error);
-          const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
-          setVehicles(mocks);
-        } else if (!data || data.length === 0) {
-          const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
-          setVehicles(mocks);
+          setVehicles([]);
         } else {
-          setVehicles(data);
+          setVehicles(data || []);
         }
       } catch (e) {
         console.error('Error loading wishlist vehicles:', e);
-        const mocks = MOCK_VEHICLES.filter(v => wishlistItems.includes(v.id));
-        setVehicles(mocks);
+        setVehicles([]);
       } finally {
         setLoadingVehicles(false);
       }

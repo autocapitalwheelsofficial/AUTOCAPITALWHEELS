@@ -1146,14 +1146,14 @@ textarea.bg-\[\#16161a\],
 }
 
 /* Force visible black text on all text tags inside the profile container history lists, headers, labels, and strong tags */
-.container-custom strong,
-.container-custom span:not(.badge):not(.badge *):not(.btn-primary *),
-.container-custom p,
-.container-custom h1,
-.container-custom h2,
-.container-custom h3,
-.container-custom h4,
-.container-custom div:not(.badge):not(.badge *):not(.btn-primary *):not(input):not(textarea):not(select) {
+.container-custom strong:not(.badge *):not(.btn-primary *),
+.container-custom p:not(.badge *):not(.btn-primary *),
+.container-custom h1:not(.badge *):not(.btn-primary *),
+.container-custom h2:not(.badge *):not(.btn-primary *),
+.container-custom h3:not(.badge *):not(.btn-primary *),
+.container-custom h4:not(.badge *):not(.btn-primary *),
+.space-y-4 span:not(.badge):not(.badge *):not(.btn-primary *),
+.space-y-4 div:not(.badge):not(.badge *):not(.btn-primary *):not(input):not(textarea):not(select) {
   color: #1a1a1a !important;
 }
 

@@ -77,19 +77,19 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
             <Link 
               href="/profile" 
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
-              style={{ color: '#333333' }}
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold hover:bg-neutral-50 hover:translate-x-1 rounded-xl transition-all duration-300"
+              style={{ color: '#1a1a1a' }}
             >
-              <User size={14} />
+              <User size={14} style={{ color: '#1a1a1a' }} />
               MY PROFILE
             </Link>
             <Link 
               href="/profile?tab=wishlist" 
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900 hover:translate-x-1 rounded-xl transition-all duration-300"
-              style={{ color: '#333333' }}
+              className="flex items-center gap-3 px-3 py-2.5 text-xs font-bold hover:bg-neutral-50 hover:translate-x-1 rounded-xl transition-all duration-300"
+              style={{ color: '#1a1a1a' }}
             >
-              <Heart size={14} />
+              <Heart size={14} style={{ color: '#1a1a1a' }} />
               MY WISHLIST
             </Link>
           </div>

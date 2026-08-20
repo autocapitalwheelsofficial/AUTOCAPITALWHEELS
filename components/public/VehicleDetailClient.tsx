@@ -447,8 +447,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                     {/* Secondary CTA */}
                     <button
                       onClick={() => setShowTestDrive(true)}
-                      className="w-full flex items-center justify-center gap-2 bg-neutral-50 hover:bg-neutral-100 text-neutral-800 font-bold py-3 px-4 rounded-xl text-sm border border-neutral-200 transition-all duration-200 active:scale-[0.98]"
-                      style={{ color: '#1f2937' }}
+                      className="w-full flex items-center justify-center gap-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold py-3 px-4 rounded-xl text-sm border border-neutral-300 transition-all duration-200 active:scale-[0.98]"
+                      style={{ color: '#1a1a1a' }}
                     >
                       Request Test Drive
                     </button>

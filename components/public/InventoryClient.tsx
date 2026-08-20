@@ -177,16 +177,16 @@ function FilterPanel({
             placeholder="Min ₹"
             value={filters.min_price}
             onChange={(e) => updateFilter('min_price', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-black"
-            style={{ color: '#000000', backgroundColor: '#ffffff', caretColor: '#000000' }}
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
           />
           <input
             type="number"
             placeholder="Max ₹"
             value={filters.max_price}
             onChange={(e) => updateFilter('max_price', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-black"
-            style={{ color: '#000000', backgroundColor: '#ffffff', caretColor: '#000000' }}
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
           />
         </div>
       </div>
@@ -200,8 +200,8 @@ function FilterPanel({
             placeholder="From"
             value={filters.min_year}
             onChange={(e) => updateFilter('min_year', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-black"
-            style={{ color: '#000000', backgroundColor: '#ffffff', caretColor: '#000000' }}
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
             min="1990"
             max={currentYear}
           />
@@ -210,8 +210,8 @@ function FilterPanel({
             placeholder="To"
             value={filters.max_year}
             onChange={(e) => updateFilter('max_year', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-black"
-            style={{ color: '#000000', backgroundColor: '#ffffff', caretColor: '#000000' }}
+            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
             min="1990"
             max={currentYear}
           />

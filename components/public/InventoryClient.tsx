@@ -37,6 +37,37 @@ const defaultFilters: Filters = {
   availability: '',
 };
 
+// Debounced input wrapper to prevent parent layout re-rendering & jittering on every keyboard press
+function BudgetInput({ placeholder, value, onChange, min, max }: { placeholder: string; value: string; onChange: (v: string) => void; min?: string; max?: number }) {
+  const [localVal, setLocalVal] = useState(value);
+  
+  useEffect(() => {
+    setLocalVal(value);
+  }, [value]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (localVal !== value) {
+        onChange(localVal);
+      }
+    }, 450);
+    return () => clearTimeout(handler);
+  }, [localVal, value, onChange]);
+
+  return (
+    <input
+      type="number"
+      placeholder={placeholder}
+      value={localVal}
+      onChange={(e) => setLocalVal(e.target.value)}
+      min={min}
+      max={max}
+      className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
+      style={{ color: '#000000', backgroundColor: '#f8f9fa', caretColor: '#000000' }}
+    />
+  );
+}
+
 // ─── FilterPanel (MUST be outside InventoryClient so React doesn't remount inputs) ──
 interface FilterPanelProps {
   filters: Filters;
@@ -190,21 +221,15 @@ function FilterPanel({
       <div>
         <p className="filter-section-title">Budget</p>
         <div className="flex gap-2">
-          <input
-            type="number"
+          <BudgetInput
             placeholder="Min ₹"
             value={filters.min_price}
-            onChange={(e) => updateFilter('min_price', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
-            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
+            onChange={(val) => updateFilter('min_price', val)}
           />
-          <input
-            type="number"
+          <BudgetInput
             placeholder="Max ₹"
             value={filters.max_price}
-            onChange={(e) => updateFilter('max_price', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
-            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
+            onChange={(val) => updateFilter('max_price', val)}
           />
         </div>
       </div>
@@ -213,23 +238,17 @@ function FilterPanel({
       <div>
         <p className="filter-section-title">Year</p>
         <div className="flex gap-2">
-          <input
-            type="number"
+          <BudgetInput
             placeholder="From"
             value={filters.min_year}
-            onChange={(e) => updateFilter('min_year', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
-            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
+            onChange={(val) => updateFilter('min_year', val)}
             min="1990"
             max={currentYear}
           />
-          <input
-            type="number"
+          <BudgetInput
             placeholder="To"
             value={filters.max_year}
-            onChange={(e) => updateFilter('max_year', e.target.value)}
-            className="w-full text-sm border border-neutral-200 rounded-lg py-2.5 px-3 focus:outline-none focus:border-[#b48d36] transition-all text-neutral-800"
-            style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
+            onChange={(val) => updateFilter('max_year', val)}
             min="1990"
             max={currentYear}
           />

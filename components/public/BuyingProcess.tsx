@@ -132,7 +132,8 @@ export default function BuyingProcess() {
 
               <button
                 onClick={() => setShowEnquiry(true)}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#171717] hover:bg-neutral-800 text-white font-bold h-[42px] rounded-lg text-xs uppercase tracking-wider transition-all duration-200 mt-4 border border-neutral-800"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#171717] hover:bg-neutral-800 text-white font-bold h-[42px] rounded-lg text-xs uppercase tracking-wider transition-all duration-200 mt-4 border border-neutral-800 text-white-keep"
+                style={{ color: '#ffffff', backgroundColor: '#171717' }}
               >
                 Request a Quote
                 <ChevronRight size={14} />

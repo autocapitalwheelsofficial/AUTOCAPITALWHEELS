@@ -181,7 +181,7 @@ export default function QuickSearch() {
                 <button
                   type="button"
                   onClick={() => toggleDropdown('make')}
-                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[var(--color-bg-input)] border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
+                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-white border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
                 >
                   <span className="truncate">{filters.make || 'All Brands'}</span>
                   <ChevronDown size={14} className={`text-neutral-400 transition-transform duration-300 ${activeDropdown === 'make' ? 'rotate-185' : ''}`} />
@@ -216,7 +216,7 @@ export default function QuickSearch() {
                 <button
                   type="button"
                   onClick={() => toggleDropdown('model')}
-                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[var(--color-bg-input)] border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
+                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-white border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
                 >
                   <span className="truncate">{filters.model || 'All Models'}</span>
                   <ChevronDown size={14} className={`text-neutral-400 transition-transform duration-300 ${activeDropdown === 'model' ? 'rotate-185' : ''}`} />
@@ -251,7 +251,7 @@ export default function QuickSearch() {
                 <button
                   type="button"
                   onClick={() => toggleDropdown('year')}
-                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[var(--color-bg-input)] border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
+                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-white border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
                 >
                   <span className="truncate">{filters.year ? `${filters.year} & Above` : 'Any Year'}</span>
                   <ChevronDown size={14} className={`text-neutral-400 transition-transform duration-300 ${activeDropdown === 'year' ? 'rotate-185' : ''}`} />
@@ -286,7 +286,7 @@ export default function QuickSearch() {
                 <button
                   type="button"
                   onClick={() => toggleDropdown('price')}
-                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-[var(--color-bg-input)] border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
+                  className="w-full flex items-center justify-between text-xs font-semibold px-4 py-3 bg-white border border-[var(--color-border)] rounded-lg hover:border-amber-500/50 text-[var(--color-text-primary)] transition-all duration-300 text-left cursor-pointer"
                 >
                   <span className="truncate">{formatLakh(filters.max_price)}</span>
                   <ChevronDown size={14} className={`text-neutral-400 transition-transform duration-300 ${activeDropdown === 'price' ? 'rotate-185' : ''}`} />

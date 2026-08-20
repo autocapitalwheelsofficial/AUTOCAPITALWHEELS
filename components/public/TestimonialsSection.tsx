@@ -69,7 +69,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
   };
 
   return (
-    <section className="py-12 bg-[var(--color-bg-base)] border-t border-[var(--color-border)]">
+    <section className="py-8 lg:py-10 bg-[var(--color-bg-base)] border-t border-[var(--color-border)]">
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10 border-b border-[var(--color-border)] pb-6">

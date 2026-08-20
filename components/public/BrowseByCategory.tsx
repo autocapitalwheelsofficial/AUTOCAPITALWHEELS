@@ -19,14 +19,14 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
   if (displayCategories.length === 0) return null;
 
   return (
-    <section className="py-10 bg-white overflow-hidden relative">
+    <section className="py-8 lg:py-10 bg-white overflow-hidden relative">
       <div className="container-custom relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
-          className="text-center mb-10"
+          className="text-center mb-6"
         >
           <div className="inline-flex items-center gap-2 mb-2">
             <span className="h-[1px] w-8 bg-amber-500/50" />

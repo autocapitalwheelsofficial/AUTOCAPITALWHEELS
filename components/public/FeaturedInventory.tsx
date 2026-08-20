@@ -17,7 +17,7 @@ export default function FeaturedInventory({ vehicles }: FeaturedInventoryProps) 
   if (vehicles.length === 0) return null;
 
   return (
-    <section className="py-12 bg-transparent">
+    <section className="py-8 lg:py-10 bg-transparent">
       <div className="container-custom">
         {/* Header */}
         <motion.div 

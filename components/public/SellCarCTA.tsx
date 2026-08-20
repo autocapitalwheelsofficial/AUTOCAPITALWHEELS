@@ -8,7 +8,7 @@ export default function SellCarCTA() {
   const { business_whatsapp } = useSettings();
 
   return (
-    <section className="py-10 bg-[#faf9f6] border-y border-neutral-200/50 relative overflow-hidden">
+    <section className="py-8 lg:py-10 bg-[#faf9f6] border-y border-neutral-200/50 relative overflow-hidden">
       {/* Decorative element */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/5 rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />

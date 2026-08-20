@@ -9,7 +9,7 @@ export default function BuyingProcess() {
   const [showEnquiry, setShowEnquiry] = useState(false);
 
   return (
-    <section className="py-12 bg-[#0a0a0c]">
+    <section className="py-8 lg:py-10 bg-[#0a0a0c]">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           

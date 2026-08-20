@@ -42,7 +42,7 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
   const { brand_name, business_whatsapp, business_email } = useSettings();
 
   return (
-    <section className="py-12 bg-[var(--color-bg-base)]">
+    <section className="py-8 lg:py-10 bg-[var(--color-bg-base)]">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto">
           {/* Header */}

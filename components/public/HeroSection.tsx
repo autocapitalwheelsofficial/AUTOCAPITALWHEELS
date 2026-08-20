@@ -136,7 +136,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
   return (
     <section 
       className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)] max-w-full"
-      style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '80px' }}
+      style={{ minHeight: '80svh', paddingTop: '80px' }}
       onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -189,7 +189,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
             </div>
 
             {/* Content Container */}
-            <div className="container-custom relative z-20 w-full py-16 lg:py-20">
+            <div className="container-custom relative z-20 w-full py-12 lg:py-16">
               <div className="max-w-2xl">
                 {/* Label */}
                 <div className={`flex items-center gap-2 mb-5 transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
@@ -198,7 +198,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </div>
 
                 {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tight text-[var(--color-text-primary)] leading-[1.08] mb-6 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tighter text-[var(--color-text-primary)] leading-[1.05] mb-6 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {titleWhite}
                   <br />
                   <span className="text-metallic-gold">{titleGold}</span>

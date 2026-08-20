@@ -203,9 +203,10 @@ function ProfileContent() {
           </div>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-2 border border-neutral-800 hover:bg-neutral-900 px-5 py-2.5 rounded-lg text-xs font-bold text-white tracking-wider transition-all cursor-pointer hover:border-white/20"
+            className="flex items-center gap-2 border border-red-200 hover:bg-red-50/20 px-5 py-2.5 rounded-lg text-xs font-bold text-red-500 tracking-wider transition-all cursor-pointer"
+            style={{ color: '#ef4444' }}
           >
-            <LogOut size={14} />
+            <LogOut size={14} style={{ color: '#ef4444' }} />
             LOG OUT
           </button>
         </div>
@@ -217,6 +218,7 @@ function ProfileContent() {
             className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'profile' ? 'text-white border-b-2 border-[#b48d36]' : 'text-neutral-500 hover:text-neutral-300'
             }`}
+            style={{ color: activeTab === 'profile' ? '#ffffff' : '#9ca3af' }}
           >
             <User size={13} />
             My Profile
@@ -226,6 +228,7 @@ function ProfileContent() {
             className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'wishlist' ? 'text-white border-b-2 border-[#b48d36]' : 'text-neutral-500 hover:text-neutral-300'
             }`}
+            style={{ color: activeTab === 'wishlist' ? '#ffffff' : '#9ca3af' }}
           >
             <Heart size={13} className={activeTab === 'wishlist' ? 'fill-white' : ''} />
             My Wishlist ({wishlistItems.length})
@@ -235,6 +238,7 @@ function ProfileContent() {
             className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'test-drives' ? 'text-white border-b-2 border-[#b48d36]' : 'text-neutral-500 hover:text-neutral-300'
             }`}
+            style={{ color: activeTab === 'test-drives' ? '#ffffff' : '#9ca3af' }}
           >
             <Calendar size={13} />
             Test Drives ({testDrives.length})
@@ -244,6 +248,7 @@ function ProfileContent() {
             className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'quotations' ? 'text-white border-b-2 border-[#b48d36]' : 'text-neutral-500 hover:text-neutral-300'
             }`}
+            style={{ color: activeTab === 'quotations' ? '#ffffff' : '#9ca3af' }}
           >
             <MessageSquare size={13} />
             Quotations ({enquiries.length})
@@ -253,6 +258,7 @@ function ProfileContent() {
             className={`pb-3 text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-2 shrink-0 cursor-pointer ${
               activeTab === 'sell-requests' ? 'text-white border-b-2 border-[#b48d36]' : 'text-neutral-500 hover:text-neutral-300'
             }`}
+            style={{ color: activeTab === 'sell-requests' ? '#ffffff' : '#9ca3af' }}
           >
             <Car size={13} />
             Sell Requests ({sellRequests.length})

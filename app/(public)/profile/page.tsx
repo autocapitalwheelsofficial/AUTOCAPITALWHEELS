@@ -53,16 +53,17 @@ function ProfileContent() {
 
       setLoadingVehicles(true);
       try {
-        const { data, error } = await supabase
-          .from('vehicles')
-          .select('*')
-          .in('id', wishlistItems);
+        // Use the public API which bypasses RLS issues
+        const res = await fetch(`/api/vehicles?per_page=50&ids=${wishlistItems.join(',')}`);
+        const json = await res.json();
 
-        if (error) {
-          console.error('Error loading wishlist vehicles:', error);
-          setVehicles([]);
+        if (json.success && json.data) {
+          // Filter to only vehicles whose IDs are in wishlist
+          const wishlistSet = new Set(wishlistItems);
+          const filtered = json.data.filter((v: any) => wishlistSet.has(v.id));
+          setVehicles(filtered);
         } else {
-          setVehicles(data || []);
+          setVehicles([]);
         }
       } catch (e) {
         console.error('Error loading wishlist vehicles:', e);
@@ -75,7 +76,7 @@ function ProfileContent() {
     if (user) {
       loadWishlistVehicles();
     }
-  }, [user, JSON.stringify(wishlistItems), supabase]);
+  }, [user, JSON.stringify(wishlistItems)]);
 
   // Load test drives and quotations history
   useEffect(() => {

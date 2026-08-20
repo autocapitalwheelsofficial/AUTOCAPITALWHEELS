@@ -88,6 +88,15 @@ export async function GET(request: NextRequest) {
       is_featured: searchParams.get('featured') === '1' ? true : undefined,
     };
 
+    // Support fetching by specific IDs (for wishlist)
+    const idsParam = searchParams.get('ids');
+    if (idsParam) {
+      const idList = idsParam.split(',').map(s => s.trim()).filter(Boolean);
+      if (idList.length > 0) {
+        query = query.in('id', idList);
+      }
+    }
+
     if (filters.search) {
       const searchTerms = filters.search.trim().split(/\s+/).filter(Boolean);
       if (searchTerms.length > 0) {

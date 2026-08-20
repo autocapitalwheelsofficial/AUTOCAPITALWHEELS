@@ -335,16 +335,15 @@ export default function AdminCategoriesPage() {
                         />
                       </div>
                       <div>
-                        <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Links to Body Type</label>
-                        <select
+                        <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Category Tag <span className="text-neutral-600 normal-case">(connects vehicles to this category)</span></label>
+                        <input
+                          type="text"
                           className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
                           value={cat.body_type}
                           onChange={(e) => handleFieldChange(idx, 'body_type', e.target.value)}
-                        >
-                          {BODY_TYPES.map(type => (
-                            <option key={type} value={type}>{type}</option>
-                          ))}
-                        </select>
+                          placeholder="e.g. SUV, Sedan, Hatchback"
+                        />
+                        <p className="text-[9px] text-neutral-600 mt-1">Vehicles with matching Body Type will show under this category</p>
                       </div>
                     </div>
                   </div>

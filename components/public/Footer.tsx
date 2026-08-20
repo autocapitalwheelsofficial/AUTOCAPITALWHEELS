@@ -62,13 +62,13 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="mb-5">
-              <Link href="/">
-                <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain select-none" />
+              <Link href="/" className="inline-block bg-neutral-900 px-4 py-1.5 rounded-xl border border-neutral-800 shadow-md">
+                <img src="/logo.png" alt="AutoCapital Wheels" className="h-8 w-auto object-contain select-none" />
               </Link>
               <p className="text-[9px] font-bold tracking-widest text-[#b48d36] mt-2 uppercase">{brand_tagline}</p>
             </div>
 
-            <p className="text-xs text-neutral-500 leading-relaxed font-light max-w-xs">
+            <p className="text-xs text-neutral-400 leading-relaxed font-light max-w-xs">
               Gurugram's premium destination for certified pre-owned cars. Transparent pricing, expert team, and hassle-free deals.
             </p>
 
@@ -83,7 +83,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-[#1c1c21] border border-[#252530] hover:border-[#b48d36]/40 hover:bg-[#b48d36]/10 hover:text-[#b48d36] flex items-center justify-center text-neutral-500 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 hover:border-[#b48d36] hover:bg-[#b48d36] hover:text-black flex items-center justify-center text-[#b48d36] transition-all duration-200 shadow-sm"
                 >
                   <Icon />
                 </a>

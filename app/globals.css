@@ -1169,6 +1169,33 @@ input *, textarea *, select *, .form-input *, .form-select * {
 }
 
 input::placeholder, textarea::placeholder {
+}
+.btn-primary,
+.btn-primary *,
+.btn-secondary,
+.btn-secondary *,
+.bg-\[\#b48d36\],
+.bg-\[\#b48d36\] *,
+.badge,
+.badge * {
+  color: #ffffff !important;
+}
+
+.text-metallic-gold {
+  background: linear-gradient(135deg, #a37e2c 0%, #c9a227 30%, #b48d36 50%, #c9a227 70%, #a37e2c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Force typed text to be visible inside all input forms and select elements */
+input, textarea, select, .form-input, .form-select,
+input *, textarea *, select *, .form-input *, .form-select * {
+  color: var(--color-text-primary) !important;
+}
+
+input::placeholder, textarea::placeholder {
   color: var(--color-text-muted) !important;
   opacity: 0.8 !important;
 }
@@ -1177,4 +1204,22 @@ input::placeholder, textarea::placeholder {
 option {
   background-color: var(--color-bg-card) !important;
   color: var(--color-text-primary) !important;
+}
+
+/* Range slider inputs tracks visibility overrides for calculators */
+input[type="range"],
+input[type="range"]::-webkit-slider-runnable-track,
+input[type="range"]::-moz-range-track {
+  background-color: var(--color-border-subtle) !important;
+}
+
+/* Ensure mobile list filter button has high visibility outline */
+.btn-secondary.lg\:hidden,
+.btn-secondary.lg\:hidden * {
+  background-color: var(--color-bg-card) !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border-subtle) !important;
+}
+.btn-secondary.lg\:hidden:hover {
+  background-color: var(--color-bg-hover) !important;
 }

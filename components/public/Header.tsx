@@ -73,11 +73,11 @@ export default function Header() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+            <Link href="/" className="flex items-center gap-3 flex-shrink-0 bg-neutral-900 px-4 py-1.5 rounded-xl border border-neutral-800 shadow-sm hover:opacity-95 transition-all">
               <img
                 src="/logo.png"
                 alt="AutoCapital Wheels Logo"
-                className="h-10 sm:h-12 lg:h-[72px] w-auto object-contain"
+                className="h-8 sm:h-10 lg:h-[48px] w-auto object-contain"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
@@ -272,8 +272,8 @@ export default function Header() {
       >
         <div>
           <div className="flex items-center justify-between p-6 border-b border-[var(--color-border)]">
-            <div className="flex items-center">
-              <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain" />
+            <div className="flex items-center bg-neutral-900 px-4 py-1.5 rounded-xl border border-neutral-800 shadow-sm">
+              <img src="/logo.png" alt="AutoCapital Wheels" className="h-8 w-auto object-contain" />
             </div>
             <button
               onClick={() => setIsMenuOpen(false)}

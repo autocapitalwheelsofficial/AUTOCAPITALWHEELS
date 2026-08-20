@@ -145,6 +145,29 @@ export async function POST(request: NextRequest) {
           value: JSON.stringify(categoriesList),
           type: 'json'
         }, { onConflict: 'key' });
+
+      // Auto-assign vehicles to categories:
+      // If only 1 category exists → assign ALL vehicles to it
+      // If multiple categories → assign only vehicles with null/unmatched body_type to the first category
+      const categoryBodyTypes = categoriesList.map((c: any) => c.body_type).filter(Boolean);
+      if (categoryBodyTypes.length === 1) {
+        // Only one category — assign every vehicle to it
+        await supabase
+          .from('vehicles')
+          .update({ body_type: categoryBodyTypes[0] })
+          .neq('body_type', categoryBodyTypes[0]);
+        // Also assign nulls
+        await supabase
+          .from('vehicles')
+          .update({ body_type: categoryBodyTypes[0] })
+          .is('body_type', null);
+      } else if (categoryBodyTypes.length > 1) {
+        // Multiple categories — only update vehicles whose body_type doesn't match any category
+        await supabase
+          .from('vehicles')
+          .update({ body_type: categoryBodyTypes[0] })
+          .is('body_type', null);
+      }
     }
 
     return NextResponse.json({ success: true });

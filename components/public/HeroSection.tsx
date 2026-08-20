@@ -135,7 +135,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
 
   return (
     <section 
-      className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)]"
+      className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)] max-w-full"
       style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '80px' }}
       onWheel={handleWheel}
       onTouchStart={handleTouchStart}

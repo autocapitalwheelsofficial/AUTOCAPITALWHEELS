@@ -98,8 +98,8 @@ export default function HeaderSearch({ isDarkHeader }: { isDarkHeader?: boolean 
               ref={inputRef}
               type="text"
               placeholder="Search make, model, or type..."
-              className="w-full text-sm rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all border border-neutral-200 text-neutral-800"
-              style={{ color: '#1a1a1a', backgroundColor: '#f8f9fa', caretColor: '#1a1a1a' }}
+              className="w-full text-sm rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-amber-500 transition-all border border-neutral-200 text-black font-semibold"
+              style={{ color: '#000000', backgroundColor: '#f8f9fa', caretColor: '#000000' }}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}

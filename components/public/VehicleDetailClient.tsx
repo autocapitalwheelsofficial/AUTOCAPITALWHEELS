@@ -425,6 +425,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                     <button
                       onClick={() => setShowEnquiry(true)}
                       className="w-full flex items-center justify-center gap-2 bg-[#b48d36] hover:bg-[#9a7a2f] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98]"
+                      style={{ color: '#ffffff' }}
                     >
                       Get Quotation
                     </button>
@@ -444,6 +445,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-3 px-4 rounded-xl text-sm transition-all duration-200 active:scale-[0.98]"
+                      style={{ color: '#ffffff' }}
                     >
                       <MessageCircle size={15} />
                       WhatsApp Us

@@ -80,7 +80,7 @@ function ProfileContent() {
     if (user) {
       loadWishlistVehicles();
     }
-  }, [user, wishlistItems, supabase]);
+  }, [user, JSON.stringify(wishlistItems), supabase]);
 
   // Load test drives and quotations history
   useEffect(() => {

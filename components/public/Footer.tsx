@@ -161,29 +161,29 @@ export default function Footer() {
               </li>
               <li>
                 <a href={`tel:${business_phone}`} className="flex items-center gap-3 text-xs text-neutral-500 hover:text-[#b48d36] transition-colors group">
-                  <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] group-hover:border-[#b48d36]/30 flex items-center justify-center flex-shrink-0 transition-all">
-                    <Phone size={12} className="text-neutral-500 group-hover:text-[#b48d36]" />
+                  <div className="w-7 h-7 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 group-hover:border-[#b48d36]/50 flex items-center justify-center flex-shrink-0 transition-all">
+                    <Phone size={12} className="text-[#b48d36]" />
                   </div>
                   {business_phone}
                 </a>
               </li>
               <li>
                 <a href={`mailto:${business_email}`} className="flex items-center gap-3 text-xs text-neutral-500 hover:text-[#b48d36] transition-colors group">
-                  <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] group-hover:border-[#b48d36]/30 flex items-center justify-center flex-shrink-0 transition-all">
-                    <Mail size={12} className="text-neutral-500 group-hover:text-[#b48d36]" />
+                  <div className="w-7 h-7 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 group-hover:border-[#b48d36]/50 flex items-center justify-center flex-shrink-0 transition-all">
+                    <Mail size={12} className="text-[#b48d36]" />
                   </div>
                   {business_email}
                 </a>
               </li>
               <li className="flex items-start gap-3 text-xs text-neutral-500">
-                <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">
-                  <MapPin size={12} className="text-neutral-500" />
+                <div className="w-7 h-7 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={12} className="text-[#b48d36]" />
                 </div>
                 <span className="leading-relaxed uppercase whitespace-pre-line">{business_address}</span>
               </li>
               <li className="flex items-start gap-3 text-xs text-neutral-500">
-                <div className="w-7 h-7 rounded-lg bg-[#1c1c21] border border-[#252530] flex items-center justify-center flex-shrink-0">
-                  <Clock size={12} className="text-neutral-500" />
+                <div className="w-7 h-7 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 flex items-center justify-center flex-shrink-0">
+                  <Clock size={12} className="text-[#b48d36]" />
                 </div>
                 <span className="leading-relaxed whitespace-pre-line">{business_hours}</span>
               </li>

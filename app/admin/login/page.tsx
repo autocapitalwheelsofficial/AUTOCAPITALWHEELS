@@ -44,30 +44,13 @@ export default function AdminLoginPage() {
 
         {/* Logo */}
         <div className="text-center flex flex-col items-center justify-center">
-          <div className="flex items-center gap-3 mb-2">
-            <img
-              src="/logo.png"
-              alt="AutoCapital Wheels Logo"
-              className="h-12 w-auto object-contain"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <div className="flex flex-col items-center justify-center leading-none">
-              <div className="font-display font-black text-xl lg:text-2xl tracking-tight italic select-none">
-                <span className="text-[#a0a5a9]">AUTO</span>
-                <span className="text-[#b48d36]">CAPITAL</span>
-              </div>
-              <div className="flex items-center gap-1 -mt-0.5 select-none w-full justify-center">
-                <span className="h-[1px] w-2 bg-gradient-to-r from-transparent to-[#a0a5a9]/50" />
-                <span className="font-display font-black text-[9px] tracking-[0.25em] text-[#a0a5a9] uppercase">
-                  WHEELS
-                </span>
-                <span className="h-[1px] w-2 bg-gradient-to-l from-transparent to-[#b48d36]/50" />
-              </div>
-            </div>
-          </div>
-          <p className="text-[9px] text-[#b48d36] font-semibold tracking-[0.3em] uppercase mt-1">
+          <img
+            src="/logo.png"
+            alt="AutoCapital Wheels Logo"
+            className="h-20 w-auto object-contain select-none mx-auto"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
+          <p className="text-[9px] text-[#b48d36] font-semibold tracking-[0.3em] uppercase mt-2">
             SECURE PORTAL
           </p>
         </div>

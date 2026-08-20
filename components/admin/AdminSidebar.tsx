@@ -76,16 +76,8 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
       {/* Mobile Top Bar */}
       <div className="lg:hidden bg-[#121215] text-white p-4 flex items-center justify-between sticky top-0 z-40 border-b border-neutral-800">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <img src="/logo.png" alt="AutoCapital Wheels Logo" className="h-6 w-auto object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
-            <div className="flex flex-col items-start justify-center leading-none">
-              <div className="font-display font-black text-sm tracking-tight italic select-none">
-                <span className="text-[#a0a5a9]">AUTO</span><span className="text-[#b48d36]">CAPITAL</span>
-              </div>
-            </div>
+            <img src="/logo.png" alt="AutoCapital Wheels" className="h-10 w-auto object-contain select-none" onError={(e) => e.currentTarget.style.display = 'none'} />
           </div>
-          <div className="text-[10px] text-[#b48d36] font-semibold tracking-widest uppercase">Admin Panel</div>
-        </div>
         <button
           onClick={() => setMobileMenuOpen(true)}
           className="p-2 hover:bg-white/10 rounded-md transition-colors"
@@ -114,15 +106,7 @@ export default function AdminSidebar({ admin }: AdminSidebarProps) {
         <div className="p-4 border-b border-white/10 flex items-center justify-between min-h-[64px]">
           {!collapsed && (
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <img src="/logo.png" alt="AutoCapital Wheels Logo" className="h-7 w-auto object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
-                <div className="flex flex-col items-start justify-center leading-none">
-                  <div className="font-display font-black text-[13px] tracking-tight italic select-none">
-                    <span className="text-[#a0a5a9]">AUTO</span><span className="text-[#b48d36]">CAPITAL</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-[10px] text-[#b48d36] font-semibold tracking-widest uppercase mt-1">Admin Panel</div>
+              <img src="/logo.png" alt="AutoCapital Wheels" className="h-12 w-auto object-contain select-none" onError={(e) => e.currentTarget.style.display = 'none'} />
             </div>
           )}
           

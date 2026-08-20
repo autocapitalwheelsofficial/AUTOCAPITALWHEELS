@@ -159,14 +159,14 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
         return (
           <div
             key={slideUrl + index}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out flex items-center ${
+            className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${
               index === activeSlide 
                 ? 'opacity-100 scale-100 pointer-events-auto z-20' 
                 : 'opacity-0 scale-105 pointer-events-none z-10'
             }`}
           >
             {/* Background Media */}
-            <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 pointer-events-none w-full h-full">
               {isVideo ? (
                 <video src={slideUrl} className="w-full h-full object-cover object-center" autoPlay muted loop playsInline />
               ) : (
@@ -183,9 +183,9 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
             </div>
 
             {/* Gradient Overlays adapted to Light Theme */}
-            <div className="absolute inset-0 pointer-events-none z-10">
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-base)] via-[var(--color-bg-base)]/95 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[var(--color-bg-base)] via-[var(--color-bg-base)]/40 to-transparent" />
+            <div className="absolute inset-0 pointer-events-none z-10 w-full h-full">
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-base)] via-[var(--color-bg-base)]/90 to-transparent sm:via-[var(--color-bg-base)]/95" />
+              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[var(--color-bg-base)] via-[var(--color-bg-base)]/20 to-transparent" />
             </div>
 
             {/* Content Container */}

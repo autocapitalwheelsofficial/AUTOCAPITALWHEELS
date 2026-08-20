@@ -325,11 +325,11 @@ function ProfileContent() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {vehicles.map((vehicle) => (
+                {vehicles.filter(v => wishlistItems.includes(v.id)).map((vehicle) => (
                   <VehicleCard
                     key={vehicle.id}
                     vehicle={vehicle}
-                    isWishlisted={true}
+                    isWishlisted={wishlistItems.includes(vehicle.id)}
                     onWishlistToggle={toggleWishlist}
                   />
                 ))}

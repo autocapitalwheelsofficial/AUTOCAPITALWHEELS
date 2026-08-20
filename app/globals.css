@@ -1153,7 +1153,7 @@ textarea.bg-\[\#16161a\],
 .container-custom h2,
 .container-custom h3,
 .container-custom h4,
-.container-custom div:not(.badge):not(.badge *):not(.btn-primary *) {
+.container-custom div:not(.badge):not(.badge *):not(.btn-primary *):not(input):not(textarea):not(select) {
   color: #1a1a1a !important;
 }
 
@@ -1182,8 +1182,9 @@ textarea.bg-\[\#16161a\],
 }
 
 /* Force typed text to be visible inside all input forms and select elements */
-input, textarea, select, .form-input, .form-select, input[type="text"] {
+input, textarea, select, .form-input, .form-select, input[type="text"], input[type="number"], .container-custom input {
   color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   caret-color: #000000 !important;
 }
 

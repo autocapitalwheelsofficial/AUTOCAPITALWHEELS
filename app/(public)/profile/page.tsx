@@ -7,7 +7,6 @@ import { useWishlist } from '@/lib/hooks/useWishlist';
 import VehicleCard from '@/components/public/VehicleCard';
 import { Loader2, Heart, User, LogOut, Phone, Mail, Award, Calendar, Clock, MapPin, MessageSquare, Car } from 'lucide-react';
 import Link from 'next/link';
-import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
 function ProfileContent() {
   const router = useRouter();

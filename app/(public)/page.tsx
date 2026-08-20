@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { MOCK_VEHICLES, MOCK_TESTIMONIALS, MOCK_FAQS } from '@/lib/supabase/mock-data';
+import { MOCK_TESTIMONIALS, MOCK_FAQS } from '@/lib/supabase/mock-data';
 
 async function getHomepageData() {
   try {
@@ -61,9 +61,7 @@ async function getHomepageData() {
         .in('key', ['hero_slides', 'homepage_categories']),
     ]);
 
-    const featuredVehicles = featuredRes.data && featuredRes.data.length > 0
-      ? featuredRes.data
-      : MOCK_VEHICLES;
+    const featuredVehicles = featuredRes.data ?? [];
 
     const testimonials = testimonialsRes.data && testimonialsRes.data.length > 0
       ? testimonialsRes.data
@@ -103,7 +101,7 @@ async function getHomepageData() {
   } catch (e) {
     console.warn('[Supabase Fallback] Using mock data because:', e);
     return {
-      featuredVehicles: MOCK_VEHICLES,
+      featuredVehicles: [] as Vehicle[],
       testimonials: MOCK_TESTIMONIALS,
       faqs: MOCK_FAQS,
       heroSlides: null,

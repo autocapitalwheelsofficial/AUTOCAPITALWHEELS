@@ -22,7 +22,6 @@ async function checkAdminAuth(sessionToken: string) {
   return data;
 }
 
-import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
 // GET /api/vehicles — Public list with filters
 export async function GET(request: NextRequest) {
@@ -154,60 +153,16 @@ export async function GET(request: NextRequest) {
       per_page,
       total_pages: Math.ceil((count || 0) / per_page),
     }, { headers });
-  } catch {
-    // Fallback to mock data with in-memory filtering
-    let list = [...MOCK_VEHICLES];
-
-    const search = searchParams.get('search');
-    const make = searchParams.get('make');
-    const fuel_type = searchParams.get('fuel_type');
-    const transmission = searchParams.get('transmission');
-    const body_type = searchParams.get('body_type');
-    const min_price = searchParams.get('min_price');
-    const max_price = searchParams.get('max_price');
-
-    if (search) {
-      const searchTerms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
-      if (searchTerms.length > 0) {
-        list = list.filter((v) =>
-          searchTerms.some(
-            (term) =>
-              v.make.toLowerCase().includes(term) ||
-              v.model.toLowerCase().includes(term) ||
-              (v.variant && v.variant.toLowerCase().includes(term))
-          )
-        );
-      }
-    }
-    if (make) list = list.filter((v) => v.make.toLowerCase() === make.toLowerCase());
-    if (fuel_type) list = list.filter((v) => v.fuel_type === fuel_type);
-    if (transmission) list = list.filter((v) => v.transmission === transmission);
-    if (body_type) list = list.filter((v) => v.body_type === body_type);
-    if (min_price) list = list.filter((v) => v.price >= parseInt(min_price));
-    if (max_price) list = list.filter((v) => v.price <= parseInt(max_price));
-
-    // Sort in-memory
-    if (sort === 'price_asc') list.sort((a, b) => a.price - b.price);
-    else if (sort === 'price_desc') list.sort((a, b) => b.price - a.price);
-    else if (sort === 'mileage_asc') list.sort((a, b) => a.mileage - b.mileage);
-    else list.sort((a, b) => (b.is_featured ? 1 : 0) - (a.is_featured ? 1 : 0));
-
-    const total = list.length;
-    const paginated = list.slice(offset, offset + per_page);
-
-    const fallbackHeaders: Record<string, string> = {};
-    if (!admin) {
-      fallbackHeaders['Cache-Control'] = 'public, s-maxage=30, stale-while-revalidate=59';
-    }
-
+  } catch (err: any) {
+    console.error('[Vehicles API Error]', err?.message);
     return NextResponse.json({
       success: true,
-      data: paginated,
-      total,
+      data: [],
+      total: 0,
       page,
       per_page,
-      total_pages: Math.ceil(total / per_page),
-    }, { headers: fallbackHeaders });
+      total_pages: 0,
+    }, { status: 200 });
   }
 }
 

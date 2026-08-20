@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { createAdminClient } from '@/lib/supabase/admin';
 import VehicleDetailClient from '@/components/public/VehicleDetailClient';
 import type { Vehicle } from '@/types';
-import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
 export const revalidate = 10;
 
@@ -17,7 +16,7 @@ export async function generateStaticParams() {
     const { data } = await supabase.from('vehicles').select('slug');
     return (data || []).map((v) => ({ slug: v.slug }));
   } catch {
-    return MOCK_VEHICLES.map((v) => ({ slug: v.slug }));
+    return [];
   }
 }
 
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       .single();
     vehicle = data;
   } catch {
-    vehicle = MOCK_VEHICLES.find((v) => v.slug === slug) || null;
+    vehicle = null;
   }
 
   if (!vehicle) return { title: 'Vehicle Not Found' };
@@ -72,7 +71,7 @@ async function getVehicle(slug: string): Promise<Vehicle | null> {
     }
     return data as Vehicle;
   } catch {
-    return MOCK_VEHICLES.find((v) => v.slug === slug) || null;
+    return null;
   }
 }
 
@@ -94,7 +93,7 @@ async function getSimilarVehicles(vehicle: Vehicle): Promise<Vehicle[]> {
 
     return (data || []) as Vehicle[];
   } catch {
-    return MOCK_VEHICLES.filter((v) => v.slug !== vehicle.slug).slice(0, 4);
+    return [];
   }
 }
 

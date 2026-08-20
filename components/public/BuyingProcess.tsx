@@ -4,11 +4,9 @@ import { Search, FileText, CheckSquare, Handshake, ChevronRight, HelpCircle, Car
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import EnquiryModal from './EnquiryModal';
-import { MOCK_VEHICLES } from '@/lib/supabase/mock-data';
 
 export default function BuyingProcess() {
   const [showEnquiry, setShowEnquiry] = useState(false);
-  const sampleVehicle = MOCK_VEHICLES[0];
 
   return (
     <section className="py-12 bg-[#0a0a0c]">

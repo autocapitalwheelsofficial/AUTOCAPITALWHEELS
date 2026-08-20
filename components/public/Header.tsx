@@ -199,8 +199,7 @@ export default function Header() {
                         </h3>
                         <div className="flex flex-col gap-1.5">
                           <Link href="/cars" className="text-xs font-bold tracking-wider text-neutral-500 hover:text-[#b48d36] hover:translate-x-1 transition-all uppercase py-1">All Inventory</Link>
-                          {dbCategories.length > 0 ? (
-                            dbCategories.map((cat, idx) => (
+                          {dbCategories.map((cat, idx) => (
                               <Link 
                                 key={idx} 
                                 href={`/cars?body_type=${encodeURIComponent(cat.body_type)}`} 
@@ -208,14 +207,7 @@ export default function Header() {
                               >
                                 {cat.name}
                               </Link>
-                            ))
-                          ) : (
-                            <>
-                              <Link href="/cars?body_type=SUV" className="text-xs font-bold tracking-wider text-neutral-500 hover:text-[#b48d36] hover:translate-x-1 transition-all uppercase py-1">Premium SUVs</Link>
-                              <Link href="/cars?body_type=Sedan" className="text-xs font-bold tracking-wider text-neutral-500 hover:text-[#b48d36] hover:translate-x-1 transition-all uppercase py-1">Luxury Sedans</Link>
-                              <Link href="/cars?body_type=Luxury" className="text-xs font-bold tracking-wider text-neutral-500 hover:text-[#b48d36] hover:translate-x-1 transition-all uppercase py-1">Exclusive Collection</Link>
-                            </>
-                          )}
+                            ))}
                         </div>
                       </div>
 
@@ -341,8 +333,7 @@ export default function Header() {
               <div className={`overflow-hidden transition-all duration-300 ${openAccordions.buy ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <div className="flex flex-col gap-1 pl-4 border-l-2 border-[var(--color-border)] ml-4 py-1">
                   <Link onClick={() => setIsMenuOpen(false)} href="/cars" className="text-xs font-semibold text-neutral-500 hover:text-[#b48d36] transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">All Inventory</Link>
-                  {dbCategories.length > 0 ? (
-                    dbCategories.map((cat, idx) => (
+                  {dbCategories.map((cat, idx) => (
                       <Link 
                         key={idx} 
                         onClick={() => setIsMenuOpen(false)} 
@@ -351,14 +342,7 @@ export default function Header() {
                       >
                         {cat.name}
                       </Link>
-                    ))
-                  ) : (
-                    <>
-                      <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=SUV" className="text-xs font-semibold text-neutral-500 hover:text-[#b48d36] transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">SUVs</Link>
-                      <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Sedan" className="text-xs font-semibold text-neutral-500 hover:text-[#b48d36] transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">Sedans</Link>
-                      <Link onClick={() => setIsMenuOpen(false)} href="/cars?body_type=Luxury" className="text-xs font-semibold text-neutral-500 hover:text-[#b48d36] transition-all duration-300 hover:translate-x-1 uppercase tracking-wider py-2 pl-3">Luxury Collection</Link>
-                    </>
-                  )}
+                    ))}
                 </div>
               </div>
             </div>

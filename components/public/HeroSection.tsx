@@ -135,8 +135,8 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
 
   return (
     <section 
-      className="relative w-full overflow-hidden flex items-center bg-[var(--color-bg-base)] max-w-full"
-      style={{ minHeight: '80svh', paddingTop: '80px' }}
+      className="relative w-full overflow-hidden flex flex-col justify-end lg:justify-center bg-black max-w-full"
+      style={{ minHeight: '75svh', paddingTop: '80px' }}
       onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -159,14 +159,14 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
         return (
           <div
             key={slideUrl + index}
-            className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out flex items-center ${
+            className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-in-out ${
               index === activeSlide 
                 ? 'opacity-100 scale-100 pointer-events-auto z-20' 
                 : 'opacity-0 scale-105 pointer-events-none z-10'
             }`}
           >
             {/* Background Media */}
-            <div className="absolute inset-0 pointer-events-none w-full h-full">
+            <div className="absolute inset-0 w-full h-full">
               {isVideo ? (
                 <video src={slideUrl} className="w-full h-full object-cover object-center" autoPlay muted loop playsInline />
               ) : (
@@ -182,43 +182,44 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
               )}
             </div>
 
-            {/* Gradient Overlays adapted to Light Theme */}
+            {/* Premium Dark Overlays */}
             <div className="absolute inset-0 pointer-events-none z-10 w-full h-full">
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-bg-base)] via-[var(--color-bg-base)]/90 to-transparent sm:via-[var(--color-bg-base)]/95" />
-              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[var(--color-bg-base)] via-[var(--color-bg-base)]/20 to-transparent" />
+              <div className="absolute inset-0 bg-black/50 sm:bg-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/40 to-transparent" />
             </div>
 
             {/* Content Container */}
-            <div className="container-custom relative z-20 w-full py-12 lg:py-16">
+            <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:py-24 h-full flex flex-col justify-end lg:justify-center">
               <div className="max-w-2xl">
                 {/* Label */}
-                <div className={`flex items-center gap-2 mb-5 transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                  <div className="w-6 h-[1px] bg-[#b48d36]" />
-                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#b48d36]">{subtitle}</span>
+                <div className={`flex items-center gap-3 mb-4 lg:mb-5 transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+                  <div className="w-8 h-[2px] bg-[#b48d36]" />
+                  <span className="text-[10px] lg:text-xs font-bold tracking-[0.25em] uppercase text-[#b48d36]">{subtitle}</span>
                 </div>
 
                 {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-[4rem] xl:text-[4.5rem] font-black tracking-tighter text-[var(--color-text-primary)] leading-[1.05] mb-6 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h1 className={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-black tracking-tighter text-white leading-[1.1] mb-6 drop-shadow-xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {titleWhite}
                   <br />
-                  <span className="text-metallic-gold">{titleGold}</span>
+                  <span className="text-metallic-gold drop-shadow-md">{titleGold}</span>
                 </h1>
 
                 {/* Description */}
-                <p className={`text-[var(--color-text-secondary)] text-sm sm:text-base max-w-md font-light leading-relaxed mb-8 transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <p className={`text-white/80 text-sm lg:text-base max-w-md font-light leading-relaxed mb-8 drop-shadow-md transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {description}
                 </p>
 
                 {/* Trust Badges */}
-                <div className={`grid grid-cols-3 gap-4 border-t border-[var(--color-border)] pt-6 max-w-sm mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className={`grid grid-cols-3 gap-3 lg:gap-5 border-t border-white/20 pt-6 max-w-lg mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {TRUST_BADGES.map(({ icon: Icon, title, sub }) => (
-                    <div key={title} className="flex flex-col gap-1.5 items-start">
-                      <div className="w-8 h-8 rounded-lg bg-[#b48d36]/12 border border-[#b48d36]/20 flex items-center justify-center">
-                        <Icon size={16} className="text-[#b48d36]" />
+                    <div key={title} className="flex flex-col gap-2 items-start group">
+                      <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-[#b48d36]/20 border border-[#b48d36]/40 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#b48d36] group-hover:border-[#b48d36] transition-all duration-300">
+                        <Icon size={18} className="text-[#b48d36] group-hover:text-white transition-colors duration-300" />
                       </div>
                       <div>
-                        <h3 className="text-[10px] font-bold text-[var(--color-text-primary)] uppercase tracking-wider leading-tight">{title}</h3>
-                        <p className="text-[9px] text-[var(--color-text-muted)] font-light mt-0.5 leading-tight">{sub}</p>
+                        <h3 className="text-[10px] lg:text-xs font-bold text-white uppercase tracking-wider leading-tight">{title}</h3>
+                        <p className="text-[9px] lg:text-[10px] text-white/60 font-light mt-0.5 leading-tight">{sub}</p>
                       </div>
                     </div>
                   ))}
@@ -228,19 +229,19 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-500 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   <Link
                     href="/cars"
-                    className="btn-primary w-full sm:w-auto"
+                    className="btn-primary w-full sm:w-auto h-12 lg:h-14 px-8 text-sm hover:scale-105"
                     id={`hero-browse-cars-${index}`}
                   >
                     BROWSE INVENTORY
-                    <ArrowRight size={14} />
+                    <ArrowRight size={16} />
                   </Link>
                   <Link
                     href="/sell"
-                    className="btn-secondary w-full sm:w-auto"
+                    className="btn-secondary bg-white/10 border-white/30 text-white hover:bg-white hover:text-black w-full sm:w-auto h-12 lg:h-14 px-8 text-sm hover:scale-105"
                     id={`hero-sell-car-${index}`}
                   >
                     SELL YOUR CAR
-                    <ArrowRight size={14} />
+                    <ArrowRight size={16} />
                   </Link>
                 </div>
               </div>
@@ -252,32 +253,16 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
       {/* Slide Controls */}
       {slides.length > 1 && (
         <>
-          {/* Prev/Next Arrows */}
-          <button
-            onClick={goPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/10 border border-black/5 text-neutral-600 hover:text-black hover:bg-neutral-200 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            onClick={goNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-black/10 border border-black/5 text-neutral-600 hover:text-black hover:bg-neutral-200 transition-all duration-200 hidden sm:flex items-center justify-center cursor-pointer"
-            aria-label="Next slide"
-          >
-            <ChevronRight size={18} />
-          </button>
-
           {/* Dot Indicators */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveSlide(i)}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   i === activeSlide
-                    ? 'w-6 h-1.5 bg-[#b48d36]'
-                    : 'w-1.5 h-1.5 bg-neutral-300 hover:bg-neutral-400'
+                    ? 'w-8 h-1.5 bg-[#b48d36]'
+                    : 'w-2 h-2 bg-white/40 hover:bg-white/80'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />

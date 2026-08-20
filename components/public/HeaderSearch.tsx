@@ -116,8 +116,8 @@ export default function HeaderSearch({ isDarkHeader }: { isDarkHeader?: boolean 
             )}
 
             {!loading && query && results.length === 0 && (
-              <div className="p-6 text-center text-neutral-400 text-xs">
-                No vehicles found for "<span className="text-[var(--color-text-primary)]">{query}</span>"
+              <div className="p-6 text-center text-neutral-500 text-xs">
+                No vehicles found for <span style={{ color: '#000000', fontWeight: 'bold' }}>"{query}"</span>
               </div>
             )}
 
@@ -158,9 +158,10 @@ export default function HeaderSearch({ isDarkHeader }: { isDarkHeader?: boolean 
                 <Link
                   href={`/cars?search=${encodeURIComponent(query)}`}
                   onClick={handleResultClick}
-                  className="mt-2 block w-full text-center py-2.5 text-xs font-bold text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition-colors"
+                  className="mt-2 block w-full text-center py-2.5 text-xs font-bold text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition-colors text-white-keep"
+                  style={{ color: '#f59e0b' }}
                 >
-                  View all results for "{query}"
+                  View all results for <span style={{ color: '#000000' }}>"{query}"</span>
                 </Link>
               </div>
             )}

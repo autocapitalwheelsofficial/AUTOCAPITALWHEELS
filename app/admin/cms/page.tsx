@@ -334,7 +334,7 @@ export default function AdminCMSPage() {
                     {/* Media Preview & Replace Button */}
                     <div className="relative aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-900 group/media">
                       {isVideo ? (
-                        <video src={url} className="w-full h-full object-cover" muted loop playsInline />
+                        <video src={url} className="w-full h-full object-cover" autoPlay muted loop playsInline />
                       ) : (
                         <img src={url} alt="Preview" className="w-full h-full object-cover" />
                       )}

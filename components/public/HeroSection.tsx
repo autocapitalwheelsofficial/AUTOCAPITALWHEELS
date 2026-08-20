@@ -199,10 +199,10 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </div>
 
                 {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-black tracking-tighter text-white leading-[1.1] mb-6 drop-shadow-xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <h1 className={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-black tracking-tight text-white leading-[1.05] mb-6 drop-shadow-2xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   {titleWhite}
                   <br />
-                  <span className="text-metallic-gold drop-shadow-md">{titleGold}</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b48d36] via-[#fce49c] to-[#b48d36] drop-shadow-sm">{titleGold}</span>
                 </h1>
 
                 {/* Description */}
@@ -211,16 +211,11 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 </p>
 
                 {/* Trust Badges */}
-                <div className={`grid grid-cols-3 gap-3 lg:gap-5 border-t border-white/20 pt-6 max-w-lg mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  {TRUST_BADGES.map(({ icon: Icon, title, sub }) => (
-                    <div key={title} className="flex flex-col gap-2 items-start group">
-                      <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-[#b48d36]/20 border border-[#b48d36]/40 flex items-center justify-center backdrop-blur-sm group-hover:bg-[#b48d36] group-hover:border-[#b48d36] transition-all duration-300">
-                        <Icon size={18} className="text-[#b48d36] group-hover:text-white transition-colors duration-300" />
-                      </div>
-                      <div>
-                        <h3 className="text-[10px] lg:text-xs font-bold text-white uppercase tracking-wider leading-tight">{title}</h3>
-                        <p className="text-[9px] lg:text-[10px] text-white/60 font-light mt-0.5 leading-tight">{sub}</p>
-                      </div>
+                <div className={`flex flex-wrap items-center gap-3 lg:gap-5 pt-6 mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                  {TRUST_BADGES.map(({ icon: Icon, title }) => (
+                    <div key={title} className="flex items-center gap-2.5 px-3 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md">
+                      <Icon size={14} className="text-[#b48d36]" />
+                      <span className="text-[10px] lg:text-[11px] font-bold text-white uppercase tracking-wider">{title}</span>
                     </div>
                   ))}
                 </div>
@@ -229,7 +224,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                 <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-500 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   <Link
                     href="/cars"
-                    className="btn-primary w-full sm:w-auto h-12 lg:h-14 px-8 text-sm hover:scale-105"
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#b48d36] to-[#d6ae55] text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-8 h-12 lg:h-14 rounded-md hover:shadow-[0_0_20px_rgba(180,141,54,0.4)] hover:scale-105 transition-all duration-300 w-full sm:w-auto"
                     id={`hero-browse-cars-${index}`}
                   >
                     BROWSE INVENTORY
@@ -237,7 +232,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                   </Link>
                   <Link
                     href="/sell"
-                    className="btn-secondary bg-white/10 border-white/30 text-white hover:bg-white hover:text-black w-full sm:w-auto h-12 lg:h-14 px-8 text-sm hover:scale-105"
+                    className="flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-8 h-12 lg:h-14 rounded-md hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 w-full sm:w-auto"
                     id={`hero-sell-car-${index}`}
                   >
                     SELL YOUR CAR

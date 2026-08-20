@@ -27,7 +27,18 @@ const SocialIcons = {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { brand_name, brand_tagline, business_phone, business_whatsapp, business_email, business_address, business_hours } = useSettings();
+  const { 
+    brand_name, 
+    brand_tagline, 
+    business_phone, 
+    business_whatsapp, 
+    business_email, 
+    business_address, 
+    business_hours,
+    social_instagram,
+    social_facebook,
+    social_youtube
+  } = useSettings();
 
   return (
     <footer className="bg-[#0d0d10] border-t border-[#1f1f26] text-neutral-400">
@@ -75,14 +86,16 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex gap-2.5 mt-6">
               {[
-                { href: 'https://www.instagram.com/autocapital_wheel/', Icon: SocialIcons.Instagram, label: 'Instagram' },
-                { href: '#', Icon: SocialIcons.Facebook,  label: 'Facebook' },
-                { href: '#', Icon: SocialIcons.Youtube,   label: 'YouTube' },
-              ].map(({ href, Icon, label }) => (
+                { href: social_instagram || '#', Icon: SocialIcons.Instagram, label: 'Instagram' },
+                { href: social_facebook || '#', Icon: SocialIcons.Facebook,  label: 'Facebook' },
+                { href: social_youtube || '#', Icon: SocialIcons.Youtube,   label: 'YouTube' },
+              ].filter(s => s.href !== '#').map(({ href, Icon, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-[#b48d36]/10 border border-[#b48d36]/30 hover:border-[#b48d36] hover:bg-[#b48d36] hover:text-black flex items-center justify-center text-[#b48d36] transition-all duration-200 shadow-sm"
                 >
                   <Icon />

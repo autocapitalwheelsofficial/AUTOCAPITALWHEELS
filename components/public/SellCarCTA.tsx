@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { useSettings } from '@/components/public/SettingsProvider';
 
 export default function SellCarCTA() {
+  const { business_whatsapp } = useSettings();
+
   return (
     <section className="py-10 bg-[#faf9f6] border-y border-neutral-200/50 relative overflow-hidden">
       {/* Decorative element */}
@@ -36,7 +41,7 @@ export default function SellCarCTA() {
               <ArrowRight size={14} className="ml-1" />
             </Link>
             <a
-              href="https://wa.me/918800243707?text=Hello%20AutoCapital%20Wheels%2C%20I%20would%20like%20to%20sell%20my%20car.%20Please%20guide%20me%20on%20the%20next%20steps."
+              href={`https://wa.me/${business_whatsapp}?text=Hello%20AutoCapital%20Wheels%2C%20I%20would%20like%20to%20sell%20my%20car.%20Please%20guide%20me%20on%20the%20next%20steps.`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary px-8 py-3.5 text-xs font-bold tracking-widest uppercase rounded-lg shadow-sm"

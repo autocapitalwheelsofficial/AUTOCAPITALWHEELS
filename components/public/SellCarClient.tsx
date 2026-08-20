@@ -7,10 +7,12 @@ import { Upload, X, CheckCircle2, Loader2, Camera, MessageCircle, ChevronDown, C
 import { sellCarSchema, SellCarFormValues } from '@/lib/validations';
 import { CAR_MAKES, FUEL_TYPES, TRANSMISSION_TYPES, VEHICLE_CONDITIONS, INSURANCE_STATUSES } from '@/lib/constants';
 import { createClient } from '@/lib/supabase/client';
+import { useSettings } from '@/components/public/SettingsProvider';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
 export default function SellCarClient() {
+  const { business_whatsapp, business_phone } = useSettings();
   const [formState, setFormState] = useState<FormState>('idle');
   const [requestId, setRequestId] = useState('');
   const [photos, setPhotos] = useState<File[]>([]);
@@ -127,7 +129,7 @@ export default function SellCarClient() {
           )}
           <div className="space-y-3">
             <a
-              href={`https://wa.me/918800243707?text=Hello%20AutoCapital%20Wheels%2C%20I%20just%20submitted%20a%20sell%20request%20for%20my%20car.%20My%20reference%20ID%20is%20%23${requestId}`}
+              href={`https://wa.me/${business_whatsapp}?text=Hello%20AutoCapital%20Wheels%2C%20I%20just%20submitted%20a%20sell%20request%20for%20my%20car.%20My%20reference%20ID%20is%20%23${requestId}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-[#25d366] hover:bg-[#128C7E] text-white font-bold py-3.5 rounded-lg text-xs uppercase tracking-wider transition-all"
@@ -380,7 +382,7 @@ export default function SellCarClient() {
 
           {formState === 'error' && (
             <div className="bg-red-950/50 border border-red-900 rounded-xl p-4 text-xs text-red-400 text-center">
-              Something went wrong. Please try again or WhatsApp us on +91 8800243707.
+              Something went wrong. Please try again or WhatsApp us on {business_phone}.
             </div>
           )}
 

@@ -1,40 +1,72 @@
 import type { Metadata } from 'next';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import ContactFormClient from '@/components/public/ContactFormClient';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { SITE_EMAIL, SITE_PHONE, BUSINESS_HOURS } from '@/lib/constants';
+
+export const revalidate = 10;
 
 export const metadata: Metadata = {
   title: 'Contact Us — AutoCapital Wheels',
-  description: 'Get in touch with AutoCapital Wheels. Find our showroom location in Delhi, contact numbers, email, business hours, or send us a message directly.',
+  description: 'Get in touch with AutoCapital Wheels. Find our showroom showroom location in Delhi, contact numbers, email, business hours, or send us a message directly.',
 };
 
-export default function ContactPage() {
+async function getContactSettings() {
+  try {
+    const supabase = createAdminClient();
+    const { data } = await supabase
+      .from('site_settings')
+      .select('key, value')
+      .in('key', ['business_phone', 'business_email', 'business_address', 'business_hours']);
+
+    const settings: Record<string, string> = {};
+    if (data) {
+      data.forEach((s) => {
+        settings[s.key] = s.value;
+      });
+    }
+    return settings;
+  } catch (err) {
+    console.error('Failed to load contact settings:', err);
+    return {};
+  }
+}
+
+export default async function ContactPage() {
+  const settings = await getContactSettings();
+
+  const phone = settings.business_phone || SITE_PHONE;
+  const email = settings.business_email || SITE_EMAIL;
+  const address = settings.business_address || 'PLOT NO-16 KILLA NO-12,13,25,21, NEW PALAM VIHAR PHASE II, SECTOR 110, GURUGRAM';
+  const hours = settings.business_hours || BUSINESS_HOURS;
+
   const contactDetails = [
     {
       icon: Phone,
       title: 'Call or WhatsApp',
-      value: '+91 88002 43707',
+      value: phone,
       subValue: 'Available Mon–Sat',
-      link: 'tel:+918800243707',
+      link: `tel:${phone.replace(/\s+/g, '')}`,
     },
     {
       icon: Mail,
       title: 'Email Address',
-      value: 'autocapitalwheels@gmail.com',
+      value: email,
       subValue: 'Response within 24 hours',
-      link: 'mailto:autocapitalwheels@gmail.com',
+      link: `mailto:${email}`,
     },
     {
       icon: MapPin,
       title: 'Showroom Location',
-      value: 'PLOT NO-16 KILLA NO-12,13,25,21, NEW PALAM VIHAR PHASE II, SECTOR 110, GURUGRAM',
+      value: address,
       subValue: 'Visit us for physical inspection & test drives',
-      link: 'https://maps.google.com/?q=New+Palam+Vihar+Phase+II+Sector+110+Gurugram',
+      link: `https://maps.google.com/?q=${encodeURIComponent(address)}`,
     },
     {
       icon: Clock,
       title: 'Business Hours',
-      value: 'Mon–Sat: 10:00 AM – 7:00 PM',
-      subValue: 'Sunday: 11:00 AM – 5:00 PM',
+      value: hours,
+      subValue: 'We are happy to assist you',
       link: null,
     },
   ];
@@ -86,7 +118,7 @@ export default function ContactPage() {
                           {detail.value}
                         </a>
                       ) : (
-                        <p className="font-bold text-white text-sm break-words">{detail.value}</p>
+                        <p className="font-bold text-white text-sm break-words whitespace-pre-line">{detail.value}</p>
                       )}
                       <p className="text-[11px] text-neutral-400 font-light mt-1">{detail.subValue}</p>
                     </div>

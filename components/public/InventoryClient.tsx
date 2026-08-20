@@ -5,8 +5,10 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useWishlist } from '@/lib/hooks/useWishlist';
 import { SlidersHorizontal, LayoutGrid, List, X, ChevronDown, Search, Check } from 'lucide-react';
 import VehicleCard from './VehicleCard';
-import type { Vehicle, VehicleSortOption } from '@/types';
 import { CAR_MAKES, FUEL_TYPES, TRANSMISSION_TYPES, BODY_TYPES, VEHICLE_CATEGORIES, SORT_OPTIONS } from '@/lib/constants';
+import { useSettings } from '@/components/public/SettingsProvider';
+import { getWhatsAppUrl, getDefaultWhatsAppMessage } from '@/lib/utils';
+import type { Vehicle, VehicleSortOption } from '@/types';
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
 interface Filters {
@@ -77,12 +79,13 @@ interface FilterPanelProps {
   setOpenMakeDropdown: (v: boolean) => void;
   updateFilter: (key: keyof Filters, value: string) => void;
   clearFilters: () => void;
+  dbCategories: any[];
 }
 
 function FilterPanel({
   filters, availableMakes, activeFilterCount,
   openMakeDropdown, setOpenMakeDropdown,
-  updateFilter, clearFilters,
+  updateFilter, clearFilters, dbCategories,
 }: FilterPanelProps) {
   const currentYear = new Date().getFullYear();
   
@@ -161,7 +164,10 @@ function FilterPanel({
       <div>
         <p className="filter-section-title">Body Type</p>
         <div className="flex flex-wrap gap-2">
-          {BODY_TYPES.map((type) => (
+          {(dbCategories.length > 0 
+            ? Array.from(new Set(dbCategories.map((c: any) => c.body_type).filter(Boolean))) 
+            : BODY_TYPES
+          ).map((type: any) => (
             <button
               key={type}
               onClick={() => updateFilter('body_type', filters.body_type === type ? '' : type)}
@@ -293,6 +299,23 @@ function FilterPanel({
 export default function InventoryClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { business_whatsapp } = useSettings();
+  const [dbCategories, setDbCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const res = await fetch('/api/public-settings');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data?.homepage_categories)) {
+          setDbCategories(json.data.homepage_categories);
+        }
+      } catch (err) {
+        // ignore
+      }
+    };
+    loadCategories();
+  }, []);
 
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [total, setTotal] = useState(0);
@@ -432,6 +455,7 @@ export default function InventoryClient() {
                 setOpenMakeDropdown={setOpenMakeDropdown}
                 updateFilter={updateFilter}
                 clearFilters={clearFilters}
+                dbCategories={dbCategories}
               />
             </div>
           </aside>
@@ -540,7 +564,7 @@ export default function InventoryClient() {
                   <p className="text-neutral-400 text-xs mb-6 max-w-sm mx-auto leading-relaxed">We couldn't find a vehicle matching those filters. Try clearing filters or WhatsApp us directly.</p>
                   <div className="flex gap-3 justify-center">
                     <button onClick={clearFilters} className="inline-flex items-center justify-center bg-[#b48d36] hover:bg-[#9a845a] text-white font-bold px-6 py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all cursor-pointer">Clear Filters</button>
-                    <a href="https://wa.me/918800243707" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center border border-neutral-800 text-white font-bold px-6 py-2.5 rounded-lg text-xs uppercase tracking-wider hover:border-white transition-all cursor-pointer">
+                    <a href={getWhatsAppUrl(business_whatsapp, getDefaultWhatsAppMessage())} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center border border-neutral-800 text-white font-bold px-6 py-2.5 rounded-lg text-xs uppercase tracking-wider hover:border-white transition-all cursor-pointer">
                       Request on WhatsApp
                     </a>
                   </div>
@@ -625,6 +649,7 @@ export default function InventoryClient() {
                 setOpenMakeDropdown={setOpenMakeDropdown}
                 updateFilter={updateFilter}
                 clearFilters={clearFilters}
+                dbCategories={dbCategories}
               />
               <button
                 onClick={() => setShowFilters(false)}

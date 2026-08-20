@@ -12,7 +12,7 @@ import {
   formatPrice, formatMileage, getOwnershipLabel, getVehicleTitle,
   getWhatsAppUrl, getVehicleWhatsAppMessage
 } from '@/lib/utils';
-import { WHATSAPP_NUMBER } from '@/lib/constants';
+import { useSettings } from '@/components/public/SettingsProvider';
 import EnquiryModal from './EnquiryModal';
 import TestDriveModal from './TestDriveModal';
 import VehicleCard from './VehicleCard';
@@ -24,6 +24,7 @@ interface VehicleDetailClientProps {
 }
 
 export default function VehicleDetailClient({ vehicle, similarVehicles }: VehicleDetailClientProps) {
+  const { brand_name, business_phone, business_whatsapp } = useSettings();
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [showEnquiry, setShowEnquiry] = useState(false);
@@ -31,7 +32,7 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
   const title = getVehicleTitle(vehicle);
   const isSold = vehicle.status === 'Sold' || vehicle.availability === 'Sold';
-  const whatsappUrl = getWhatsAppUrl(WHATSAPP_NUMBER, getVehicleWhatsAppMessage(title));
+  const whatsappUrl = getWhatsAppUrl(business_whatsapp || '918800243707', getVehicleWhatsAppMessage(title));
 
   const images = vehicle.vehicle_images?.length
     ? vehicle.vehicle_images.sort((a, b) => a.sort_order - b.sort_order)
@@ -285,12 +286,12 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                     </a>
                   </div>
                   <a
-                    href="tel:+918800243707"
+                    href={`tel:${business_phone.replace(/\s+/g, '')}`}
                     className="flex items-center justify-center gap-2 w-full py-3.5 border border-neutral-300 hover:border-neutral-400 rounded-md text-sm font-bold bg-neutral-100 hover:bg-neutral-200 transition-all cursor-pointer"
                     style={{ color: '#1a1a1a' }}
                   >
                     <Phone size={15} style={{ color: '#1a1a1a' }} />
-                    Call +91 8800243707
+                    Call {business_phone}
                   </a>
                 </div>
               ) : (
@@ -473,14 +474,14 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
 
                 {/* Contact */}
                 <div className="mt-4 pt-4 border-t border-neutral-100 text-center">
-                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-2">AutoCapital Wheels</p>
+                  <p className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-2">{brand_name}</p>
                   <a
-                    href="tel:+918800243707"
+                    href={`tel:${business_phone.replace(/\s+/g, '')}`}
                     className="flex items-center justify-center gap-2 w-full py-3 border border-neutral-300 hover:border-neutral-400 rounded-xl text-sm font-bold bg-neutral-100 hover:bg-neutral-200 transition-all cursor-pointer"
                     style={{ color: '#1a1a1a' }}
                   >
                     <Phone size={14} style={{ color: '#1a1a1a' }} />
-                    Call +91 8800243707
+                    Call {business_phone}
                   </a>
                 </div>
               </div>

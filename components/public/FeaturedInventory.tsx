@@ -30,14 +30,15 @@ export default function FeaturedInventory({ vehicles }: FeaturedInventoryProps) 
           <div>
             <div className="divider" />
             <p className="section-label mb-2">Our Inventory</p>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-white">Featured Cars</h2>
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-neutral-800">Featured Cars</h2>
           </div>
           <Link
             href="/cars"
-            className="flex items-center gap-2 text-sm font-semibold text-neutral-700 hover:text-neutral-900 group transition-colors"
+            className="flex items-center gap-2 text-sm font-semibold text-neutral-700 hover:text-[#b48d36] group transition-colors"
+            style={{ color: '#4a5568' }}
           >
             View All Cars
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform text-[#b48d36]" />
           </Link>
         </motion.div>
 

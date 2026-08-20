@@ -130,23 +130,21 @@ export default async function HomePage() {
       <QuickSearch />
 
       {/* ── Premium Trust Bar ─────────────────────────────────────────── */}
-      <section className="bg-white border-y border-neutral-100" style={{ boxShadow: '0 1px 0 0 #f1f5f9' }}>
+      <section className="bg-white" style={{ boxShadow: 'none' }}>
         <div className="container-custom overflow-x-auto scrollbar-hide">
-          <div className="flex lg:grid lg:grid-cols-6 min-w-max lg:min-w-0">
-            {TRUST_ITEMS.map(({ icon: Icon, label, sub }, i) => (
+          <div className="flex lg:grid lg:grid-cols-6 min-w-max lg:min-w-0 py-2">
+            {TRUST_ITEMS.map(({ icon: Icon, label, sub }) => (
               <div
                 key={label}
-                className={`flex items-center gap-3 px-5 py-4 lg:py-5 flex-shrink-0 lg:flex-shrink group cursor-default ${
-                  i < TRUST_ITEMS.length - 1 ? 'border-r border-neutral-100' : ''
-                }`}
+                className="flex items-center gap-3 px-5 py-4 lg:py-5 flex-shrink-0 lg:flex-shrink group cursor-default"
               >
                 {/* Gold icon square */}
                 <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-center flex-shrink-0 group-hover:bg-[#b48d36] group-hover:border-[#b48d36] transition-all duration-300">
                   <Icon size={15} className="text-[#b48d36] group-hover:text-white stroke-[2] transition-colors duration-300" />
                 </div>
                 <div>
-                  <p className="text-[11.5px] font-bold text-neutral-800 leading-tight whitespace-nowrap">{label}</p>
-                  <p className="text-[10px] text-neutral-500 leading-tight mt-0.5 whitespace-nowrap">{sub}</p>
+                  <p className="text-[11.5px] font-bold text-neutral-800 leading-tight whitespace-nowrap" style={{ color: '#1f2937' }}>{label}</p>
+                  <p className="text-[10px] text-neutral-500 leading-tight mt-0.5 whitespace-nowrap" style={{ color: '#6b7280' }}>{sub}</p>
                 </div>
               </div>
             ))}

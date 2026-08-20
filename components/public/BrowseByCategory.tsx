@@ -23,11 +23,7 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
   const displayCategories = categories && categories.length > 0 ? categories : defaultCategories;
 
   return (
-    <section className="py-10 bg-[var(--color-bg-base)] overflow-hidden relative">
-      {/* Subtle divider */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[1px] bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
-
+    <section className="py-10 bg-white overflow-hidden relative">
       <div className="container-custom relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -59,7 +55,7 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
                 href={`/cars?body_type=${encodeURIComponent(cat.body_type)}`}
                 className="flex flex-col items-center gap-4 group"
               >
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-to-b from-neutral-200 to-neutral-300 group-hover:from-amber-500 group-hover:to-amber-600 transition-all duration-500 shadow-lg group-hover:shadow-[0_0_35px_rgba(180,141,54,0.25)]">
+                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-to-b from-neutral-200 to-neutral-300 group-hover:from-amber-500 group-hover:to-amber-600 transition-all duration-500 shadow-md group-hover:shadow-[0_0_35px_rgba(180,141,54,0.25)]">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white relative">
                     {cat.image_url ? (
                       <img 
@@ -78,7 +74,7 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
                 </div>
                 
                 <div className="text-center transition-transform duration-300 group-hover:-translate-y-1">
-                  <h3 className="text-neutral-800 font-bold text-sm sm:text-base tracking-wide group-hover:text-amber-600 transition-colors">
+                  <h3 className="font-bold text-sm sm:text-base tracking-wide transition-colors" style={{ color: '#4b5563' }}>
                     {cat.name}
                   </h3>
                 </div>

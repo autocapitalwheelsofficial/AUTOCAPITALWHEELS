@@ -1047,6 +1047,7 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
 .animate-count-up {
   animation: count-up 600ms ease forwards;
 }
@@ -1087,11 +1088,45 @@ h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
 }
 
 /* Force backgrounds of sections or containers to support light mode */
-.bg-neutral-900, .bg-\[\#121215\], .bg-\[\#0a0a0c\], .bg-\[\#16161a\] {
+.bg-neutral-950,
+.bg-neutral-900,
+.bg-neutral-850,
+.bg-neutral-800,
+.bg-neutral-950\/90,
+.bg-neutral-900\/90,
+.bg-black\/40,
+.bg-black\/50,
+.bg-black\/60,
+.bg-\[\#0a0a0c\],
+.bg-\[\#121215\],
+.bg-\[\#16161a\],
+.bg-\[\#0f0f11\],
+.bg-\[\#0d0d10\],
+.bg-\[\#0f0f12\] {
   background-color: var(--color-bg-card) !important;
 }
 
-.border-neutral-800, .border-\[\#1f1f26\], .border-\[\#2a2a33\], .border-neutral-800\/80 {
+/* Force specific components or form buttons to use inputs background */
+button.bg-\[\#16161a\],
+div.bg-\[\#16161a\],
+input.bg-\[\#16161a\],
+select.bg-\[\#16161a\],
+textarea.bg-\[\#16161a\],
+.bg-neutral-900\/40,
+.bg-\[\#16161a\]\/95,
+.bg-neutral-950\/80 {
+  background-color: var(--color-bg-input) !important;
+  color: var(--color-text-primary) !important;
+}
+
+/* Ensure borders map to variables */
+.border-neutral-850,
+.border-neutral-800,
+.border-\[\#1f1f26\],
+.border-\[\#2a2a33\],
+.border-neutral-800\/80,
+.border-white\/8,
+.border-white\/10 {
   border-color: var(--color-border) !important;
 }
 
@@ -1103,9 +1138,15 @@ h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
   color: var(--color-text-secondary) !important;
 }
 
-/* Retain white text readability inside primary buttons, badges, and dark card exceptions */
+/* Force all text-white utility classes on non-badge/non-button text elements to use primary dark charcoal color */
+body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep).text-white,
+body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[\#b48d36\]):not(.bg-\[\#b48d36\] *):not(.text-white-keep) > .text-white {
+  color: var(--color-text-primary) !important;
+}
 .btn-primary,
 .btn-primary *,
+.btn-secondary,
+.btn-secondary *,
 .bg-\[\#b48d36\],
 .bg-\[\#b48d36\] *,
 .badge,
@@ -1122,10 +1163,9 @@ h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
 }
 
 /* Force typed text to be visible inside all input forms and select elements */
-input, textarea, select, .form-input, .form-select {
-  background-color: var(--color-bg-input) !important;
+input, textarea, select, .form-input, .form-select,
+input *, textarea *, select *, .form-input *, .form-select * {
   color: var(--color-text-primary) !important;
-  border-color: var(--color-border) !important;
 }
 
 input::placeholder, textarea::placeholder {

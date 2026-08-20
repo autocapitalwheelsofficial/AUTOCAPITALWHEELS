@@ -2,7 +2,7 @@ import type { Vehicle, Testimonial, FAQ } from '@/types';
 
 export const MOCK_VEHICLES: any[] = [
   {
-    id: 'v0000000-0000-0000-0000-000000000001',
+    id: 'a0000000-0000-0000-0000-000000000001',
     slug: 'maruti-suzuki-swift-vxi-2021',
     make: 'Maruti Suzuki',
     model: 'Swift',
@@ -46,7 +46,7 @@ export const MOCK_VEHICLES: any[] = [
     ],
   },
   {
-    id: 'v0000000-0000-0000-0000-000000000002',
+    id: 'a0000000-0000-0000-0000-000000000002',
     slug: 'hyundai-creta-sx-2022',
     make: 'Hyundai',
     model: 'Creta',
@@ -89,7 +89,7 @@ export const MOCK_VEHICLES: any[] = [
     ],
   },
   {
-    id: 'v0000000-0000-0000-0000-000000000003',
+    id: 'a0000000-0000-0000-0000-000000000003',
     slug: 'maruti-suzuki-dzire-vxi-2022',
     make: 'Maruti Suzuki',
     model: 'Dzire',
@@ -132,7 +132,7 @@ export const MOCK_VEHICLES: any[] = [
     ],
   },
   {
-    id: 'v0000000-0000-0000-0000-000000000004',
+    id: 'a0000000-0000-0000-0000-000000000004',
     slug: 'toyota-innova-crysta-24-vx-2020',
     make: 'Toyota',
     model: 'Innova Crysta',

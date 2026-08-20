@@ -16,7 +16,7 @@ export default function ToastContainer() {
     const handleToast = (e: Event) => {
       const { message, type } = (e as CustomEvent).detail;
       const id = Date.now();
-      setToasts((prev) => [...prev, { id, message, type }]);
+      setToasts([{ id, message, type }]);
 
       setTimeout(() => {
         setToasts((prev) => prev.filter((t) => t.id !== id));

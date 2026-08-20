@@ -20,7 +20,7 @@ export const TRANSMISSION_TYPES = ['Manual', 'Automatic', 'AMT', 'CVT', 'DCT'] a
 
 export const BODY_TYPES = [
   'Sedan', 'Hatchback', 'SUV', 'MUV', 'Coupe',
-  'Convertible', 'Van', 'Pickup', 'Wagon',
+  'Convertible', 'Van', 'Pickup', 'Wagon', 'Luxury',
 ] as const;
 
 export const VEHICLE_CATEGORIES = ['Car', 'SUV', 'Taxi', 'Commercial', 'Van', 'Truck'] as const;

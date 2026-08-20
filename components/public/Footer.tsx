@@ -71,7 +71,7 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex gap-2.5 mt-6">
               {[
-                { href: '#', Icon: SocialIcons.Instagram, label: 'Instagram' },
+                { href: 'https://www.instagram.com/autocapital_wheel/', Icon: SocialIcons.Instagram, label: 'Instagram' },
                 { href: '#', Icon: SocialIcons.Facebook,  label: 'Facebook' },
                 { href: '#', Icon: SocialIcons.Youtube,   label: 'YouTube' },
               ].map(({ href, Icon, label }) => (

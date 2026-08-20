@@ -14,13 +14,9 @@ interface BrowseByCategoryProps {
 }
 
 export default function BrowseByCategory({ categories }: BrowseByCategoryProps) {
-  const defaultCategories: CategoryItem[] = [
-    { name: 'Explore SUVs', body_type: 'SUV', image_url: '' },
-    { name: 'Premium Sedans', body_type: 'Sedan', image_url: '' },
-    { name: 'Luxury Collection', body_type: 'Luxury', image_url: '' }
-  ];
+  const displayCategories = categories && categories.length > 0 ? categories : [];
 
-  const displayCategories = categories && categories.length > 0 ? categories : defaultCategories;
+  if (displayCategories.length === 0) return null;
 
   return (
     <section className="py-10 bg-white overflow-hidden relative">

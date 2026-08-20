@@ -78,6 +78,27 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     sales_notes: vehicle?.sales_notes || '',
   });
 
+  const [dbCategories, setDbCategories] = useState<any[]>([]);
+
+  useState(() => {
+    const fetchCats = async () => {
+      try {
+        const res = await fetch('/api/admin/settings');
+        const json = await res.json();
+        if (json.success) {
+          const setting = json.settings.find((s: any) => s.key === 'homepage_categories');
+          if (setting?.value) {
+            const parsed = JSON.parse(setting.value);
+            if (Array.isArray(parsed)) {
+              setDbCategories(parsed);
+            }
+          }
+        }
+      } catch {}
+    };
+    fetchCats();
+  });
+
   const setField = (key: string, value: any) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,8 +243,14 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
           </Field>
           <Field label="Body Type">
             <select className="form-input" value={form.body_type} onChange={(e) => setField('body_type', e.target.value)}>
-              <option value="">Select</option>
-              {BODY_TYPES.map((b) => <option key={b} value={b}>{b}</option>)}
+              <option value="">Select Category</option>
+              {dbCategories.length > 0 ? (
+                dbCategories.map((c) => (
+                  <option key={c.body_type} value={c.body_type}>{c.name} ({c.body_type})</option>
+                ))
+              ) : (
+                BODY_TYPES.map((b) => <option key={b} value={b}>{b}</option>)
+              )}
             </select>
           </Field>
           <Field label="Colour">

@@ -190,38 +190,10 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
             </div>
 
             {/* Content Container */}
-            <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:py-24 h-full flex flex-col justify-end lg:justify-center">
-              <div className="max-w-2xl">
-                {/* Label */}
-                <div className={`flex items-center gap-3 mb-4 lg:mb-5 transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                  <div className="w-8 h-[2px] bg-[#b48d36]" />
-                  <span className="text-[10px] lg:text-xs font-bold tracking-[0.25em] uppercase text-[#b48d36]">{subtitle}</span>
-                </div>
-
-                {/* Headline */}
-                <h1 className={`font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.5rem] font-black tracking-tight text-white leading-[1.05] mb-6 drop-shadow-2xl transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  {titleWhite}
-                  <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#b48d36] via-[#fce49c] to-[#b48d36] drop-shadow-sm">{titleGold}</span>
-                </h1>
-
-                {/* Description */}
-                <p className={`text-white/80 text-sm lg:text-base max-w-md font-light leading-relaxed mb-8 drop-shadow-md transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  {description}
-                </p>
-
-                {/* Trust Badges */}
-                <div className={`flex flex-wrap items-center gap-3 lg:gap-5 pt-6 mb-8 transition-all duration-700 delay-400 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  {TRUST_BADGES.map(({ icon: Icon, title }) => (
-                    <div key={title} className="flex items-center gap-2.5 px-3 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md">
-                      <Icon size={14} className="text-[#b48d36]" />
-                      <span className="text-[10px] lg:text-[11px] font-bold text-white uppercase tracking-wider">{title}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTAs */}
-                <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 delay-500 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:py-24 h-full flex flex-col justify-end lg:justify-center items-center text-center">
+              <div className="max-w-2xl w-full flex flex-col items-center">
+                {/* CTAs Only */}
+                <div className={`flex flex-col sm:flex-row justify-center gap-4 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   <Link
                     href="/cars"
                     className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#b48d36] to-[#d6ae55] text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-8 h-12 lg:h-14 rounded-md hover:shadow-[0_0_20px_rgba(180,141,54,0.4)] hover:scale-105 transition-all duration-300 w-full sm:w-auto"

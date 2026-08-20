@@ -1149,6 +1149,9 @@ textarea.bg-\[\#16161a\],
 .text-white:not(.btn):not(.btn-primary):not(.btn-secondary):not(.btn-whatsapp):not(.badge):not(.badge *):not(button[class*="bg-"]):not(a[class*="bg-"]):not(.text-white-keep) {
   color: #1a1a1a !important;
 }
+.text-neutral-300, .text-neutral-400 {
+  color: #4b5563 !important;
+}
 
 .text-white-keep {
   color: #ffffff !important;

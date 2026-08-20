@@ -63,7 +63,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body className={`${inter.className} bg-[var(--color-bg-base)] text-white`}>
+      <body className={`${inter.className} bg-[var(--color-bg-base)] text-neutral-800`}>
         <SettingsProvider>
           <LiveTracker />
           {children}

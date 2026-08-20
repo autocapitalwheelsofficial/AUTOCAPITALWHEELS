@@ -56,10 +56,10 @@ export default function HeaderProfile({ user, isDarkHeader }: { user: any; isDar
         <div className="fixed top-20 right-4 w-[calc(100vw-2rem)] sm:absolute sm:top-full sm:right-0 sm:w-64 mt-3 bg-white border border-neutral-100 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden animate-fade-in-scale z-[60]">
           
           <div className="px-5 py-4 border-b border-neutral-100 bg-neutral-50/50">
-            <p className="text-sm font-bold text-neutral-800 truncate" style={{ color: '#1a1a1a' }}>
+            <p className="text-sm font-bold truncate" style={{ color: '#1a1a1a' }}>
               {user.user_metadata?.full_name || user.email?.split('@')[0].toUpperCase()}
             </p>
-            <p className="text-[11px] text-neutral-500 truncate mt-0.5" style={{ color: '#666666' }}>{user.email}</p>
+            <p className="text-[11px] truncate mt-0.5" style={{ color: '#666666' }}>{user.email}</p>
           </div>
 
           <div className="py-2 px-2">

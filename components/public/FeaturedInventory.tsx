@@ -64,7 +64,7 @@ export default function FeaturedInventory({ vehicles }: FeaturedInventoryProps) 
 
         {/* CTA */}
         <div className="text-center mt-10">
-          <Link href="/cars" className="btn-secondary px-8 py-3">
+          <Link href="/cars" className="btn-secondary px-8 py-3" style={{ color: '#1f2937' }}>
             See All Available Cars
           </Link>
         </div>

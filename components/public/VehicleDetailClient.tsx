@@ -201,13 +201,19 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   <p className="text-neutral-500 mt-1">{vehicle.variant}</p>
                 )}
 
-                <div className="flex items-end gap-3 mt-3">
-                  <div className="price-main text-3xl">{formatPrice(vehicle.price)}</div>
+                <div className="flex items-center gap-3 mt-3 flex-wrap">
+                  <div>
+                    <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest block mb-0.5">Selling Price</span>
+                    <div className="price-main text-2xl sm:text-3xl text-neutral-900 font-extrabold" style={{ color: '#1a1a1a' }}>{formatPrice(vehicle.price)}</div>
+                  </div>
                   {vehicle.original_price && vehicle.original_price > vehicle.price && (
-                    <div className="price-original mb-1">{formatPrice(vehicle.original_price)}</div>
+                    <div>
+                      <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-0.5">Original Price</span>
+                      <div className="price-original text-sm line-through text-neutral-400 font-medium" style={{ color: '#9ca3af' }}>{formatPrice(vehicle.original_price)}</div>
+                    </div>
                   )}
                 </div>
-                <p className="text-xs text-neutral-400 mt-1">Price is indicative. Contact us for final quote.</p>
+                <p className="text-xs text-neutral-500 mt-1.5 font-medium">Price is indicative. Contact us for final quote.</p>
               </div>
 
               {/* Key Specs Grid */}
@@ -247,7 +253,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                 <div className="space-y-3">
                   <button
                     onClick={() => setShowEnquiry(true)}
-                    className="btn-primary w-full py-4 text-base justify-center"
+                    className="btn-primary w-full py-4 text-base justify-center font-extrabold text-white bg-[#b48d36] hover:bg-[#9a7a2f] transition-all duration-300"
+                    style={{ color: '#ffffff' }}
                     id="get-quotation-btn"
                   >
                     GET QUOTATION
@@ -255,7 +262,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setShowTestDrive(true)}
-                      className="inline-flex items-center justify-center gap-2 border border-[#b48d36]/40 hover:border-[#b48d36] bg-[#b48d36]/10 hover:bg-[#b48d36]/20 text-[#b48d36] hover:text-white font-bold py-3 px-4 rounded-lg text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer shadow-lg shadow-[#b48d36]/5"
+                      className="inline-flex items-center justify-center gap-2 border border-[#b48d36] hover:border-[#9a7a2f] bg-neutral-100 hover:bg-neutral-200 font-extrabold py-3 px-4 rounded-lg text-xs tracking-widest uppercase transition-all duration-300 cursor-pointer text-[#b48d36]"
+                      style={{ color: '#b48d36' }}
                       id="request-test-drive-btn"
                     >
                       Request Test Drive
@@ -264,7 +272,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                       href={whatsappUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-whatsapp py-3 justify-center text-sm"
+                      className="btn-whatsapp py-3 justify-center text-sm font-extrabold text-white flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] rounded-lg"
+                      style={{ color: '#ffffff' }}
                       id="whatsapp-vehicle-btn"
                     >
                       <MessageCircle size={16} />
@@ -273,7 +282,8 @@ export default function VehicleDetailClient({ vehicle, similarVehicles }: Vehicl
                   </div>
                   <a
                     href="tel:+918800243707"
-                    className="flex items-center justify-center gap-2 w-full py-3 border border-[#1f1f26] hover:border-white/20 rounded-md text-sm font-semibold text-white bg-transparent hover:bg-white/5 transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-2 w-full py-3 border border-neutral-300 hover:border-neutral-400 rounded-md text-sm font-semibold text-neutral-800 bg-neutral-50 hover:bg-neutral-100 transition-all cursor-pointer"
+                    style={{ color: '#1f2937' }}
                   >
                     <Phone size={15} />
                     Call +91 8800243707

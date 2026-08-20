@@ -55,26 +55,22 @@ export default function BrowseByCategory({ categories }: BrowseByCategoryProps) 
                 href={`/cars?body_type=${encodeURIComponent(cat.body_type)}`}
                 className="flex flex-col items-center gap-4 group"
               >
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-to-b from-neutral-200 to-neutral-300 group-hover:from-amber-500 group-hover:to-amber-600 transition-all duration-500 shadow-md group-hover:shadow-[0_0_35px_rgba(180,141,54,0.25)]">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white relative">
-                    {cat.image_url ? (
-                      <img 
-                        src={cat.image_url} 
-                        alt={cat.name} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-500 text-xs font-bold uppercase tracking-widest">
-                        {cat.body_type}
-                      </div>
-                    )}
-                    {/* Inner overlay for depth */}
-                    <div className="absolute inset-0 rounded-full shadow-[inset_0_2px_8px_rgba(0,0,0,0.06)] pointer-events-none" />
-                  </div>
+                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-neutral-100 group-hover:bg-amber-500 transition-colors duration-500 overflow-hidden flex items-center justify-center border-0 shadow-none">
+                  {cat.image_url ? (
+                    <img 
+                      src={cat.image_url} 
+                      alt={cat.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="text-neutral-700 group-hover:text-white text-xs font-bold uppercase tracking-widest transition-colors duration-300">
+                      {cat.body_type}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="text-center transition-transform duration-300 group-hover:-translate-y-1">
-                  <h3 className="font-bold text-sm sm:text-base tracking-wide transition-colors" style={{ color: '#4b5563' }}>
+                  <h3 className="font-bold text-sm sm:text-base tracking-wide transition-colors" style={{ color: '#1f2937' }}>
                     {cat.name}
                   </h3>
                 </div>

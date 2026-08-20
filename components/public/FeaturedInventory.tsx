@@ -34,8 +34,8 @@ export default function FeaturedInventory({ vehicles }: FeaturedInventoryProps) 
           </div>
           <Link
             href="/cars"
-            className="flex items-center gap-2 text-sm font-semibold text-neutral-700 hover:text-[#b48d36] group transition-colors"
-            style={{ color: '#4a5568' }}
+            className="flex items-center gap-2 text-sm font-semibold hover:text-[#b48d36] group transition-colors"
+            style={{ color: '#1a1a1a' }}
           >
             View All Cars
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform text-[#b48d36]" />

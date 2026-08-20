@@ -1099,16 +1099,12 @@ h1, h2, h3, h4, h5, h6, .section-heading, .font-display {
   color: var(--color-text-primary) !important;
 }
 
-/* Force backgrounds of sections or containers to support light mode */
 .bg-neutral-950,
 .bg-neutral-900,
 .bg-neutral-850,
 .bg-neutral-800,
 .bg-neutral-950\/90,
 .bg-neutral-900\/90,
-.bg-black\/40,
-.bg-black\/50,
-.bg-black\/60,
 .bg-\[\#0a0a0c\],
 .bg-\[\#121215\],
 .bg-\[\#16161a\],

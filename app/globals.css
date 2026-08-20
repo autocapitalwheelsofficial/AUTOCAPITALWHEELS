@@ -1169,8 +1169,9 @@ body :not(.btn-primary):not(.btn-secondary):not(.badge):not(.badge *):not(.bg-\[
 }
 
 /* Force typed text to be visible inside all input forms and select elements */
-input, textarea, select, .form-input, .form-select {
+input, textarea, select, .form-input, .form-select, input[type="text"] {
   color: #000000 !important;
+  caret-color: #000000 !important;
 }
 
 input::placeholder, textarea::placeholder {

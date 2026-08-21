@@ -136,7 +136,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
   return (
     <section 
       className="relative w-full overflow-hidden flex flex-col justify-end lg:justify-center bg-black max-w-full"
-      style={{ minHeight: '75svh', paddingTop: '80px' }}
+      style={{ minHeight: '75svh', paddingTop: '80px', position: 'relative', zIndex: 1 }}
       onWheel={handleWheel}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -154,7 +154,8 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
           : (slide.description || "");
 
         const lower = slideUrl.toLowerCase();
-        const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || lower.includes('/hero/hero_slide_') && !lower.includes('.png') && !lower.includes('.jpg');
+        const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || lower.endsWith('.ogg') || 
+          (slide as any).pendingFile?.type?.startsWith('video/');
         
         return (
           <div
@@ -168,7 +169,15 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
             {/* Background Media */}
             <div className="absolute inset-0 w-full h-full">
               {isVideo ? (
-                <video src={slideUrl} className="w-full h-full object-cover object-center" autoPlay muted loop playsInline />
+                <video 
+                  src={slideUrl} 
+                  className="w-full h-full object-cover object-center" 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  key={slideUrl}
+                />
               ) : (
                 <Image
                   src={slideUrl}
@@ -191,12 +200,36 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
 
             {/* Content Container */}
             <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:py-24 h-full flex flex-col justify-end lg:justify-center items-center text-center">
+              <div className="max-w-3xl w-full flex flex-col items-center mb-6">
+                {/* Subtitle / Tagline */}
+                {subtitle && (
+                  <span className={`text-[#b48d36] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase mb-3 block transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                    {subtitle}
+                  </span>
+                )}
+                
+                {/* Main Title */}
+                <h1 className={`font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white leading-tight mb-4 transition-all duration-700 delay-150 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                  {titleWhite}
+                  <span className="text-[#b48d36]">
+                    {titleGold}
+                  </span>
+                </h1>
+                
+                {/* Description */}
+                {description && (
+                  <p className={`text-neutral-300 text-xs sm:text-sm lg:text-base font-light leading-relaxed max-w-2xl mb-6 lg:mb-8 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                    {description}
+                  </p>
+                )}
+              </div>
+
               <div className="max-w-2xl w-full flex flex-col items-center">
-                {/* CTAs Only */}
-                <div className={`flex flex-col sm:flex-row justify-center gap-4 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                {/* CTAs */}
+                <div className={`flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                   <Link
                     href="/cars"
-                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#b48d36] to-[#d6ae55] text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-8 h-12 lg:h-14 rounded-md hover:shadow-[0_0_20px_rgba(180,141,54,0.4)] hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#b48d36] to-[#d6ae55] text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-6 lg:px-8 h-12 lg:h-14 rounded-md hover:shadow-[0_0_20px_rgba(180,141,54,0.4)] hover:scale-105 transition-all duration-300 w-full sm:w-auto min-w-[160px]"
                     id={`hero-browse-cars-${index}`}
                   >
                     BROWSE INVENTORY
@@ -204,7 +237,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
                   </Link>
                   <Link
                     href="/sell"
-                    className="flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-8 h-12 lg:h-14 rounded-md hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+                    className="flex items-center justify-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 text-white font-bold text-[11px] lg:text-xs tracking-[0.15em] uppercase px-6 lg:px-8 h-12 lg:h-14 rounded-md hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 w-full sm:w-auto min-w-[160px]"
                     id={`hero-sell-car-${index}`}
                   >
                     SELL YOUR CAR

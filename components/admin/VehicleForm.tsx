@@ -143,6 +143,11 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
         seating_capacity: form.seating_capacity ? parseInt(String(form.seating_capacity)) : null,
         engine_cc: form.engine_cc ? parseInt(String(form.engine_cc)) : null,
         registration_year: form.registration_year ? parseInt(String(form.registration_year)) : null,
+        // Send null for empty body_type so DB check constraint is not violated
+        body_type: form.body_type || null,
+        insurance_status: form.insurance_status || null,
+        service_history: form.service_history || null,
+        vehicle_category: form.vehicle_category || null,
         sold_price: form.status === 'Sold' && form.sold_price ? parseFloat(String(form.sold_price)) : null,
         sold_date: form.status === 'Sold' && form.sold_date ? new Date(form.sold_date).toISOString() : null,
         buyer_name: form.status === 'Sold' ? form.buyer_name : null,
@@ -243,14 +248,17 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
           </Field>
           <Field label="Body Type">
             <select className="form-input" value={form.body_type} onChange={(e) => setField('body_type', e.target.value)}>
-              <option value="">Select Category</option>
-              {dbCategories.length > 0 ? (
-                dbCategories.map((c) => (
-                  <option key={c.body_type} value={c.body_type}>{c.name} ({c.body_type})</option>
-                ))
-              ) : (
-                BODY_TYPES.map((b) => <option key={b} value={b}>{b}</option>)
-              )}
+              <option value="">Select Body Type</option>
+              {/* Always show standard BODY_TYPES as valid DB-safe options */}
+              {BODY_TYPES.map((b) => {
+                // If dbCategories has a matching entry, show its friendly name too
+                const dbMatch = dbCategories.find((c) => c.body_type === b);
+                return (
+                  <option key={b} value={b}>
+                    {dbMatch ? `${dbMatch.name} (${b})` : b}
+                  </option>
+                );
+              })}
             </select>
           </Field>
           <Field label="Colour">

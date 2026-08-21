@@ -251,10 +251,15 @@ export default function AdminCMSPage() {
               <p className="text-neutral-500 text-xs mt-0.5">Manage homepage hero slides, title headings, descriptions, and backgrounds.</p>
             </div>
           </div>
+          {/* Save button is inside the form below; this is a visual duplicate that submits the form */}
           <button
-            onClick={handleSave}
+            type="button"
+            onClick={() => {
+              const form = document.getElementById('cms-hero-form') as HTMLFormElement;
+              if (form) form.requestSubmit();
+            }}
             disabled={saving}
-            className="flex items-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer"
+            className="flex items-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer disabled:opacity-60"
           >
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
             Save Changes
@@ -273,7 +278,7 @@ export default function AdminCMSPage() {
           </div>
         )}
 
-        <form onSubmit={handleSave} className="space-y-6">
+        <form id="cms-hero-form" onSubmit={handleSave} className="space-y-6">
           {/* Active Slides */}
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
             <h2 className="font-display font-bold text-lg text-amber-500 border-b border-neutral-800 pb-3">Homepage Slides</h2>
@@ -332,28 +337,39 @@ export default function AdminCMSPage() {
                     </div>
 
                     {/* Media Preview & Replace Button */}
-                    <div className="relative aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-900 group/media">
+                    <div 
+                      className="relative aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-900 group/media cursor-pointer"
+                      onClick={(e) => {
+                        // Avoid double input trigger if click propagates
+                        if ((e.target as HTMLElement).tagName === 'INPUT') return;
+                        const input = document.getElementById(`replace-media-input-${idx}`) as HTMLInputElement;
+                        if (input) input.click();
+                      }}
+                      title="Click to replace image/video"
+                    >
                       {isVideo ? (
-                        <video src={url} className="w-full h-full object-cover" autoPlay muted loop playsInline />
+                        <video src={url} className="w-full h-full object-cover" autoPlay muted loop playsInline key={url} />
                       ) : (
                         <img src={url} alt="Preview" className="w-full h-full object-cover" />
                       )}
                       
                       {/* Replace Overlay */}
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/media:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <label className="bg-neutral-900 hover:bg-neutral-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg border border-neutral-800 cursor-pointer pointer-events-auto flex items-center gap-1">
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/media:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="bg-neutral-900/90 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg border border-neutral-800 flex items-center gap-1">
                           <Upload size={10} />
                           Replace Media
-                          <input
-                            type="file"
-                            accept="image/*,video/*"
-                            className="hidden"
-                            onChange={(e) => handleReplaceMediaSelect(idx, e)}
-                          />
-                        </label>
+                        </div>
                       </div>
                       
-                      <div className="absolute bottom-2 right-2 bg-black/60 px-2 py-0.5 rounded text-[8px] text-neutral-300 font-bold uppercase tracking-widest">
+                      <input
+                        id={`replace-media-input-${idx}`}
+                        type="file"
+                        accept="image/*,video/*"
+                        className="hidden"
+                        onChange={(e) => handleReplaceMediaSelect(idx, e)}
+                      />
+
+                      <div className="absolute bottom-2 right-2 bg-black/60 px-2 py-0.5 rounded text-[8px] text-neutral-300 font-bold uppercase tracking-widest pointer-events-none">
                         {isVideo ? 'Video' : 'Image'}
                       </div>
                     </div>

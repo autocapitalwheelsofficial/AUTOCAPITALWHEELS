@@ -229,9 +229,13 @@ export default function AdminCategoriesPage() {
             </div>
           </div>
           <button
-            onClick={handleSave}
+            type="button"
+            onClick={() => {
+              const form = document.getElementById('categories-form') as HTMLFormElement;
+              if (form) form.requestSubmit();
+            }}
             disabled={saving}
-            className="flex items-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer"
+            className="flex items-center gap-2 bg-[#b48d36] hover:bg-[#9a845a] text-black font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shadow cursor-pointer disabled:opacity-60"
           >
             {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
             Save Changes
@@ -250,7 +254,7 @@ export default function AdminCategoriesPage() {
           </div>
         )}
 
-        <form onSubmit={handleSave} className="space-y-6">
+        <form id="categories-form" onSubmit={handleSave} className="space-y-6">
           <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
               <h2 className="font-display font-bold text-lg text-amber-500">Active Categories</h2>
@@ -284,11 +288,18 @@ export default function AdminCategoriesPage() {
                       </div>
                     </div>
 
-                    <div className="relative aspect-square rounded-full overflow-hidden bg-neutral-900 border-2 border-neutral-800 group/media mx-auto w-32">
+                    <div 
+                      className="relative aspect-square rounded-full overflow-hidden bg-neutral-900 border-2 border-neutral-800 group/media mx-auto w-32 cursor-pointer"
+                      onClick={() => {
+                        setReplaceIdx(idx);
+                        replaceFileInputRef.current?.click();
+                      }}
+                      title="Click to change image/video"
+                    >
                       {cat.image_url ? (
                         (() => {
                           const lower = cat.image_url.toLowerCase();
-                          const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || lower.includes('/categories/category_') || (cat.pendingFile && cat.pendingFile.type.startsWith('video/'));
+                          const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.mov') || (cat.pendingFile && cat.pendingFile.type.startsWith('video/'));
                           if (isVideo) {
                             return (
                               <video 
@@ -297,7 +308,8 @@ export default function AdminCategoriesPage() {
                                 autoPlay 
                                 muted 
                                 loop 
-                                playsInline 
+                                playsInline
+                                key={cat.image_url}
                               />
                             );
                           }
@@ -306,20 +318,17 @@ export default function AdminCategoriesPage() {
                           );
                         })()
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-neutral-600">No Image</div>
+                        <div className="w-full h-full flex flex-col items-center justify-center text-neutral-500 gap-1">
+                          <Upload size={18} />
+                          <span className="text-[9px] font-bold uppercase tracking-wider">Add Image</span>
+                        </div>
                       )}
                       
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/media:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setReplaceIdx(idx);
-                            replaceFileInputRef.current?.click();
-                          }}
-                          className="bg-neutral-900 hover:bg-neutral-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg border border-neutral-800 cursor-pointer pointer-events-auto flex items-center gap-1"
-                        >
-                          <Upload size={10} /> Edit
-                        </button>
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/media:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="text-white text-[10px] font-bold flex flex-col items-center gap-1">
+                          <Upload size={14} />
+                          <span>Change</span>
+                        </div>
                       </div>
                     </div>
 

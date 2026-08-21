@@ -404,6 +404,26 @@ export default function InventoryClient() {
     fetchVehicles(filters, page, sort);
   }, [filters, page, sort, fetchVehicles]);
 
+  // Sync filters state when URL searchParams change (e.g. clicking a category link)
+  useEffect(() => {
+    const newFilters: Filters = {
+      ...defaultFilters,
+      search: searchParams.get('search') || '',
+      make: searchParams.get('make') || '',
+      fuel_type: searchParams.get('fuel_type') || '',
+      transmission: searchParams.get('transmission') || '',
+      body_type: searchParams.get('body_type') || '',
+      vehicle_category: searchParams.get('vehicle_category') || '',
+      min_price: searchParams.get('min_price') || '',
+      max_price: searchParams.get('max_price') || '',
+      min_year: searchParams.get('min_year') || '',
+      max_year: searchParams.get('max_year') || '',
+      availability: searchParams.get('availability') || '',
+    };
+    setFilters(newFilters);
+    setPage(1);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const updateFilter = useCallback((key: keyof Filters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));

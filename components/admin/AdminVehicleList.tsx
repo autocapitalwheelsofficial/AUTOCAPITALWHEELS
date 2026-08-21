@@ -141,7 +141,11 @@ export default function AdminVehicleList({ vehicles, total, page, perPage, curre
                       </div>
                     </td>
                     <td className="px-4 py-3.5 hidden md:table-cell">
-                      <span className="font-semibold text-white">{formatPrice(vehicle.price)}</span>
+                      {vehicle.price ? (
+                        <span className="font-semibold text-white">{formatPrice(vehicle.price)}</span>
+                      ) : (
+                        <span className="text-neutral-500">—</span>
+                      )}
                     </td>
                     <td className="px-4 py-3.5 hidden lg:table-cell text-neutral-400">
                       <div>{vehicle.fuel_type} · {vehicle.transmission}</div>

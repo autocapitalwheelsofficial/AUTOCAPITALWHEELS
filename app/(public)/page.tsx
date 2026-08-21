@@ -12,7 +12,7 @@ import FAQSection from '@/components/public/FAQSection';
 import type { Vehicle, Testimonial, FAQ } from '@/types';
 import { ShieldCheck, Tag, Clock, MessageSquare, Users, Headphones } from 'lucide-react';
 
-export const revalidate = 10;
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'AutoCapital Wheels — Trusted Pre-Owned Cars in Delhi',

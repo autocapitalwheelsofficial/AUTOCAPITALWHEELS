@@ -122,7 +122,7 @@ export default function QuickSearch() {
   };
 
   return (
-    <section className="relative z-20 mt-6 lg:-mt-14 pb-8 bg-[var(--color-bg-base)]" ref={dropdownRef}>
+    <section className="relative z-20 mt-6 lg:-mt-10 pb-8 bg-transparent" ref={dropdownRef}>
       <div className="container-custom">
         <div className="bg-[var(--color-bg-card)] rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-[var(--color-border)] p-6 lg:p-8">
           <form onSubmit={handleSearch} className="space-y-4">

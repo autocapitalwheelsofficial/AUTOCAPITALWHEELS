@@ -138,6 +138,9 @@ export async function DELETE(
     return NextResponse.json({ success: false, error: 'Vehicle not found' }, { status: 404 });
   }
 
+  // Nullify any FK references in purchases table before deleting to avoid constraint violations
+  await supabase.from('purchases').update({ vehicle_id: null }).eq('vehicle_id', vehicle.id);
+
   const { error } = await supabase.from('vehicles').delete().eq('id', vehicle.id);
 
   if (error) {

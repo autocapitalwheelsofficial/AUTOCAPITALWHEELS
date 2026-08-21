@@ -199,31 +199,7 @@ export default function HeroSection({ initialSlides }: HeroSectionProps) {
             </div>
 
             {/* Content Container */}
-            <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:py-24 h-full flex flex-col justify-end lg:justify-center items-center text-center">
-              <div className="max-w-3xl w-full flex flex-col items-center mb-6">
-                {/* Subtitle / Tagline */}
-                {subtitle && (
-                  <span className={`text-[#b48d36] text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase mb-3 block transition-all duration-700 delay-100 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    {subtitle}
-                  </span>
-                )}
-                
-                {/* Main Title */}
-                <h1 className={`font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white leading-tight mb-4 transition-all duration-700 delay-150 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                  {titleWhite}
-                  <span className="text-[#b48d36]">
-                    {titleGold}
-                  </span>
-                </h1>
-                
-                {/* Description */}
-                {description && (
-                  <p className={`text-neutral-300 text-xs sm:text-sm lg:text-base font-light leading-relaxed max-w-2xl mb-6 lg:mb-8 transition-all duration-700 delay-200 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    {description}
-                  </p>
-                )}
-              </div>
-
+            <div className="container-custom relative z-20 w-full pt-10 pb-16 lg:pb-24 h-full flex flex-col justify-end lg:justify-center items-center text-center">
               <div className="max-w-2xl w-full flex flex-col items-center">
                 {/* CTAs */}
                 <div className={`flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 transition-all duration-700 delay-300 ${index === activeSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>

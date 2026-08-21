@@ -374,50 +374,9 @@ export default function AdminCMSPage() {
                       </div>
                     </div>
 
-                    {/* Text Inputs */}
-                    <div className="space-y-2 pt-2 border-t border-neutral-900">
-                      <div>
-                        <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Subtitle / Tagline</label>
-                        <input
-                          type="text"
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                          value={slideObj.subtitle}
-                          onChange={(e) => handleSlideTextChange(idx, 'subtitle', e.target.value)}
-                          placeholder="Delhi's Premium Used Cars"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Title (White)</label>
-                          <input
-                            type="text"
-                            className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                            value={slideObj.title_white}
-                            onChange={(e) => handleSlideTextChange(idx, 'title_white', e.target.value)}
-                            placeholder="Trusted Cars."
-                          />
-                        </div>
-                        <div>
-                          <label className="text-[9px] font-bold text-[#b48d36] uppercase tracking-wider block mb-1">Title (Gold)</label>
-                          <input
-                            type="text"
-                            className="w-full bg-neutral-900 border border-neutral-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500"
-                            value={slideObj.title_gold}
-                            onChange={(e) => handleSlideTextChange(idx, 'title_gold', e.target.value)}
-                            placeholder="Trusted Deals."
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block mb-1">Description</label>
-                        <textarea
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-amber-500 resize-none font-light leading-snug"
-                          rows={2}
-                          value={slideObj.description}
-                          onChange={(e) => handleSlideTextChange(idx, 'description', e.target.value)}
-                          placeholder="We buy and sell certified pre-owned cars..."
-                        />
-                      </div>
+                    {/* Text Inputs removed per user request */}
+                    <div className="pt-1 border-t border-neutral-900">
+                      <p className="text-[9px] text-neutral-500 italic text-center">Media slide backdrop configuration only</p>
                     </div>
                   </div>
                 );

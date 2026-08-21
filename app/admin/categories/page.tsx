@@ -371,11 +371,13 @@ export default function AdminCategoriesPage() {
               >
                 <Upload size={28} className="text-neutral-500 mx-auto mb-2" />
                 <p className="text-sm font-semibold text-neutral-200">Upload Multiple Category Photos/Videos</p>
-                <input ref={fileInputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleNewCategorySelect} />
-                <input ref={replaceFileInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleReplaceMediaSelect} />
               </div>
             </div>
           </div>
+          
+          {/* Hidden inputs moved outside click container to prevent event bubbling/double trigger issues */}
+          <input ref={fileInputRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleNewCategorySelect} />
+          <input ref={replaceFileInputRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleReplaceMediaSelect} />
         </form>
       </div>
     </div>

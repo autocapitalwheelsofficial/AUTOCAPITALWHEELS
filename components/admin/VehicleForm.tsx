@@ -246,19 +246,30 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
               {TRANSMISSION_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
           </Field>
-          <Field label="Body Type">
+           <Field label="Body Type">
             <select className="form-input" value={form.body_type} onChange={(e) => setField('body_type', e.target.value)}>
               <option value="">Select Body Type</option>
-              {/* Always show standard BODY_TYPES as valid DB-safe options */}
-              {BODY_TYPES.map((b) => {
-                // If dbCategories has a matching entry, show its friendly name too
-                const dbMatch = dbCategories.find((c) => c.body_type === b);
-                return (
+              {dbCategories.length > 0 ? (
+                <>
+                  {dbCategories.map((c) => (
+                    <option key={c.body_type} value={c.body_type}>
+                      {c.name}
+                    </option>
+                  ))}
+                  {/* Keep current value if not matching any active CMS category */}
+                  {form.body_type && !dbCategories.some((c) => c.body_type === form.body_type) && (
+                    <option value={form.body_type}>
+                      {form.body_type} (Current)
+                    </option>
+                  )}
+                </>
+              ) : (
+                BODY_TYPES.map((b) => (
                   <option key={b} value={b}>
-                    {dbMatch ? `${dbMatch.name} (${b})` : b}
+                    {b}
                   </option>
-                );
-              })}
+                ))
+              )}
             </select>
           </Field>
           <Field label="Colour">
